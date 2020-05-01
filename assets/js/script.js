@@ -1,7 +1,7 @@
 var gifs = [ "bamboo-spreads", "better-beacon-placement", "configurable-despawn-timer", "cycle-paintings", "hide-hands", "kelp-fertilizer", "replanting-crops" ];
 
 $(document).ready(function(e) {
-	console.log("22");
+	console.log("23");
 	loadJsonData();
 });
 
@@ -21,6 +21,9 @@ function loadJsonData() {
 		success: function(data){
 			console.log(data);
 			loadContent();
+		},
+		error: function(data) {
+			console.log("NOPE!");
 		}
 	});
 }
