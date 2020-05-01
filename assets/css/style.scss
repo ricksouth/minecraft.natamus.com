@@ -3,6 +3,10 @@
 
 @import "{{ site.theme }}";
 
+body {
+	font: 14px/1.25 "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 section#content {
 	position: absolute;
 	top: 0;
