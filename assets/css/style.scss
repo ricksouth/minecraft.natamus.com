@@ -58,6 +58,7 @@ footer {
 	height: 60px;
 
 	background-color: white;
+	border-top: 1px dashed black;
 }
 
 footer p.footercontent {
@@ -180,6 +181,7 @@ section#topwrapper {
 	position: absolute;
 }
 .activetags img {
+	filter: brightness(125%);
 	width: 45px;
 	margin: 5px;
 }
@@ -187,7 +189,7 @@ section#topwrapper {
 	cursor: pointer;
 }
 .activetags img.inactive {
-	filter: brightness(50%);
+	filter: brightness(25%);
 }
 
 /* Tiles */

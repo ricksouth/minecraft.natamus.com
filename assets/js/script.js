@@ -6,7 +6,7 @@ var modtags = {};
 var gifs = [];
 
 $(document).ready(function(e) {
-	console.log("92");
+	console.log("93");
 	loadJsonData();
 });
 
@@ -73,7 +73,7 @@ function loadContent() {
 		url: "https://raw.githubusercontent.com/ricksouth/serilum-mc-mods/master/README.md",
 		success: function(data){
 			// tags
-			var html = '<div class="activetags">';
+			var html = '<div class="activetags"><button id="allbutton">Select All</button><button id="nonebutton">Select None</button>';
 
 			var sortedkeys = sortedKeys(activetags);
 			for (var i = 0; i < sortedkeys.length; i++) {
