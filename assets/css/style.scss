@@ -9,6 +9,15 @@ body {
 	width: 100vh;
 }
 
+div.wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	width: 100vh
+	height: 100vh;
+}
+
 body {
 	font: 14px/1.4 "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
