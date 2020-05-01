@@ -2,7 +2,7 @@ var moddls = {};
 var gifs = [ "bamboo-spreads", "better-beacon-placement", "configurable-despawn-timer", "cycle-paintings", "hide-hands", "kelp-fertilizer", "replanting-crops" ];
 
 $(document).ready(function(e) {
-	console.log("34");
+	console.log("35");
 	loadJsonData();
 });
 
@@ -24,7 +24,7 @@ function loadJsonData() {
 			for (var i = 0; i < data.length; i++) {
 				moddls[data[i]["name"].toLowerCase().replace(" ", "-")] = data[i]["downloadCount"];
 			}
-			console.log(moddata);
+			console.log(moddls);
 			loadContent();
 		},
 		error: function(data) {
