@@ -2,7 +2,7 @@ var moddls = {};
 var gifs = [ ];
 
 $(document).ready(function(e) {
-	console.log("53");
+	console.log("54");
 	loadJsonData();
 });
 
@@ -56,7 +56,7 @@ function loadContent() {
 
 					var name = linespl[0].replace("[", "");
 					if (name.includes("(")) {
-						name = name.replace(/ *\([^)]*\) */g, "");
+						name = name.replace(/ *\([^)]*\) */g, " ");
 					}
 					var url = linespl[1].split(")")[0];
 					var slug = url.split("/mc-mods/")[1];
