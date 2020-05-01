@@ -2,7 +2,7 @@ var moddata = {};
 var gifs = [ "bamboo-spreads", "better-beacon-placement", "configurable-despawn-timer", "cycle-paintings", "hide-hands", "kelp-fertilizer", "replanting-crops" ];
 
 $(document).ready(function(e) {
-	console.log("30");
+	console.log("31");
 	loadJsonData();
 });
 
@@ -21,7 +21,7 @@ function loadJsonData() {
 		headers: { "x-requested-with": "xhr" },
 		success: function(data){
 			for (var i = 0; i < data.length; i++) {
-				moddata[data[i]["name"]] = data[i];
+				moddata[data[i]["name"].toLowerCase().replace(" ", "-")] = data[i];
 			}
 			console.log(moddata);
 			loadContent();
@@ -57,7 +57,7 @@ function loadContent() {
 						filetype = "gif";
 					}
 
-					style += 'div#mod' + i + ':before { background: url("/assets/images/icons/' + slug + '.' + filetype + '"); background-position: center center; background-size: cover; } div#mod' + i + ':after { content: "' + name + '"; }';
+					style += 'div#mod' + i + ':before { background: url("/assets/images/icons/' + slug + '.' + filetype + '"); background-position: center center; background-size: cover; content: "\f019 ' + moddata[slug]["downloadCount"]'" } div#mod' + i + ':after { content: "' + name + '"; }';
 					
 					html += '<div class="col mod"><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><div id="mod' + i + '" class="box"></div></div>';
 					//html += '<div class="col mod"><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><div id="mod' + i + '" class="box"></div><img class="dlshield" src="https://cf.way2muchnoise.eu/' + slug + '.svg" alt="' + name + '"></div>';
