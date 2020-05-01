@@ -23,7 +23,7 @@ function loadContent() {
 					var name = linespl[0].replace("[", "");
 					var url = linespl[1].split(")")[0];
 
-					style += 'div#mod' + i + ':after { content: "' + name + '"; }';
+					style += 'div#mod' + i + ':after { content: "' + name + '"; background: url("/assets/images/icons/' + name.toLowerCase().replace(" ", "-") + '.png"); }';
 					html += '<div class="col mod"><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><div id="mod' + i + '" class="box"></div></div>';
 					//html += '<div class="col mod"><a href="' + url + '">' + name + '</a><div class="box"></div></div>';
 				}
