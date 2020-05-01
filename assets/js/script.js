@@ -10,7 +10,10 @@ function loadContent() {
 		success: function(data){
 			var dataspl = data.split("\n");
 			for (var i = 0; i < dataspl.length; i++) {
-				console.log(i + ": " + dataspl[i]);
+				var line = dataspl[i];
+				if (line.includes("/mc-mods/")) {
+					console.log(line);
+				}
 			}
 		}
 	});
