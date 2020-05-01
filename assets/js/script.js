@@ -2,7 +2,7 @@ var moddls = {};
 var gifs = [ ];
 
 $(document).ready(function(e) {
-	console.log("78");
+	console.log("79");
 	loadJsonData();
 });
 
@@ -85,7 +85,7 @@ function loadContent() {
 					}
 					dlcontent += " \\A \\A ";
 
-					style += 'div#mod' + i + ':before { background: url("/assets/images/icons/' + slug + '.' + filetype + '"); background-position: center center; background-size: cover; } div#mod' + i + ':after { content: "' + dlcontent + replaceSecond(name, " ", " \\A ") + '"; }';
+					style += 'div#mod' + i + ':before { background: url("/assets/images/icons/' + slug + '.' + filetype + '"); background-position: center center; background-size: cover; } div#mod' + i + ':after { content: "' + dlcontent + formatNames(name, " ", " \\A ") + '"; }';
 					
 					html += '<div class="col mod"><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><div id="mod' + i + '" class="box"></div></div>';
 					//html += '<div class="col mod"><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><div id="mod' + i + '" class="box"></div><img class="dlshield" src="https://cf.way2muchnoise.eu/' + slug + '.svg" alt="' + name + '"></div>';
@@ -111,14 +111,14 @@ function replaceAll(str, find, replace) {
 	return str.replace(new RegExp(find, 'g'), replace);
 }
 
-function replaceSecond(str, find, replace) {
+function formatNames(str, find, replace) {
 	var returnstr = "";
 	var strspl = str.split(find);
 	for (var i = 0; i < strspl.length; i++) {
 		if (i == 0) {
 			returnstr += strspl[i];
 		}
-		else if (i % 2 && strspl[i-1].length < 8 && (strspl[i-1].length + strspl[i].length < 14)) { // isOdd
+		else if (i % 2 && strspl[i-1].length < 8 && (strspl[i-1].length + strspl[i].length < 13)) { // isOdd
 			returnstr += find + strspl[i];
 		}
 		else {
