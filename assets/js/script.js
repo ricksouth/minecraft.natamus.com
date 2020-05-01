@@ -1,5 +1,5 @@
 $(document).ready(function(e) {
-	console.log("16");
+	console.log("17");
 	loadContent();
 });
 
@@ -37,7 +37,7 @@ function loadContent() {
 					}
 
 					style += 'div#mod' + i + ':before { background: url("/assets/images/icons/' + slug + '.' + filetype + '"); background-position: center center; background-size: cover; } div#mod' + i + ':after { content: "' + name + '"; }';
-					html += '<div class="col mod"><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><div id="mod' + i + '" class="box"></div><img class="dlshield" href="https://cf.way2muchnoise.eu/' + slug + '.svg"></div>';
+					html += '<div class="col mod"><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><div id="mod' + i + '" class="box"></div><svg class="dlshield" href="https://cf.way2muchnoise.eu/' + slug + '.svg"></div>';
 					//html += '<div class="col mod"><a href="' + url + '">' + name + '</a><div class="box"></div></div>';
 				}
 				else if (line.includes("Discontinued")) {
