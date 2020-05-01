@@ -6,7 +6,7 @@ var modtags = {};
 var gifs = [];
 
 $(document).ready(function(e) {
-	console.log("95");
+	console.log("96");
 	loadJsonData();
 });
 
@@ -120,6 +120,9 @@ function loadContent() {
 					var value = 'value=""';
 					if (slug in modtags) {
 						value = 'value="' + modtags[slug].join(",") + '"';
+					}
+					else if (slug == "sam-library") { // temp until api updates
+						value = 'value="API and Library"';
 					}
 
 					style += 'div#mod' + i + ':before { background: url("/assets/images/icons/' + slug + '.' + filetype + '"); background-position: center center; background-size: cover; } div#mod' + i + ':after { content: "' + dlcontent + formatNames(name, " ", " \\A ") + '"; }';
