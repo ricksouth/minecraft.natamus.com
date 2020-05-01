@@ -6,7 +6,7 @@ var modtags = {};
 var gifs = [];
 
 $(document).ready(function(e) {
-	console.log("89");
+	console.log("90");
 	loadJsonData();
 });
 
@@ -142,45 +142,52 @@ function loadContent() {
 
 $(document).on('click', '.activetags img', function(e) {
 	var clickelem = $(this);
-	var isactive = !clickelem.hasClass("inactive");
 	var tag = clickelem.attr('alt');
 
+	var actives = [];
+	var inactives = [];
 	if (neverclicked) {
 		$(".activetags img").each(function() {
+			var ttag = $(this).attr('alt');
 			if ($(this).is(clickelem)) {
+				actives.push(ttag);
 				return true;
 			}
+			inactives.push(ttag);
 			$(this).addClass("inactive");
 		});
 		neverclicked = false;
-		isactive = true;
 	}
 	else {
 		clickelem.toggleClass("inactive");
+		$(".activetags img").each(function() {
+			var ttag = $(this).attr('alt');
+			if ($(this).hasClass("inactive")) {
+				inactives.push(ttag);
+			}
+			else {
+				actives.push(ttag);
+			}
+		});
 	}
 
 	$(".col.mod").each(function() {
-		var tiletags = $(this).attr('value');
-		console.log(tiletags);
-		if (tiletags === undefined) {
-			return true;
+		var foundtag = false;
+
+		var mtagsspl = $(this).attr('value').split(",");
+		for (var i = 0; i < dataspl.length; i++) {
+			var mtag = mtagspl[i];
+			if (actives.includes(mtag)) {
+				foundtag = true;
+				break;
+			}
 		}
 
-		if (tiletags.includes(tag)) {
-			if (isactive) {
-				$(this).show();
-			}
-			else {
-				$(this).hide();
-			}
+		if (foundtag) {
+			$(this).show();
 		}
 		else {
-			if (isactive) {
-				$(this).hide();
-			}
-			else {
-				$(this).show();
-			}
+			$(this).hide();
 		}
 	});
 });
