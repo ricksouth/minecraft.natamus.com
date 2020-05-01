@@ -5,7 +5,7 @@ var modtags = {};
 var gifs = [];
 
 $(document).ready(function(e) {
-	console.log("82");
+	console.log("83");
 	loadJsonData();
 });
 
@@ -115,7 +115,7 @@ function loadContent() {
 
 					style += 'div#mod' + i + ':before { background: url("/assets/images/icons/' + slug + '.' + filetype + '"); background-position: center center; background-size: cover; } div#mod' + i + ':after { content: "' + dlcontent + formatNames(name, " ", " \\A ") + '"; }';
 					
-					html += '<div class="col mod" value="' + activetags[slug].join(",") + '"><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><div id="mod' + i + '" class="box"></div></div>';
+					html += '<div class="col mod" value="' + modtags[slug].join(",") + '"><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><div id="mod' + i + '" class="box"></div></div>';
 				}
 				else if (line.includes("Discontinued")) {
 					break;
