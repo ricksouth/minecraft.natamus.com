@@ -110,6 +110,12 @@ footer p.footercontent {
 	border-radius: 2px;
 	z-index: 2;
 	backface-visibility: hidden;
+
+	-webkit-filter: blur(5px);
+	-moz-filter: blur(5px);
+	-o-filter: blur(5px);
+	-ms-filter: blur(5px);
+	filter: blur(5px);
 }
 .col .box:after {
 	content: "";
@@ -126,9 +132,6 @@ footer p.footercontent {
 	text-shadow: 2px 2px black;
 	border-radius: 2px;
 	transition-delay: .15s;
-
-	filter: blur(5px);
-	-webkit-filter: blur(5px);
 }
 
 /* Spinner */
