@@ -40,37 +40,43 @@ footer p.footercontent {
 
 /* Tiles */
 .tiles {
-	position: relative;
+	position: absolute;
 	height: 100%;
 }
 @media only screen and (max-width: 518px) {
 	.tiles {
 		width: 262px;
+		left: calc(50% - 131px);
 	}
 }
 @media only screen and (max-width: 774px) {
 	.tiles {
 		width: 518px;
+		left: calc(50% - 259px);
 	}
 }
 @media only screen and (max-width: 1030px) {
 	.tiles {
 		width: 774px;
+		left: calc(50% - 387px);
 	}
 }
 @media only screen and (max-width: 1286px) {
 	.tiles {
 		width: 1030px;
+		left: calc(50% - 515px);
 	}
 }
 @media only screen and (max-width: 1542px) {
 	.tiles {
 		width: 1286px;
+		left: calc(50% - 643px);
 	}
 }
 @media only screen and (min-width: 1543px) {
 	.tiles {
 		width: 1542px;
+		left: calc(50% - 771px);
 	}
 }
 
