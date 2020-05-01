@@ -22,8 +22,9 @@ function loadContent() {
 
 					var name = linespl[0].replace("[", "");
 					var url = linespl[1].split(")")[0];
+					var slug = url.split("/mc-mods/")[1];
 
-					style += 'div#mod' + i + ':after { content: "' + name + '"; background: url("/assets/images/icons/' + name.toLowerCase().replace(" ", "-") + '.png"); }';
+					style += 'div#mod' + i + ':after { content: "' + name + '"; background: url("/assets/images/icons/' + slug + '.png"); }';
 					html += '<div class="col mod"><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><div id="mod' + i + '" class="box"></div></div>';
 					//html += '<div class="col mod"><a href="' + url + '">' + name + '</a><div class="box"></div></div>';
 				}
