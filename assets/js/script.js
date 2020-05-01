@@ -2,7 +2,7 @@ var moddls = {};
 var gifs = [ ];
 
 $(document).ready(function(e) {
-	console.log("43");
+	console.log("44");
 	loadJsonData();
 });
 
@@ -66,6 +66,9 @@ function loadContent() {
 					beforecontent = "";
 					if (slug in moddls) {
 						beforecontent = ' content: "\\f019   ' + numberWithCommas(moddls[slug]) + '";';
+					}
+					else {
+						beforecontent = ' content: "\\f019   1";';
 					}
 
 					style += 'div#mod' + i + ':before { background: url("/assets/images/icons/' + slug + '.' + filetype + '"); background-position: center center; background-size: cover;' + beforecontent + ' } div#mod' + i + ':after { content: "' + name + '"; }';
