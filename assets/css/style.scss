@@ -43,37 +43,37 @@ footer p.footercontent {
 	position: absolute;
 	height: 100%;
 }
-@media only screen and (max-width: 524px) {
+@media only screen and (min-width: 0px) {
 	.tiles {
 		width: 262px;
 		left: calc(50% - 131px);
 	}
 }
-@media only screen and (max-width: 786px) {
+@media only screen and (min-width: 536px) {
 	.tiles {
 		width: 524px;
 		left: calc(50% - 262px);
 	}
 }
-@media only screen and (max-width: 1048px) {
+@media only screen and (min-width: 798px) {
 	.tiles {
 		width: 786px;
 		left: calc(50% - 393px);
 	}
 }
-@media only screen and (max-width: 1310px) {
+@media only screen and (min-width: 1060px) {
 	.tiles {
 		width: 1048px;
 		left: calc(50% - 524px);
 	}
 }
-@media only screen and (max-width: 1572px) {
+@media only screen and (min-width: 1322px) {
 	.tiles {
 		width: 1310px;
 		left: calc(50% - 655px);
 	}
 }
-@media only screen and (min-width: 1573px) {
+@media only screen and (min-width: 1584px) {
 	.tiles {
 		width: 1572px;
 		left: calc(50% - 786px);
