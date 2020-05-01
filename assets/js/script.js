@@ -1,7 +1,8 @@
+var moddata = {};
 var gifs = [ "bamboo-spreads", "better-beacon-placement", "configurable-despawn-timer", "cycle-paintings", "hide-hands", "kelp-fertilizer", "replanting-crops" ];
 
 $(document).ready(function(e) {
-	console.log("29");
+	console.log("30");
 	loadJsonData();
 });
 
@@ -19,7 +20,10 @@ function loadJsonData() {
 		dataType: 'json',
 		headers: { "x-requested-with": "xhr" },
 		success: function(data){
-			console.log(data);
+			for (var i = 0; i < data.length; i++) {
+				moddata[data[i]["name"]] = data[i];
+			}
+			console.log(moddata);
 			loadContent();
 		},
 		error: function(data) {
