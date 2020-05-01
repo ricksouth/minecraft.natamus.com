@@ -186,6 +186,9 @@ section#topwrapper {
 .activetags img:hover {
 	cursor: pointer;
 }
+.activetags img.inactive {
+	filter: brightness(50%);
+}
 
 /* Tiles */
 .tiles {
