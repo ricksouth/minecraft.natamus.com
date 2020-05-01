@@ -1,5 +1,5 @@
 $(document).ready(function(e) {
-	console.log("14");
+	console.log("15");
 	loadContent();
 });
 
@@ -37,7 +37,7 @@ function loadContent() {
 					}
 
 					style += 'div#mod' + i + ':before { background: url("/assets/images/icons/' + slug + '.' + filetype + '"); background-position: center center; background-size: cover; } div#mod' + i + ':after { content: "' + name + '"; }';
-					html += '<div class="col mod"><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><div id="mod' + i + '" class="box"></div></div>';
+					html += '<div class="col mod"><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><div id="mod' + i + '" class="box"><img class="dlshield" href="https://cf.way2muchnoise.eu/' + slug + '.svg"></div></div>';
 					//html += '<div class="col mod"><a href="' + url + '">' + name + '</a><div class="box"></div></div>';
 				}
 				else if (line.includes("Discontinued")) {
