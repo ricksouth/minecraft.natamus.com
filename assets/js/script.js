@@ -2,10 +2,12 @@ $(document).ready(function(e) {
 	loadContent();
 });
 
-$(document).waitForImages(function(e) {
-	$("#loadingwrapper").hide();
-	$("#content").fadeIn(200);
-});
+function afterContent() {
+	$("#content").waitForImages(function(e) {
+		$("#loadingwrapper").hide();
+		$("#content").fadeIn(200);
+	});
+}
 
 var gifs = [ "bamboo-spreads", "better-beacon-placement", "configurable-despawn-timer", "cycle-paintings", "hide-hands", "kelp-fertilizer", "replanting-crops" ];
 function loadContent() {
@@ -45,6 +47,7 @@ function loadContent() {
 			style += '</style>';
 			$("#inlinestyle").html(style);
 			$("#content").html(html);
+			afterContent();
 		}
 	});
 }
