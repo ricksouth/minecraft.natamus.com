@@ -118,6 +118,11 @@ footer p.footercontent {
 		left: 25%;
 	}
 }
+@media only screen and (max-width: 1595px) {
+	.insidetw h1 {
+		font-size: 3vw;
+	}
+}
 @media only screen and (min-width: 1596px) {
 	.tiles {
 		width: 1572px;
@@ -147,7 +152,6 @@ section#topwrapper {
 
 .insidetw h1 {
 	width: 100%;
-	font-size: 3vw;
 	text-align: center;
 }
 
