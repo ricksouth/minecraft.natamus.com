@@ -30,7 +30,7 @@ function loadContent() {
 						filetype = "gif";
 					}
 
-					style += 'div#mod' + i + ':after { content: "' + name + '"; background: url("/assets/images/icons/' + slug + '.' + filetype + '"); background-position: center center; }';
+					style += 'div#mod' + i + ':after { content: "' + name + '"; background: url("/assets/images/icons/' + slug + '.' + filetype + '"); background-position: center center; background-size: cover; }';
 					html += '<div class="col mod"><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><div id="mod' + i + '" class="box"></div></div>';
 					//html += '<div class="col mod"><a href="' + url + '">' + name + '</a><div class="box"></div></div>';
 				}
