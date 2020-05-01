@@ -14,8 +14,7 @@ div.wrapper {
 	top: 0;
 	left: 0;
 
-	width: 100vh;
-	height: 100vh;
+	width: 100%;
 }
 
 body {
@@ -28,11 +27,6 @@ section {
 
 section#content {
 	position: relative;
-	top: 100px;
-	left: 5%;
-	width: 90%;
-
-	margin-bottom: 200px;
 }
 section#loadingwrapper {
 	position: absolute;
