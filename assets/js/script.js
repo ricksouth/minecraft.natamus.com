@@ -2,7 +2,7 @@ var moddls = {};
 var gifs = [ "bamboo-spreads", "better-beacon-placement", "configurable-despawn-timer", "cycle-paintings", "hide-hands", "kelp-fertilizer", "replanting-crops" ];
 
 $(document).ready(function(e) {
-	console.log("39");
+	console.log("40");
 	loadJsonData();
 });
 
@@ -63,7 +63,7 @@ function loadContent() {
 						beforecontent = ' content: "\\f019 ' + moddls[slug] + '";';
 					}
 
-					style += 'div#mod' + i + ':before { font-family: FontAwesome; background: url("/assets/images/icons/' + slug + '.' + filetype + '"); background-position: center center; background-size: cover;' + beforecontent + ' } div#mod' + i + ':after { content: "' + name + '"; }';
+					style += 'div#mod' + i + ':before { background: url("/assets/images/icons/' + slug + '.' + filetype + '"); background-position: center center; background-size: cover;' + beforecontent + ' } div#mod' + i + ':after { content: "' + name + '"; }';
 					
 					html += '<div class="col mod"><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><div id="mod' + i + '" class="box"></div></div>';
 					//html += '<div class="col mod"><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><div id="mod' + i + '" class="box"></div><img class="dlshield" src="https://cf.way2muchnoise.eu/' + slug + '.svg" alt="' + name + '"></div>';
