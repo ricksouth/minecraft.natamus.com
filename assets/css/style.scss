@@ -12,8 +12,6 @@ section#content {
 	top: 100px;
 	left: 5%;
 	width: 90%;
-
-	text-align: center;
 }
 
 /* Footer */
@@ -88,7 +86,7 @@ footer p.footercontent {
 	transform: rotateY(-180deg);
 }
 .col .box {
-	position: relative;
+	position: absolute;
 	width: 100%;
 	height: 100%;
 	font-family: "Open Sans", sans-serif;
@@ -98,7 +96,7 @@ footer p.footercontent {
 }
 .col .box:before {
 	content: "";
-	position: relative;
+	position: absolute;
 	width: 100%;
 	height: 100%;
 	display: flex;
@@ -115,7 +113,7 @@ footer p.footercontent {
 }
 .col .box:after {
 	content: "";
-	position: relative;
+	position: absolute;
 	width: 100%;
 	height: 100%;
 	display: flex;
