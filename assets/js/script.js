@@ -2,7 +2,7 @@ var moddls = {};
 var gifs = [ "bamboo-spreads", "better-beacon-placement", "configurable-despawn-timer", "cycle-paintings", "hide-hands", "kelp-fertilizer", "replanting-crops" ];
 
 $(document).ready(function(e) {
-	console.log("37");
+	console.log("38");
 	loadJsonData();
 });
 
@@ -60,7 +60,7 @@ function loadContent() {
 
 					beforecontent = "";
 					if (slug in moddls) {
-						beforecontent = ' content: "\f019 ' + moddls[slug] + '";';
+						beforecontent = ' content: "\\f019 ' + moddls[slug] + '";';
 					}
 
 					style += 'div#mod' + i + ':before { font-family: FontAwesome; background: url("/assets/images/icons/' + slug + '.' + filetype + '"); background-position: center center; background-size: cover;' + beforecontent + ' } div#mod' + i + ':after { content: "' + name + '"; }';
