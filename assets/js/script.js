@@ -1,10 +1,10 @@
 $(document).ready(function(e) {
-	console.log("1");
+	console.log("2");
 	loadContent();
 });
 
 function afterContent() {
-	$("#content").waitForImages(function(e) {
+	$("#content .box").waitForImages(function(e) {
 		$("#loadingwrapper").hide();
 		$("#content").fadeIn(200);
 	});
