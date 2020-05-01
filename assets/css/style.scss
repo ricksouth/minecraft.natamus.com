@@ -180,6 +180,7 @@ footer p.footercontent {
 	z-index: 2;
 	backface-visibility: hidden;
 	paint-order: stroke fill;
+	white-space: pre;
 }
 .col .box:after {
 	content: "";
@@ -197,6 +198,7 @@ footer p.footercontent {
 	text-shadow: 2px 2px black;
 	border-radius: 2px;
 	transition-delay: .15s;
+	white-space: pre;
 }
 
 .col img.dlshield {
