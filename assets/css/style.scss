@@ -43,40 +43,40 @@ footer p.footercontent {
 	position: absolute;
 	height: 100%;
 }
-@media only screen and (max-width: 518px) {
+@media only screen and (max-width: 524px) {
 	.tiles {
 		width: 262px;
 		left: calc(50% - 131px);
 	}
 }
-@media only screen and (max-width: 774px) {
+@media only screen and (max-width: 786px) {
 	.tiles {
-		width: 518px;
-		left: calc(50% - 259px);
+		width: 524px;
+		left: calc(50% - 262px);
 	}
 }
-@media only screen and (max-width: 1030px) {
+@media only screen and (max-width: 1048px) {
 	.tiles {
-		width: 774px;
-		left: calc(50% - 387px);
+		width: 786px;
+		left: calc(50% - 393px);
 	}
 }
-@media only screen and (max-width: 1286px) {
+@media only screen and (max-width: 1310px) {
 	.tiles {
-		width: 1030px;
-		left: calc(50% - 515px);
+		width: 1048px;
+		left: calc(50% - 524px);
 	}
 }
-@media only screen and (max-width: 1542px) {
+@media only screen and (max-width: 1572px) {
 	.tiles {
-		width: 1286px;
-		left: calc(50% - 643px);
+		width: 1310px;
+		left: calc(50% - 655px);
 	}
 }
-@media only screen and (min-width: 1543px) {
+@media only screen and (min-width: 1573px) {
 	.tiles {
-		width: 1542px;
-		left: calc(50% - 771px);
+		width: 1572px;
+		left: calc(50% - 786px);
 	}
 }
 
