@@ -1,8 +1,11 @@
+var activetags = {};
+
 var moddls = {};
-var gifs = [ ];
+var modtags = {};
+var gifs = [];
 
 $(document).ready(function(e) {
-	console.log("79");
+	console.log("80");
 	loadJsonData();
 });
 
@@ -33,6 +36,20 @@ function loadJsonData() {
 					gifs.push(slug);
 				}
 
+				var thistags = [];
+				var tags = data[i]["categories"];
+				for (var j = 0; j < tags.length; j++) {
+					var tagname = tags[j]["name"];
+					var tagimg = tags[j]["avatarUrl"];
+					if (!(tagname in activetags)) {
+						activetags[tagname] = tagimg;
+					}
+
+					thistags.push(tagname);
+				}
+
+				modtags[slug] = thistags;
+
 				totalmods += 1;
 				totaldownloads += downloads;
 			}
@@ -49,6 +66,8 @@ function loadJsonData() {
 }
 
 function loadContent() {
+	console.log(activetags);
+
 	$.ajax({
 		url: "https://raw.githubusercontent.com/ricksouth/serilum-mc-mods/master/README.md",
 		success: function(data){
