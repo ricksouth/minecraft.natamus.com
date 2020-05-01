@@ -1,11 +1,12 @@
 var activetags = {};
+var neverclicked = true;
 
 var moddls = {};
 var modtags = {};
 var gifs = [];
 
 $(document).ready(function(e) {
-	console.log("85");
+	console.log("86");
 	loadJsonData();
 });
 
@@ -116,7 +117,7 @@ function loadContent() {
 					}
 					dlcontent += " \\A \\A ";
 
-					var value = "";
+					var value = 'value=""';
 					if (slug in modtags) {
 						value = 'value="' + modtags[slug].join(",") + '"';
 					}
@@ -140,7 +141,40 @@ function loadContent() {
 }
 
 $(document).on('click', '.activetags img', function(e) {
-	console.log($(this));
+	var clickelem = $(this);
+	var isactive = !clickelem.hasClass("inactive");
+	var tag = clickelem.attr('alt');
+
+	if (neverclicked) {
+		$(".activetags img").each(function() {
+			if ($(this).is(clickelem)) {
+				return true;
+			}
+			$(this).addClass("inactive");
+		});
+		neverclicked = false;
+		isactive = true;
+	}
+
+	clickelem.toggleClass("inactive");
+	$(".tiles").each(function() {
+		if ($(this).attr('value').includes(tag)) {
+			if (isactive) {
+				$(this).show();
+			}
+			else {
+				$(this).hide();
+			}
+		}
+		else {
+			if (isactive) {
+				$(this).hide();
+			}
+			else {
+				$(this).show();
+			}
+		}
+	});
 });
 
 // Util functions
