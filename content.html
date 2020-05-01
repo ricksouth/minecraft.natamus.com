@@ -1,0 +1,26 @@
+<div class="text-center">
+	<h3>Mob Head Resources</h3>
+	<p>On this page you can download textures to allow for modded entities to drop their head on death. You need the main mod from the CurseForge project page which can load the extra textures downloaded here.</p>
+	<p>Select the mods you want additional texture data for on the left side, and click on the right arrow to move them to download list. Click the download button to receive the JSON file with the combined data.</p>
+	<p>Move the downloaded JSON file (starting with <i>jmh-textures</i>) to the location <b>%root%/data/jmh/jmh-textures-date.json</b>.</p>
+	<p>(Minecraft <b>%root%</b> is where the 'saves'-folder is located)</p>
+</div>
+<div class="buttons">
+	<div>
+		<input id="sb" class="searchbox" type="text" placeholder="Search">
+	</div>
+	<button title="Send to list 2" class="btn btn-default add"><i class="glyphicon glyphicon-chevron-right"></i></button>
+	<button title="Send to list 1" class="btn btn-default remove"><i class="glyphicon glyphicon-chevron-left"></i></button>
+	<button id="dlb" class="btn downloadbutton">Download</button>
+</div>
+<div class="leftlist">
+	<div class="list-group" id="availablelist">
+		<a href="#" class="list-group-item active" id="avh"><input title="toggle all" type="checkbox" class="all pull-left" id="avc"> Available</a>
+	</div>
+</div>
+<div class="rightlist">
+	<div class="list-group" id="todownloadlist">
+		<a href="#" class="list-group-item active" id="tdh"><input title="toggle all" type="checkbox" class="all pull-left" id="tdc"> To download</a>
+	</div>
+</div>
+<a id="downloadAnchorElem" style="display:none"></a>

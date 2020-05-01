@@ -1,0 +1,109 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+@media only screen and (max-width: 960px) {
+	div.list-group {
+		margin-bottom: 80px;
+	}	
+	.footercontent {
+		background-color: white;
+		margin-bottom: 8px;
+	}
+	button.downloadbutton {
+		margin-left: -116px;
+	}
+	section {
+		border-bottom: none !important;
+	}
+	footer {
+		position: fixed;
+		bottom: 0px;
+		z-index: 3;
+
+		background-color: white;
+		height: 50px;
+		width: 100%;
+	}
+}
+
+#content {
+	height: auto;
+}
+
+header h1 {
+	font-size: 33px;
+}
+
+a small {
+	font-size: 10px;
+}
+
+.leftlist {
+	position: relative;
+	float: left;
+	left: 2%;
+	width: 47%;
+}
+.rightlist {
+	position: relative;
+	float: right;
+	right: 2%;
+	width: 47%;
+}
+.buttons {
+	text-align: center;
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+.buttons .btn {
+	position: relative;
+	z-index: 4;
+}
+
+.searchbox {
+	position: relative;
+	float: left;
+	left: 2%;
+
+	width: 150px;
+	height: 34px;
+
+	padding-left: 10px;
+	margin-right: -160px;
+}
+
+.downloadbutton {
+	position: relative;
+	float: right;
+	right: 2%;
+
+	width: 100px;
+	margin-left: -110px;
+
+	background-color: gray;
+	color: white;
+	border: none;
+}
+.downloadbutton:not(.active):hover {
+	cursor: not-allowed;
+}
+.downloadbutton.active {
+	background-color: #a2c437;
+}
+.downloadbutton.active:hover {
+	filter: brightness(75%);
+}
+
+.text-center p {
+	text-align: justify;
+}
+
+.list-group a {
+	padding-left: 30px;
+}
+.list-group a input {
+	position: absolute;
+	margin-left: -20px;
+}
