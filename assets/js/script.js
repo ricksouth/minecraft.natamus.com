@@ -1,6 +1,8 @@
+var gifs = [ "bamboo-spreads", "better-beacon-placement", "configurable-despawn-timer", "cycle-paintings", "hide-hands", "kelp-fertilizer", "replanting-crops" ];
+
 $(document).ready(function(e) {
-	console.log("18");
-	loadContent();
+	console.log("20");
+	loadJsonData();
 });
 
 function afterContent() {
@@ -10,7 +12,16 @@ function afterContent() {
 	});
 }
 
-var gifs = [ "bamboo-spreads", "better-beacon-placement", "configurable-despawn-timer", "cycle-paintings", "hide-hands", "kelp-fertilizer", "replanting-crops" ];
+function loadJsonData() {
+	$.ajax({
+		url: "https://addons-ecs.forgesvc.net/api/v2/addon/search?searchFilter=serilum&gameId=432",
+		success: function(data){
+			console.log(data);
+			loadContent();
+		}
+	});
+}
+
 function loadContent() {
 	$.ajax({
 		url: "https://raw.githubusercontent.com/ricksouth/serilum-mc-mods/master/README.md",
@@ -37,7 +48,9 @@ function loadContent() {
 					}
 
 					style += 'div#mod' + i + ':before { background: url("/assets/images/icons/' + slug + '.' + filetype + '"); background-position: center center; background-size: cover; } div#mod' + i + ':after { content: "' + name + '"; }';
-					html += '<div class="col mod"><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><div id="mod' + i + '" class="box"></div><img class="dlshield" src="https://cf.way2muchnoise.eu/' + slug + '.svg" alt="' + name + '"></div>';
+					
+					html += '<div class="col mod"><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><div id="mod' + i + '" class="box"></div></div>';
+					//html += '<div class="col mod"><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><div id="mod' + i + '" class="box"></div><img class="dlshield" src="https://cf.way2muchnoise.eu/' + slug + '.svg" alt="' + name + '"></div>';
 					//html += '<div class="col mod"><a href="' + url + '">' + name + '</a><div class="box"></div></div>';
 				}
 				else if (line.includes("Discontinued")) {
