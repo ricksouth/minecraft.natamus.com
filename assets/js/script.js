@@ -19,8 +19,8 @@ function loadContent() {
 						continue;
 					}
 
-					var name = linespl[0];
-					var url = linespl[1];
+					var name = linespl[0].replace("[", "");
+					var url = linespl[1].split(")")[0];
 
 					html += '<div class="mod"><a href="' + url + '">' + name + "</a></div>";
 				}
