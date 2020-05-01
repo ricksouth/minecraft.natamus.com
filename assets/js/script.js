@@ -6,7 +6,7 @@ var modtags = {};
 var gifs = [];
 
 $(document).ready(function(e) {
-	console.log("87");
+	console.log("88");
 	loadJsonData();
 });
 
@@ -155,9 +155,11 @@ $(document).on('click', '.activetags img', function(e) {
 		neverclicked = false;
 		isactive = true;
 	}
+	else {
+		clickelem.toggleClass("inactive");
+	}
 
-	clickelem.toggleClass("inactive");
-	$(".tiles").each(function() {
+	$(".tiles .col").each(function() {
 		var tiletags = $(this).attr('value');
 		console.log(tiletags);
 		if (tiletags === undefined) {
