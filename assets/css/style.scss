@@ -142,13 +142,13 @@ section#topwrapper {
 	width: 100%;
 	height: auto;
 
-	top: 50px;
+	top: 60px;
 }
 
 #topwrapper .insidetw {
 	position: relative;
 
-	margin-bottom: 100px;
+	margin-bottom: 60px;
 }
 
 .insidetw h1 {
@@ -158,6 +158,10 @@ section#topwrapper {
 
 .insidetw p {
 	margin: 0;
+}
+
+.insidetw span {
+	font-weight: bolder;
 }
 
 /* Tiles */
