@@ -6,7 +6,7 @@ var modtags = {};
 var gifs = [];
 
 $(document).ready(function(e) {
-	console.log("90");
+	console.log("91");
 	loadJsonData();
 });
 
@@ -175,7 +175,7 @@ $(document).on('click', '.activetags img', function(e) {
 		var foundtag = false;
 
 		var mtagsspl = $(this).attr('value').split(",");
-		for (var i = 0; i < dataspl.length; i++) {
+		for (var i = 0; i < mtagsspl.length; i++) {
 			var mtag = mtagspl[i];
 			if (actives.includes(mtag)) {
 				foundtag = true;
