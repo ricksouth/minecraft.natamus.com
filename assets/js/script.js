@@ -2,7 +2,7 @@ var moddls = {};
 var gifs = [ ];
 
 $(document).ready(function(e) {
-	console.log("62");
+	console.log("63");
 	loadJsonData();
 });
 
@@ -37,8 +37,8 @@ function loadJsonData() {
 				totaldownloads += downloads;
 			}
 			
-			$("#totalmods").html(totalmods);
-			$("#totaldownloads").html(totaldownloads);
+			$("#totalmods").html(numberWithCommas(totalmods));
+			$("#totaldownloads").html(numberWithCommas(totaldownloads));
 
 			loadContent();
 		},
