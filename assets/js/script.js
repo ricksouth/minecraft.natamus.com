@@ -14,7 +14,7 @@ function afterContent() {
 
 function loadJsonData() {
 	$.ajax({
-		url: "http://cors.io/https://addons-ecs.forgesvc.net/api/v2/addon/search?searchFilter=serilum&gameId=432",
+		url: "http://cors.io/?https://addons-ecs.forgesvc.net/api/v2/addon/search?searchFilter=serilum&gameId=432",
 		type: "GET",
 		dataType: 'jsonp',
 		success: function(data){
