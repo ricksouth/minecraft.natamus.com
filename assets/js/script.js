@@ -22,7 +22,7 @@ function loadContent() {
 					var name = linespl[0].replace("[", "");
 					var url = linespl[1].split(")")[0];
 
-					html += '<div class="mod"><a href="' + url + '">' + name + "</a></div>";
+					html += '<div class="col mod"><a href="' + url + '"><div class="box">' + name + "</div></a></div>";
 				}
 				else if (line.includes("Discontinued")) {
 					break;
