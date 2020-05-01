@@ -1,6 +1,6 @@
 $(document).ready(function(e) {
 	$("#content").load("/content.html", function() {
-		
+		//loadContent();
 	});
 });
 
