@@ -2,7 +2,7 @@ var moddls = {};
 var gifs = [ ];
 
 $(document).ready(function(e) {
-	console.log("51");
+	console.log("52");
 	loadJsonData();
 });
 
@@ -83,7 +83,7 @@ function loadContent() {
 			}
 
 			style += '</style>';
-			html += '</div>';
+			html += '<div class="spacer"></div></div>';
 
 			$("#inlinestyle").html(style);
 			$("#content").html(html);
