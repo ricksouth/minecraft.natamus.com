@@ -109,7 +109,7 @@ footer p.footercontent {
 	-webkit-font-smoothing: antialiased;
 	border-radius: 2px;
 	z-index: 2;
-	backface-visibility: all;
+	backface-visibility: hidden;
 }
 .col .box:after {
 	content: "";
