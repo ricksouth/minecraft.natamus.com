@@ -122,10 +122,13 @@ footer p.footercontent {
 	text-align: center;
 	background: #333;
 	color: #FFF;
-	font-size: 48px;
+	font-size: 35px;
 	text-shadow: 1px 1px black;
 	border-radius: 2px;
 	transition-delay: .15s;
+
+	filter: blur(5px);
+	-webkit-filter: blur(5px);
 }
 
 /* Spinner */
