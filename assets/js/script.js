@@ -1,7 +1,7 @@
 var gifs = [ "bamboo-spreads", "better-beacon-placement", "configurable-despawn-timer", "cycle-paintings", "hide-hands", "kelp-fertilizer", "replanting-crops" ];
 
 $(document).ready(function(e) {
-	console.log("28");
+	console.log("29");
 	loadJsonData();
 });
 
@@ -15,12 +15,9 @@ function afterContent() {
 function loadJsonData() {
 	$.ajax({
 		url: "https://cors-anywhere.herokuapp.com/https://addons-ecs.forgesvc.net/api/v2/addon/search?searchFilter=serilum&gameId=432",
-		headers: {
-			'origin' : 'https://minecraft.natamus.com/',
-			'x-requested-with' : 'XMLHttpRequest'
-		},
 		type: "GET",
-		dataType: 'jsonp',
+		dataType: 'json',
+		headers: { "x-requested-with": "xhr" },
 		success: function(data){
 			console.log(data);
 			loadContent();
