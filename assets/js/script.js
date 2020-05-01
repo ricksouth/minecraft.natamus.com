@@ -4,6 +4,7 @@ $(document).ready(function(e) {
 	});
 });
 
+var gifs = [ "bamboo-spreads", "better-beacon-placement", "configurable-despawn-timer", "cycle-paintings", "hide-hands", "kelp-fertilizer", "replanting-crops" ];
 function loadContent() {
 	$.ajax({
 		url: "https://raw.githubusercontent.com/ricksouth/serilum-mc-mods/master/README.md",
@@ -24,7 +25,12 @@ function loadContent() {
 					var url = linespl[1].split(")")[0];
 					var slug = url.split("/mc-mods/")[1];
 
-					style += 'div#mod' + i + ':after { content: "' + name + '"; background: url("/assets/images/icons/' + slug + '.png"); }';
+					var filetype = "png";
+					if (gifs.includes(slug)) {
+						filetype = "gif";
+					}
+
+					style += 'div#mod' + i + ':after { content: "' + name + '"; background: url("/assets/images/icons/' + slug + '.' + filetype + '"); }';
 					html += '<div class="col mod"><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><div id="mod' + i + '" class="box"></div></div>';
 					//html += '<div class="col mod"><a href="' + url + '">' + name + '</a><div class="box"></div></div>';
 				}
