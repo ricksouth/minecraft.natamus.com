@@ -68,7 +68,8 @@ footer p.footercontent {
 
 /* RESPONSIVE */
 @media only screen and (min-width: 0px) {
-	.tiles {
+	.tiles,
+	.activetags {
 		width: 262px;
 		left: calc(50% - 131px);
 	}
@@ -78,7 +79,8 @@ footer p.footercontent {
 	}
 }
 @media only screen and (min-width: 548px) {
-	.tiles {
+	.tiles,
+	.activetags {
 		width: 524px;
 		left: calc(50% - 262px);
 	}
@@ -88,7 +90,8 @@ footer p.footercontent {
 	}
 }
 @media only screen and (min-width: 810px) {
-	.tiles {
+	.tiles,
+	.activetags {
 		width: 786px;
 		left: calc(50% - 393px);
 	}
@@ -98,7 +101,8 @@ footer p.footercontent {
 	}
 }
 @media only screen and (min-width: 1072px) {
-	.tiles {
+	.tiles,
+	.activetags {
 		width: 1048px;
 		left: calc(50% - 524px);
 	}
@@ -108,7 +112,8 @@ footer p.footercontent {
 	}
 }
 @media only screen and (min-width: 1334px) {
-	.tiles {
+	.tiles,
+	.activetags {
 		width: 1310px;
 		left: calc(50% - 655px);
 	}
@@ -123,7 +128,8 @@ footer p.footercontent {
 	}
 }
 @media only screen and (min-width: 1596px) {
-	.tiles {
+	.tiles,
+	.activetags {
 		width: 1572px;
 		left: calc(50% - 786px);
 	}
@@ -169,13 +175,19 @@ section#topwrapper {
 	font-style: italic;
 }
 
+/* Tags */
+.activetags img {
+	width: 45px;
+	margin: 5px;
+}
+
 /* Tiles */
 .tiles {
 	position: absolute;
 	height: 100%;
 
 	margin-bottom: 200px;
-}
+}.tiles 
 
 .col {
 	position: relative;
@@ -184,52 +196,52 @@ section#topwrapper {
 	width: 250px;
 	height: 250px;
 }
-.col a {
+.tiles .col a {
 	position: absolute;
 	width: 100%;
 	height: 100%;
 	z-index: 2;
 }
-.col a:nth-child(1) {
+.tiles .col a:nth-child(1) {
 	-webkit-clip-path: polygon(0 0, 100% 0, 50% 50%);
 	clip-path: polygon(0 0, 100% 0, 50% 50%);
 }
-.col a:nth-child(2) {
+.tiles .col a:nth-child(2) {
 	-webkit-clip-path: polygon(100% 0, 100% 100%, 50% 50%);
 	clip-path: polygon(100% 0, 100% 100%, 50% 50%);
 }
-.col a:nth-child(3) {
+.tiles .col a:nth-child(3) {
 	-webkit-clip-path: polygon(0 100%, 50% 50%, 100% 100%);
 	clip-path: polygon(0 100%, 50% 50%, 100% 100%);
 }
-.col a:nth-child(4) {
+.tiles .col a:nth-child(4) {
 	-webkit-clip-path: polygon(0 0, 50% 50%, 0 100%);
 	clip-path: polygon(0 0, 50% 50%, 0 100%);
 }
-.col a:hover {
+.tiles .col a:hover {
 	z-index: 3;
 	-webkit-clip-path: none;
 	clip-path: none;
 }
-.col a:nth-child(1):hover ~ .box {
+.tiles .col a:nth-child(1):hover ~ .box {
 	transform: rotateX(180deg);
 }
-.col a:nth-child(2):hover ~ .box {
+.tiles .col a:nth-child(2):hover ~ .box {
 	transform: rotateY(180deg);
 }
-.col a:nth-child(3):hover ~ .box {
+.tiles .col a:nth-child(3):hover ~ .box {
 	transform: rotateX(-180deg);
 }
-.col a:nth-child(4):hover ~ .box {
+.tiles .col a:nth-child(4):hover ~ .box {
 	transform: rotateY(-180deg);
 }
-.col a:nth-child(1):hover ~ .box:after, .col a:nth-child(3):hover ~ .box:after {
+.tiles .col a:nth-child(1):hover ~ .box:after, .tiles .col a:nth-child(3):hover ~ .box:after {
 	transform: rotateX(-180deg);
 }
-.col a:nth-child(2):hover ~ .box:after, .col a:nth-child(4):hover ~ .box:after {
+.tiles .col a:nth-child(2):hover ~ .box:after, .tiles .col a:nth-child(4):hover ~ .box:after {
 	transform: rotateY(-180deg);
 }
-.col .box {
+.tiles .col .box {
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -238,7 +250,7 @@ section#topwrapper {
 	transform-style: preserve-3d;
 	transition: transform .3s ease-in-out;
 }
-.col .box:before {
+.tiles .col .box:before {
 	content: "";
 	position: absolute;
 	width: 100%;
@@ -259,7 +271,7 @@ section#topwrapper {
 	paint-order: stroke fill;
 	white-space: pre;
 }
-.col .box:after {
+.tiles .col .box:after {
 	content: "";
 	position: absolute;
 	width: 100%;
@@ -278,7 +290,7 @@ section#topwrapper {
 	white-space: pre;
 }
 
-.col img.dlshield {
+.tiles .col img.dlshield {
 	position: absolute;
 	z-index: 101;
 	display: block;
