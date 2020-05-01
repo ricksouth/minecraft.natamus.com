@@ -72,7 +72,7 @@ function loadContent() {
 		url: "https://raw.githubusercontent.com/ricksouth/serilum-mc-mods/master/README.md",
 		success: function(data){
 			// tags
-			var html = '<div class="activetags"';
+			var html = '<div class="activetags">';
 			for (var key in activetags) {
 				var value = activetags[key];
 				html += '<img alt="' + key + '" src="' + value + '">';
@@ -136,7 +136,7 @@ function loadContent() {
 	});
 }
 
-$('.activetags').on('click', 'img', function(){
+$('.activetags').on('click', 'img', function(e){
 	console.log($(this));
 });
 
