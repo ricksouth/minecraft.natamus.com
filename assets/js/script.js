@@ -2,7 +2,7 @@ var moddls = {};
 var gifs = [ "bamboo-spreads", "better-beacon-placement", "configurable-despawn-timer", "cycle-paintings", "hide-hands", "kelp-fertilizer", "replanting-crops" ];
 
 $(document).ready(function(e) {
-	console.log("33");
+	console.log("34");
 	loadJsonData();
 });
 
@@ -58,7 +58,7 @@ function loadContent() {
 					}
 
 					beforecontent = "";
-					if (moddate.includes(slug)) {
+					if (moddls.includes(slug)) {
 						beforecontent = ' content: "\f019 ' + moddls[slug] + '"';
 					}
 
