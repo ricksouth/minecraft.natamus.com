@@ -1,7 +1,7 @@
 var gifs = [ "bamboo-spreads", "better-beacon-placement", "configurable-despawn-timer", "cycle-paintings", "hide-hands", "kelp-fertilizer", "replanting-crops" ];
 
 $(document).ready(function(e) {
-	console.log("20");
+	console.log("21");
 	loadJsonData();
 });
 
@@ -15,6 +15,8 @@ function afterContent() {
 function loadJsonData() {
 	$.ajax({
 		url: "https://addons-ecs.forgesvc.net/api/v2/addon/search?searchFilter=serilum&gameId=432",
+		crossDomain: true,
+		dataType: 'jsonp',
 		success: function(data){
 			console.log(data);
 			loadContent();
