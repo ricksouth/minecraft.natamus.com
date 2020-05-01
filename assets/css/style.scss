@@ -18,7 +18,7 @@ section {
 }
 
 section#content {
-	position: absolute;
+	position: relative;
 	top: 100px;
 	left: 5%;
 	width: 90%;
@@ -57,6 +57,13 @@ footer p.footercontent {
 	text-align: left;
 	padding-top: 8px;
 	padding-left: 10px;
+}
+
+/* Topwrapper */
+section#topwrapper {
+	position: relative;
+	width: 100%;
+	height: auto;
 }
 
 /* Tiles */
