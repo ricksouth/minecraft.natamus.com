@@ -2,7 +2,7 @@ var moddls = {};
 var gifs = [ ];
 
 $(document).ready(function(e) {
-	console.log("65");
+	console.log("66");
 	loadJsonData();
 });
 
