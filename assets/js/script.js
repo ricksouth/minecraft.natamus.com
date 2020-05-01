@@ -2,7 +2,7 @@ var moddls = {};
 var gifs = [ "bamboo-spreads", "better-beacon-placement", "configurable-despawn-timer", "cycle-paintings", "hide-hands", "kelp-fertilizer", "replanting-crops" ];
 
 $(document).ready(function(e) {
-	console.log("38");
+	console.log("39");
 	loadJsonData();
 });
 
@@ -22,7 +22,7 @@ function loadJsonData() {
 		headers: { "x-requested-with": "xhr" },
 		success: function(data){
 			for (var i = 0; i < data.length; i++) {
-				moddls[data[i]["name"].toLowerCase().replace(" ", "-")] = data[i]["downloadCount"];
+				moddls[replaceAll(data[i]["name"].toLowerCase(), " ", "-")] = data[i]["downloadCount"];
 			}
 			console.log(moddls);
 			loadContent();
@@ -82,4 +82,8 @@ function loadContent() {
 			afterContent();
 		}
 	});
+}
+
+function replaceAll(str, find, replace) { 
+	return str.replace(new RegExp(find, 'g'), replace);
 }
