@@ -1,5 +1,5 @@
 $(document).ready(function(e) {
-	console.log("6");
+	console.log("7");
 	loadContent();
 });
 
