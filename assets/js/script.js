@@ -2,7 +2,7 @@ var moddls = {};
 var gifs = [ ];
 
 $(document).ready(function(e) {
-	console.log("54");
+	console.log("55");
 	loadJsonData();
 });
 
@@ -68,11 +68,12 @@ function loadContent() {
 
 					dlcontent = '\\A \\f019   ';
 					if (slug in moddls) {
-						dlcontent += numberWithCommas(moddls[slug]) + ' \\A ';
+						dlcontent += numberWithCommas(moddls[slug]);
 					}
 					else {
-						dlcontent += '1 \\A ';
+						dlcontent += '1';
 					}
+					dlcontent += " \\A \\A ";
 
 					style += 'div#mod' + i + ':before { background: url("/assets/images/icons/' + slug + '.' + filetype + '"); background-position: center center; background-size: cover; } div#mod' + i + ':after { content: "' + dlcontent + replaceAll(name, " ", " \\A ") + '"; }';
 					
