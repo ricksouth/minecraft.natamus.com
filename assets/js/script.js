@@ -2,7 +2,7 @@ var moddls = {};
 var gifs = [ ];
 
 $(document).ready(function(e) {
-	console.log("61");
+	console.log("62");
 	loadJsonData();
 });
 
@@ -21,15 +21,25 @@ function loadJsonData() {
 		dataType: 'json',
 		headers: { "x-requested-with": "xhr" },
 		success: function(data){
+			var totalmods = 0;
+			var totaldownloads = 0;
+
 			for (var i = 0; i < data.length; i++) {
 				var slug = replaceAll(data[i]["name"].toLowerCase(), " ", "-");
+				var downloads = data[i]["downloadCount"];
 
-				moddls[slug] = data[i]["downloadCount"];
+				moddls[slug] = downloads;
 				if (data[i]["attachments"][0]["url"].includes(".gif")) {
 					gifs.push(slug);
 				}
+
+				totalmods += 1;
+				totaldownloads += downloads;
 			}
-			console.log(moddls);
+			
+			$("#totalmods").html(totalmods);
+			$("#totaldownloads").html(totaldownloads);
+
 			loadContent();
 		},
 		error: function(data) {
