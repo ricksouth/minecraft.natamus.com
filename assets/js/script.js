@@ -2,7 +2,7 @@ var moddls = {};
 var gifs = [ ];
 
 $(document).ready(function(e) {
-	console.log("45");
+	console.log("46");
 	loadJsonData();
 });
 
@@ -63,15 +63,15 @@ function loadContent() {
 						filetype = "gif";
 					}
 
-					beforecontent = "";
+					dlcontent = "";
 					if (slug in moddls) {
-						beforecontent = ' content: "\\f019   ' + numberWithCommas(moddls[slug]) + '";';
+						dlcontent = '\\f019   ' + numberWithCommas(moddls[slug]) + ' \\a ';
 					}
 					else {
-						beforecontent = ' content: "\\f019   1";';
+						dlcontent = '\\f019   1 \\a ';
 					}
 
-					style += 'div#mod' + i + ':before { background: url("/assets/images/icons/' + slug + '.' + filetype + '"); background-position: center center; background-size: cover;' + beforecontent + ' } div#mod' + i + ':after { content: "' + name + '"; }';
+					style += 'div#mod' + i + ':before { background: url("/assets/images/icons/' + slug + '.' + filetype + '"); background-position: center center; background-size: cover; } div#mod' + i + ':after { content: "' + dlcontent + name + '"; }';
 					
 					html += '<div class="col mod"><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><div id="mod' + i + '" class="box"></div></div>';
 					//html += '<div class="col mod"><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><div id="mod' + i + '" class="box"></div><img class="dlshield" src="https://cf.way2muchnoise.eu/' + slug + '.svg" alt="' + name + '"></div>';
