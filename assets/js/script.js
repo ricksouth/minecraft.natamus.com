@@ -2,7 +2,7 @@ $(document).ready(function(e) {
 	loadContent();
 });
 
-$(window).on("load", function(e) {
+$(document).waitForImages(function(e) {
 	$("#loadingwrapper").hide();
 	$("#content").fadeIn(200);
 });
