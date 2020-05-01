@@ -25,6 +25,11 @@ section {
 	border: none !important;
 }
 
+section#buttons {
+	width: 100%;
+	text-align: center;
+}
+
 section#content {
 	position: relative;
 	top: 0;
@@ -58,7 +63,7 @@ footer {
 	height: 60px;
 
 	background-color: white;
-	border-top: 1px dashed black;
+	border-top: 1px dashed grey;
 }
 
 footer p.footercontent {
@@ -181,7 +186,7 @@ section#topwrapper {
 	position: absolute;
 }
 .activetags img {
-	filter: brightness(125%);
+	filter: brightness(110%);
 	width: 45px;
 	margin: 5px;
 }
