@@ -6,7 +6,7 @@ var modtags = {};
 var gifs = [];
 
 $(document).ready(function(e) {
-	console.log("86");
+	console.log("87");
 	loadJsonData();
 });
 
@@ -158,7 +158,13 @@ $(document).on('click', '.activetags img', function(e) {
 
 	clickelem.toggleClass("inactive");
 	$(".tiles").each(function() {
-		if ($(this).attr('value').includes(tag)) {
+		var tiletags = $(this).attr('value');
+		console.log(tiletags);
+		if (tiletags === undefined) {
+			return true;
+		}
+
+		if (tiletags.includes(tag)) {
 			if (isactive) {
 				$(this).show();
 			}
