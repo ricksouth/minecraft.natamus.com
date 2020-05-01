@@ -1,7 +1,10 @@
 $(document).ready(function(e) {
-	$("#content").load("/content.html", function() {
-		loadContent();
-	});
+	loadContent();
+});
+
+$(window).on("load", function(e) {
+	$("#loadingwrapper").hide();
+	$("#content").fadeIn(200);
 });
 
 var gifs = [ "bamboo-spreads", "better-beacon-placement", "configurable-despawn-timer", "cycle-paintings", "hide-hands", "kelp-fertilizer", "replanting-crops" ];
