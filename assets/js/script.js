@@ -1,8 +1,8 @@
 var moddls = {};
-var gifs = [ "bamboo-spreads", "better-beacon-placement", "configurable-despawn-timer", "cycle-paintings", "hide-hands", "kelp-fertilizer", "replanting-crops" ];
+var gifs = [ ];
 
 $(document).ready(function(e) {
-	console.log("41");
+	console.log("43");
 	loadJsonData();
 });
 
@@ -22,7 +22,12 @@ function loadJsonData() {
 		headers: { "x-requested-with": "xhr" },
 		success: function(data){
 			for (var i = 0; i < data.length; i++) {
-				moddls[replaceAll(data[i]["name"].toLowerCase(), " ", "-")] = data[i]["downloadCount"];
+				var slug = replaceAll(data[i]["name"].toLowerCase(), " ", "-");
+
+				moddls[slug] = data[i]["downloadCount"];
+				if (data[i]["attachments"][0]["url"].includes(".gif")) {
+					gifs.push(slug);
+				}
 			}
 			console.log(moddls);
 			loadContent();
@@ -60,7 +65,7 @@ function loadContent() {
 
 					beforecontent = "";
 					if (slug in moddls) {
-						beforecontent = ' content: "\\f019   ' + moddls[slug] + '";';
+						beforecontent = ' content: "\\f019   ' + numberWithCommas(moddls[slug]) + '";';
 					}
 
 					style += 'div#mod' + i + ':before { background: url("/assets/images/icons/' + slug + '.' + filetype + '"); background-position: center center; background-size: cover;' + beforecontent + ' } div#mod' + i + ':after { content: "' + name + '"; }';
@@ -84,6 +89,11 @@ function loadContent() {
 	});
 }
 
+// Util functions
 function replaceAll(str, find, replace) { 
 	return str.replace(new RegExp(find, 'g'), replace);
+}
+
+function numberWithCommas(x) {
+	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
