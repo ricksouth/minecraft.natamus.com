@@ -1,8 +1,8 @@
-var moddata = {};
+var moddls = {};
 var gifs = [ "bamboo-spreads", "better-beacon-placement", "configurable-despawn-timer", "cycle-paintings", "hide-hands", "kelp-fertilizer", "replanting-crops" ];
 
 $(document).ready(function(e) {
-	console.log("32");
+	console.log("33");
 	loadJsonData();
 });
 
