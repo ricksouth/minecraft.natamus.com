@@ -1,4 +1,5 @@
 $(document).ready(function(e) {
+	console.log("1");
 	loadContent();
 });
 
