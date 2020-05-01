@@ -2,7 +2,7 @@ var moddls = {};
 var gifs = [ ];
 
 $(document).ready(function(e) {
-	console.log("47");
+	console.log("48");
 	loadJsonData();
 });
 
@@ -65,7 +65,7 @@ function loadContent() {
 
 					dlcontent = "";
 					if (slug in moddls) {
-						dlcontent = '\\f019   ' + numberWithCommas(moddls[slug]) + ' \\a ';
+						dlcontent = '\\f019   ' + numberWithCommas(moddls[slug]) + ' \\A ';
 					}
 					else {
 						dlcontent = '\\f019   1 \\a ';
