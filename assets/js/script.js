@@ -5,7 +5,7 @@ var modtags = {};
 var gifs = [];
 
 $(document).ready(function(e) {
-	console.log("84");
+	console.log("85");
 	loadJsonData();
 });
 
@@ -73,7 +73,10 @@ function loadContent() {
 		success: function(data){
 			// tags
 			var html = '<div class="activetags">';
-			for (var key in activetags) {
+
+			var sortedkeys = sortedKeys(activetags);
+			for (var i = 0; i < sortedkeys.length; i++) {
+				var key = sortedkeys[i];
 				var value = activetags[key];
 				html += '<img alt="' + key + '" src="' + value + '">';
 			}
@@ -136,7 +139,7 @@ function loadContent() {
 	});
 }
 
-$('.activetags').on('click', 'img', function(e){
+$(document).on('click', '.activetags img', function(e) {
 	console.log($(this));
 });
 
@@ -165,4 +168,16 @@ function formatNames(str, find, replace) {
 
 function numberWithCommas(x) {
 	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function sortedKeys(dct) {
+	var keys = [];
+
+	for(var key in dct) {
+		if(dct.hasOwnProperty(key)) {
+			keys.push(key);
+		}
+	}
+	keys.sort();
+	return keys;
 }
