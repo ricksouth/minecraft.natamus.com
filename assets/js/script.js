@@ -8,11 +8,10 @@ function loadContent() {
 	$.ajax({
 		url: "https://raw.githubusercontent.com/ricksouth/serilum-mc-mods/master/README.md",
 		success: function(data){
-			var i = 0;
-			data.split("\n").each(function(line) {
-				console.log(i + ": " + line);
-				i+=1;
-			});
+			var dataspl = data.split("\n");
+			for (var i = 0; i < dataspl.length; i++) {
+				console.log(i + ": " + dataspl[i]);
+			}
 		}
 	});
 }
