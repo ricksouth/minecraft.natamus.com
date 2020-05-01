@@ -179,6 +179,7 @@ footer p.footercontent {
 	border-radius: 2px;
 	z-index: 2;
 	backface-visibility: hidden;
+	paint-order: stroke fill;
 }
 .col .box:after {
 	content: "";
