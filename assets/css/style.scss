@@ -176,9 +176,15 @@ section#topwrapper {
 }
 
 /* Tags */
+.activetags {
+	position: absolute;
+}
 .activetags img {
 	width: 45px;
 	margin: 5px;
+}
+.activetags img:hover {
+	cursor: pointer;
 }
 
 /* Tiles */
@@ -187,9 +193,9 @@ section#topwrapper {
 	height: 100%;
 
 	margin-bottom: 200px;
-}.tiles 
+}
 
-.col {
+.tiles .col {
 	position: relative;
 	float: left;
 	margin: 6px;
