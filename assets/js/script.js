@@ -2,7 +2,7 @@ var moddls = {};
 var gifs = [ ];
 
 $(document).ready(function(e) {
-	console.log("69");
+	console.log("70");
 	loadJsonData();
 });
 
@@ -118,7 +118,7 @@ function replaceSecond(str, find, replace) {
 		if (i == 0) {
 			returnstr += strspl[i];
 		}
-		else if (i % 2) { // isOdd
+		else if (i % 2 && strspl[i-1].length < 10) { // isOdd
 			returnstr += find + strspl[i];
 		}
 		else {
