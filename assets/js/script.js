@@ -1,26 +1,26 @@
 var activetags = {};
 var neverclicked = true;
 
+var moddata = {};
 var moddls = {};
 var modtags = {};
 var gifs = [];
 
 $(document).ready(function(e) {
-	console.log("96");
 	loadJsonData();
 });
 
 function afterContent() {
 	$("#content .box").waitForImages(function(e) {
 		$("#loadingwrapper").hide();
+		
 		$("#content").fadeIn(200);
 	});
 }
 
 function loadJsonData() {
 	$.ajax({
-		//url: "https://cors-anywhere.herokuapp.com/https://addons-ecs.forgesvc.net/api/v2/addon/search?searchFilter=serilum&gameId=432",
-		url: "/assets/static/static.json",
+		url: "https://thingproxy.freeboard.io/fetch/https://addons-ecs.forgesvc.net/api/v2/addon/search?searchFilter=serilum&gameId=432",
 		type: "GET",
 		dataType: 'json',
 		headers: { "x-requested-with": "xhr" },
@@ -48,6 +48,7 @@ function loadJsonData() {
 					thistags.push(tagname);
 				}
 
+				moddata[slug] = data[i];
 				modtags[slug] = thistags;
 
 				totaldownloads += downloads;
@@ -129,7 +130,7 @@ function loadContent() {
 					}
 
 					style += 'div#mod' + i + ':before { background: url("/assets/images/icons/' + slug + '.' + filetype + '"); background-position: center center; background-size: cover; } div#mod' + i + ':after { content: "' + dlcontent + formatNames(name, " ", " \\A ") + '"; }';
-					html += '<div class="col mod"' + value + ' title="' + fullname + '"><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><div id="mod' + i + '" class="box"></div></div>';
+					html += '<div class="col mod"' + value + ' title="' + fullname + '"><a href="#" value="' + url + '"></a><a href="#" value="' + url + '"></a><a href="#" value="' + url + '"></a><a href="#" value="' + url + '"></a><div id="mod' + i + '" class="box"></div></div>';
 					totalmods += 1;
 				}
 				else if (line.includes("Discontinued")) {
@@ -294,6 +295,137 @@ $(document).on('input', '#searchinput', function(e) {
 	processTags(null, null);
 });
 
+$(document).on('click', '.tiles .col.mod', function(e) {
+	var url = $(this).children("a").attr('value');
+	var slug = url.split("/mc-mods/")[1];
+
+	loadSingular(slug);
+});
+
+/* SINGULAR */
+var skipversions = ["1.13"];
+var otherfilehtml = '<div class="version" value="other"><p>Other Files</p><p>On CurseForge</p><img class="dlicon" src="/assets/images/external.png"></div>';
+function loadSingular(slug) {
+	$("#content").hide();
+	$(".belowtw").hide();
+	$("#loadingwrapper").fadeIn(200);
+
+	$("#sngldescription").html("");
+
+	var data = moddata[slug];
+
+	var name = data["name"];
+	var categories = modtags[slug];
+	var datecreated = data["dateCreated"];
+	var datemodified = data["dateModified"];
+
+	$("#sngltitle").html(name);
+	$("#sngltitle").attr('value', slug);
+	$("#snglimage").attr('src', '/assets/images/icons/' + slug + getImageType(slug));
+
+	$("#sngltags .val").html(categories.join(", "));
+	$("#snglcreated .val").html(formatDate(datecreated));
+	$("#snglmodified .val").html(formatDate(datemodified));
+
+	var doneversions = [];
+	var filehtml = "";
+	var latestfiles = data["gameVersionLatestFiles"];
+	for (var key in latestfiles) {
+		var filedata = latestfiles[key];
+
+		var gameversion = filedata["gameVersion"].slice(0, -2);
+		if (doneversions.includes(gameversion) || skipversions.includes(gameversion)) {
+			continue;
+		}
+		doneversions.push(gameversion);
+
+		var fileid = filedata["projectFileId"];
+		var filename = filedata["projectFileName"];
+		
+		filehtml += '<div class="version" value="' + fileid + '">';
+		filehtml += '<p>Minecraft ' + gameversion + '</p>';
+		filehtml += '<p class="filename">' + filename + '</p>';
+		filehtml += '<img class="dlicon" src="/assets/images/download.png"></div>';
+	}
+	filehtml += otherfilehtml;
+	$("#versionwrapper").html(filehtml);
+
+	var modid = data["id"];
+	setDescription(modid);
+}
+
+function setDescription(id) {
+	$.ajax({
+		type: "GET",
+		url: "https://thingproxy.freeboard.io/fetch/https://addons-ecs.forgesvc.net/api/v2/addon/" + id + "/description",
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded'
+		},
+		success: function(data) {
+			$("#sngldescription").html(data);
+
+			$("#loadingwrapper").hide();
+			$("#singular").fadeIn(200);
+			$(document).scrollTop(0);
+		},
+		error: function(data) {}
+	});	
+}
+
+$(document).on('click', '#singular .version', function(e) {
+	var fileid = $(this).attr('value');
+	var slug = $("#sngltitle").attr('value');
+
+	var url;
+	if (fileid != "other") {
+		url = 'https://curseforge.com/minecraft/mc-mods/' + slug + '/download/' + fileid;
+	}
+	else {
+		url = 'https://curseforge.com/minecraft/mc-mods/' + slug + '/files';
+	}
+
+	window.open(url, '_blank');
+});
+
+$(document).on('click', '#singular .navigation p', function(e) {
+	var side = $(this).attr('class');
+	if (side == "middle") {
+		$("#singular").hide();
+
+		$("#content").fadeIn(200);
+		$(".belowtw").fadeIn(200);
+	}
+	else {
+		var slug = $("#sngltitle").attr('value');
+		var keys = sortedKeys(modtags);
+		for (var i = 0; i < keys.length; i++) {
+			if (keys[i] == slug) {
+				break;
+			}
+		}
+
+		console.log("III", i);
+		var slugi = i;
+		if (side == "left") {
+			slugi -= 1;
+			if (slugi < 0) {
+				slugi = keys.length-1;
+			}
+		}
+		else {
+			slugi += 1;
+			if (slugi >= keys.length) {
+				slugi = 0;
+			}
+		}
+
+		loadSingular(keys[slugi]);
+	}
+
+	$(document).scrollTop(0);
+});
+
+
 // Util functions
 function replaceAll(str, find, replace) { 
 	return str.replace(new RegExp(find, 'g'), replace);
@@ -331,4 +463,17 @@ function sortedKeys(dct) {
 	}
 	keys.sort();
 	return keys;
+}
+
+function getImageType(slug) {
+	if (gifs.includes(slug)) {
+		return ".gif";
+	}
+	return ".png";
+}
+
+// 2019-09-21T10:48:44.38Z
+function formatDate(date) {
+	var datespl = date.split("T")
+	return replaceAll(datespl[0], "-", "/") + ", " + datespl[1].split(".")[0];
 }

@@ -482,3 +482,98 @@ section#topwrapper {
 	font-size: 14px;
 	color: black;
 }
+
+
+/* SINGULAR */
+section#singular {
+	position: absolute;
+	width: 90%;
+	top: 400px;
+	left: 5%;
+
+	border: 1px solid black;
+}
+
+.singular #snglimage {
+	width: 500px;
+}
+
+.singular .navigation {
+	position: relative;
+	height: 60px;
+
+	font-size: 22px;
+}
+.singular .navigation p:hover {
+	cursor: pointer;
+	color: black;
+}
+.singular .navigation .left {
+	position: absolute;
+	z-index: 1;
+	left: 0;
+}
+.singular .navigation .middle {
+	position: absolute;
+	width: 100%;
+	text-align: center;
+}
+.singular .navigation .right {
+	position: absolute;
+	z-index: 1;
+	right: 0;
+}
+
+.singular .modinfo {
+	float: left;
+}
+.singular .modinfo .subinfo p {
+	margin: 0;
+}
+
+.singular .moddownloads {
+	float: right;
+
+	margin: 50px 0px 20px 0px;
+	padding: 30px;
+
+	border-top: 1px solid black;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+}
+.singular .moddownloads p {
+	margin: 0;
+}
+
+.singular .moddownloads .version {
+	margin-top: 20px;
+	margin-right: -30px;
+	padding: 10px 0px 10px 10px;
+
+	border: 1px solid grey;
+}
+.singular .moddownloads .version:hover {
+	cursor: pointer;
+}
+.singular .moddownloads .version p:first-child {
+	font-weight: bolder;
+}
+.singular .moddownloads .version p.filename {
+	margin-right: 60px;
+}
+.singular .moddownloads .dlicon {
+	position: absolute;
+	z-index: 6;
+
+	margin-top: -38px;
+	right: 10px;
+
+	width: 40px;
+}
+
+.singular #sngldescription {
+	display: inline-block;
+	width: 100%;
+
+	margin-top: 25px;
+}
