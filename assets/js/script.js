@@ -20,8 +20,8 @@ function afterContent() {
 
 function loadJsonData() {
 	$.ajax({
-		//url: "https://thingproxy.freeboard.io/fetch/https://addons-ecs.forgesvc.net/api/v2/addon/search?searchFilter=serilum&gameId=432",
-		url: "/assets/static/static.json",
+		url: "http://cors.ntmsdata.com:8080/https://addons-ecs.forgesvc.net/api/v2/addon/search?searchFilter=serilum&gameId=432",
+		//url: "/assets/static/static.json",
 		type: "GET",
 		dataType: 'json',
 		success: function(data){
@@ -357,7 +357,7 @@ function loadSingular(slug) {
 function setDescription(id) {
 	$.ajax({
 		type: "GET",
-		url: "https://thingproxy.freeboard.io/fetch/https://addons-ecs.forgesvc.net/api/v2/addon/" + id + "/description",
+		url: "http://cors.ntmsdata.com:8080/https://addons-ecs.forgesvc.net/api/v2/addon/" + id + "/description",
 		success: function(data) {
 			$("#sngldescription").html(data);
 
