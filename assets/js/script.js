@@ -6,7 +6,7 @@ var modtags = {};
 var gifs = [];
 
 $(document).ready(function(e) {
-	console.log("97");
+	console.log("96");
 	loadJsonData();
 });
 
