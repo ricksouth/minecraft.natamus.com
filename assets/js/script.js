@@ -23,7 +23,6 @@ function loadJsonData() {
 		url: "https://thingproxy.freeboard.io/fetch/https://addons-ecs.forgesvc.net/api/v2/addon/search?searchFilter=serilum&gameId=432",
 		type: "GET",
 		dataType: 'json',
-		headers: { "x-requested-with": "xhr" },
 		success: function(data){
 			var totaldownloads = 0;
 
@@ -358,9 +357,6 @@ function setDescription(id) {
 	$.ajax({
 		type: "GET",
 		url: "https://thingproxy.freeboard.io/fetch/https://addons-ecs.forgesvc.net/api/v2/addon/" + id + "/description",
-		headers: {
-			'Content-Type': 'application/x-www-form-urlencoded'
-		},
 		success: function(data) {
 			$("#sngldescription").html(data);
 
