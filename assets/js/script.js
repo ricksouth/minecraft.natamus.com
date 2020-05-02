@@ -6,7 +6,7 @@ var modtags = {};
 var gifs = [];
 
 $(document).ready(function(e) {
-	console.log("96");
+	console.log("97");
 	loadJsonData();
 });
 
@@ -20,12 +20,11 @@ function afterContent() {
 function loadJsonData() {
 	$.ajax({
 		url: "https://cors-anywhere.herokuapp.com/https://addons-ecs.forgesvc.net/api/v2/addon/search?searchFilter=serilum&gameId=432",
-		//url: "https://minecraft.natamus.com/assets/static/static.json",
+		//url: "/assets/static/static.json",
 		type: "GET",
 		dataType: 'json',
 		headers: { "x-requested-with": "xhr" },
 		success: function(data){
-			var totalmods = 0;
 			var totaldownloads = 0;
 
 			for (var i = 0; i < data.length; i++) {
@@ -51,29 +50,32 @@ function loadJsonData() {
 
 				modtags[slug] = thistags;
 
-				totalmods += 1;
 				totaldownloads += downloads;
 			}
 			
-			$("#totalmods").html(numberWithCommas(totalmods));
 			$("#totaldownloads").html(numberWithCommas(totaldownloads));
 
 			loadContent();
 		},
-		error: function(data) {
-			console.log("NOPE!");
-		}
+		error: function(data) { }
 	});
 }
 
 function loadContent() {
-	console.log(activetags);
-
 	$.ajax({
 		url: "https://raw.githubusercontent.com/ricksouth/serilum-mc-mods/master/README.md",
 		success: function(data){
+			var totalmods = 0;
+
 			// tags
-			var html = '<p>Tags currently selected: <span id="selectedtags">All</span>.<br><div class="activetags">';
+			var html = '<div class="abovetagswrapper">'
+				+ '<p><span class="title">Category tag selector and search:</span>'
+				+ '<span class="buttons"><button id="allbutton">Select All</button>'
+				+ '<button id="nonebutton">Select None</button>'
+				+ '<input id="searchinput" type="text" placeholder="Search"></span></p>'
+				+ '<div class="stwrapper"><p>Showing mods <span id="searchtext"></span>with tags: <span id="selectedtags" class="italic">All</span>.</p></div>'
+				+ '</div>'
+				+ '<div class="activetags">';
 
 			var sortedkeys = sortedKeys(activetags);
 			for (var i = 0; i < sortedkeys.length; i++) {
@@ -97,6 +99,7 @@ function loadContent() {
 					}
 
 					var name = linespl[0].replace("[", "");
+					var fullname = name;
 					if (name.includes("(")) {
 						name = name.replace(/ *\([^)]*\) */g, " ");
 					}
@@ -119,14 +122,15 @@ function loadContent() {
 
 					var value = 'value=""';
 					if (slug in modtags) {
-						value = 'value="' + modtags[slug].join(",") + '"';
+						value = 'value="' + modtags[slug].join(";") + '"';
 					}
 					else if (slug == "sam-library") { // temp until api updates
 						value = 'value="API and Library"';
 					}
 
 					style += 'div#mod' + i + ':before { background: url("/assets/images/icons/' + slug + '.' + filetype + '"); background-position: center center; background-size: cover; } div#mod' + i + ':after { content: "' + dlcontent + formatNames(name, " ", " \\A ") + '"; }';
-					html += '<div class="col mod"' + value + '><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><div id="mod' + i + '" class="box"></div></div>';
+					html += '<div class="col mod"' + value + ' title="' + fullname + '"><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><a href="' + url + '"></a><div id="mod' + i + '" class="box"></div></div>';
+					totalmods += 1;
 				}
 				else if (line.includes("Discontinued")) {
 					break;
@@ -136,8 +140,11 @@ function loadContent() {
 			style += '</style>';
 			html += '<div class="spacer"></div></div>';
 
+			$("#totalmods").html(numberWithCommas(totalmods));
 			$("#inlinestyle").html(style);
 			$("#content").html(html);
+
+
 			afterContent();
 		}
 	});
@@ -174,10 +181,31 @@ $(document).on('click', '.activetags img', function(e) {
 		});
 	}
 
+	processTags(actives, inactives);
+});
+
+function processTags(actives, inactives) {
+	if (actives == null || inactives == null) {
+		actives = [];
+		inactives = [];
+		$(".activetags img").each(function() {
+			var ttag = $(this).attr('alt');
+			if ($(this).hasClass("inactive")) {
+				inactives.push(ttag);
+			}
+			else {
+				actives.push(ttag);
+			}
+		});
+	}
+
+	var search = $("#searchinput").val().toLowerCase();
+	console.log(search, actives, inactives);
+
 	$(".col.mod").each(function() {
 		var foundtag = false;
 
-		var mtagspl = $(this).attr('value').split(",");
+		var mtagspl = $(this).attr('value').split(";");
 		for (var i = 0; i < mtagspl.length; i++) {
 			var mtag = mtagspl[i];
 			if (actives.includes(mtag)) {
@@ -187,6 +215,14 @@ $(document).on('click', '.activetags img', function(e) {
 		}
 
 		if (foundtag) {
+			if (search != "") {
+				var title = $(this).attr('title');
+				if (!title.toLowerCase().includes(search)) {
+					$(this).hide();
+					return true;
+				}
+			}
+
 			$(this).show();
 		}
 		else {
@@ -198,11 +234,64 @@ $(document).on('click', '.activetags img', function(e) {
 	if (actives.length == 0) {
 		ststring = "None";
 	}
-	else {
+	else if ($(".activetags img.inactive").length != 0) {
 		ststring = actives.join(", ");
 	}
 
 	$("#selectedtags").html(ststring);
+}
+
+$(document).on('click', '.abovetagswrapper button', function(e) {
+	if (neverclicked) {
+		neverclicked = false;
+	}
+
+	var id = $(this).attr('id');
+
+	var alltags = [];
+	$(".activetags img").each(function() {
+		var ttag = $(this).attr('alt');
+		alltags.push(ttag);
+
+		if (id.includes("all")) {
+			$(this).removeClass("inactive");
+		}
+		else {
+			$(this).addClass("inactive");
+		}
+	});
+
+	if (id.includes("all")) {
+		processTags(alltags, []);
+	}
+	else {
+		processTags([], alltags);
+	}
+});
+
+$(document).on({
+	mouseenter: function () {
+		var tag = $(this).attr('alt');
+		var pos = $(this).offset();
+
+		$("#tooltip").html(tag);
+		$(".tooltipwrapper").css( { left: (pos.left + $(this).width() + 10), top: pos.top } ).show();
+	},
+	mouseleave: function () {
+		$(".tooltipwrapper").hide();
+	}
+}, ".activetags img");
+
+$(document).on('input', '#searchinput', function(e) {
+	var val = $(this).val();
+	if (val == "") {
+		$("#searchtext").html("");
+	}
+	else {
+		$("#searchtext").html('with search: <span class="italic">' + val + '</span> and ');
+	}
+
+	processTags(null, null);
 });
 
 // Util functions

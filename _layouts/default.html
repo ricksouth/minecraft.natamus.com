@@ -18,17 +18,13 @@
 			<section id="topwrapper">
 				<div class="insidetw">
 					<h1 class="centered">Serilum's CurseForge Mods for Minecraft</h1>
-					<p class="centered">The collection currently consists of <span id="totalmods">...</span> mods, for a total of <span id="totaldownloads">...</span>* downloads.</p>
+					<p class="centered">The active mod collection consists of <span id="totalmods">...</span> mods, for a total of <span id="totaldownloads">...</span>* downloads.</p>
 					<p class="small centered">* Download counts are dependent on the Forge API and are not entirely up-to-date.</p>
 				</div>
 			</section>
 
-			<section id="buttons">
-				<button id="allbutton">Select All</button>
-				<button id="nonebutton">Select None</button>
-			</section>
-			<section id="inlinestyle"></section>
 			<section id="content" hidden></section>
+
 			<section id="loadingwrapper">
 				<div id="load" class="loading">
 					<div class="spinner">
@@ -38,12 +34,18 @@
 					</div>
 				</div>
 			</section>
+
 			<footer>
 				<p class="footercontent">
 					<small>Created by <a href="https://south.fyi/" target=_blank>Rick South</a>.<br>
 					<small>Hosted on <a href="https://pages.github.com/" target=_blank>GitHub Pages</a>, <a href="https://github.com/ricksouth/minecraft.natamus.com/" target=_blank>source</a>.
 				</p>
 			</footer>
+
+			<div class="tooltipwrapper" hidden>
+				<p id="tooltip" class="tooltip">API And Library</p>
+			</div>
+			<section id="inlinestyle"></section>
 		</div>
 		<script src="{{ "/assets/js/scale.fix.js" | relative_url }}"></script>
 	</body>
