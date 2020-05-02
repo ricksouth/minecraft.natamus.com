@@ -20,7 +20,8 @@ function afterContent() {
 
 function loadJsonData() {
 	$.ajax({
-		url: "https://thingproxy.freeboard.io/fetch/https://addons-ecs.forgesvc.net/api/v2/addon/search?searchFilter=serilum&gameId=432",
+		//url: "https://thingproxy.freeboard.io/fetch/https://addons-ecs.forgesvc.net/api/v2/addon/search?searchFilter=serilum&gameId=432",
+		url: "/assets/static/static.json",
 		type: "GET",
 		dataType: 'json',
 		success: function(data){
