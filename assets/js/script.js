@@ -7,6 +7,7 @@ var modtags = {};
 var gifs = [];
 
 $(document).ready(function(e) {
+	console.log(1);
 	loadJsonData();
 });
 
@@ -21,7 +22,6 @@ function afterContent() {
 function loadJsonData() {
 	$.ajax({
 		url: "https://cors.ntmsdata.com:8080/https://addons-ecs.forgesvc.net/api/v2/addon/search?searchFilter=serilum&gameId=432",
-		//url: "/assets/static/static.json",
 		type: "GET",
 		dataType: 'json',
 		success: function(data){
