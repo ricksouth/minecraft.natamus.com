@@ -16,7 +16,7 @@ def main():
 	time = now.strftime('%Y%m%d%H%M%S')
 	lastmod = now.strftime('%Y-%m-%d')
 
-	with open(os.path.join(localpath,"sitemap.xml_" + time), 'w') as smfile:
+	with open(os.path.join(localpath, "sitemap.xml_" + time), 'w') as smfile:
 		smfile.write('<?xml version="1.0" encoding="UTF-8"?>' + "\n")
 		smfile.write('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">' + "\n")
 
