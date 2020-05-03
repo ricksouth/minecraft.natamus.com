@@ -105,7 +105,7 @@ function loadContent() {
 
 			// tags
 			var html = '<div class="abovetagswrapper">'
-				+ '<p><span class="title">Category tag selector and search:</span>'
+				+ '<p><span class="title">Category tag selector and search:</span><br>'
 				+ '<span class="buttons"><button id="allbutton">Select All</button>'
 				+ '<button id="nonebutton">Select None</button>'
 				+ '<input id="searchinput" type="text" placeholder="Search"></span></p>'
