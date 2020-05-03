@@ -33,7 +33,7 @@ def main():
 				slug = line.split("/mc-mods/")[1].split(")")[0]
 
 				smfile.write('	<url>' + "\n")
-				smfile.write('		<loc>https://minecraft.natamus.com/' + slug + '</loc>' + "\n")
+				smfile.write('		<loc>https://minecraft.natamus.com/' + slug + '/</loc>' + "\n")
 				smfile.write('		<lastmod>' + lastmod + '</lastmod>' + "\n")
 				smfile.write('		<changefreq>weekly</changefreq>' + "\n")
 				smfile.write('		<priority>0.80</priority>' + "\n")
