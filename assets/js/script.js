@@ -1,4 +1,5 @@
 var activetags = {};
+var activemods = [];
 var neverclicked = true;
 
 var moddata = {};
@@ -7,15 +8,22 @@ var modtags = {};
 var gifs = [];
 
 $(document).ready(function(e) {
-	console.log(1);
 	loadJsonData();
 });
 
 function afterContent() {
-	$("#content .box").waitForImages(function(e) {
+	$("#content").waitForImages(function(e) {
 		$("#loadingwrapper").hide();
 		
-		$("#content").fadeIn(200);
+		var pathname = window.location.pathname;
+		var pathslug = replaceAll(pathname, "/", "");
+		if (activemods.includes(pathslug)) {
+			loadSingular(pathslug);
+		}
+		else {
+			changeUrl("", "Serilum's CurseForge Mods");
+			$("#content").fadeIn(200);
+		}
 	});
 }
 
@@ -131,7 +139,9 @@ function loadContent() {
 
 					style += 'div#mod' + i + ':before { background: url("/assets/images/icons/' + slug + '.' + filetype + '"); background-position: center center; background-size: cover; } div#mod' + i + ':after { content: "' + dlcontent + formatNames(name, " ", " \\A ") + '"; }';
 					html += '<div class="col mod"' + value + ' title="' + fullname + '"><a href="#" value="' + url + '"></a><a href="#" value="' + url + '"></a><a href="#" value="' + url + '"></a><a href="#" value="' + url + '"></a><div id="mod' + i + '" class="box"></div></div>';
+					
 					totalmods += 1;
+					activemods.push(slug);
 				}
 				else if (line.includes("Discontinued")) {
 					break;
@@ -315,6 +325,8 @@ function loadSingular(slug) {
 	var data = moddata[slug];
 
 	var name = data["name"];
+	changeUrl(slug + "/", "Minecraft Mod | " + name);
+
 	var categories = modtags[slug];
 	var datecreated = data["dateCreated"];
 	var datemodified = data["dateModified"];
@@ -363,7 +375,6 @@ function setDescription(id) {
 
 			$("#loadingwrapper").hide();
 			$("#singular").fadeIn(200);
-			$(document).scrollTop(0);
 		},
 		error: function(data) {}
 	});	
@@ -381,7 +392,7 @@ $(document).on('click', '#singular .version', function(e) {
 		url = 'https://curseforge.com/minecraft/mc-mods/' + slug + '/files';
 	}
 
-	window.open(url, '_blank');
+	window.open(url);
 });
 
 $(document).on('click', '#singular .navigation p', function(e) {
@@ -394,9 +405,8 @@ $(document).on('click', '#singular .navigation p', function(e) {
 	}
 	else {
 		var slug = $("#sngltitle").attr('value');
-		var keys = sortedKeys(modtags);
-		for (var i = 0; i < keys.length; i++) {
-			if (keys[i] == slug) {
+		for (var i = 0; i < activemods.length; i++) {
+			if (activemods[i] == slug) {
 				break;
 			}
 		}
@@ -406,17 +416,17 @@ $(document).on('click', '#singular .navigation p', function(e) {
 		if (side == "left") {
 			slugi -= 1;
 			if (slugi < 0) {
-				slugi = keys.length-1;
+				slugi = activemods.length-1;
 			}
 		}
 		else {
 			slugi += 1;
-			if (slugi >= keys.length) {
+			if (slugi >= activemods.length) {
 				slugi = 0;
 			}
 		}
 
-		loadSingular(keys[slugi]);
+		loadSingular(activemods[slugi]);
 	}
 
 	$(document).scrollTop(0);
@@ -473,4 +483,10 @@ function getImageType(slug) {
 function formatDate(date) {
 	var datespl = date.split("T")
 	return replaceAll(datespl[0], "-", "/") + ", " + datespl[1].split(".")[0];
+}
+
+function changeUrl(url, title) {
+	var new_url = '/' + url;
+	window.history.pushState('data', 'Title', new_url);
+	document.title = title;
 }
