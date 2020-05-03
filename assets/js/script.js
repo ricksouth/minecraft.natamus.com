@@ -392,7 +392,7 @@ $(document).on('click', '#singular .version', function(e) {
 		url = 'https://curseforge.com/minecraft/mc-mods/' + slug + '/files';
 	}
 
-	window.open(url);
+	$.fileDownload(url, {});
 });
 
 $(document).on('click', '#singular .navigation p', function(e) {
