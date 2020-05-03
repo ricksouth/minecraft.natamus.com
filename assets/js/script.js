@@ -8,10 +8,15 @@ var modtags = {};
 var gifs = [];
 
 $(document).ready(function(e) {
+	responsiveResize();
 	loadJsonData();
 });
 
 $(window).on('resize', function(){
+	responsiveResize();
+});
+
+function responsiveResize() {
 	var width = $(window).width();
 	var len = $(".navigation .left").html().length;
 
@@ -29,7 +34,7 @@ $(window).on('resize', function(){
 			$(".navigation .right").html("Next mod →");
 		}
 	}
-});
+}
 
 function afterContent() {
 	$("#content").waitForImages(function(e) {
