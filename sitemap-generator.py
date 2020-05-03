@@ -1,8 +1,13 @@
+# -*- coding: utf-8 -*-
+#!/usr/bin/env python
 from datetime 							import datetime
 import urllib.request
 import pathlib
 import os
 
+# Made for https://github.com/ricksouth/minecraft.natamus.com/
+# to create a sitemap for https://minecraft.natamus.com/
+# by Rick South.
 def main():
 	localpath = str(pathlib.Path(__file__).parent)
 	url = "https://raw.githubusercontent.com/ricksouth/serilum-mc-mods/master/README.md"
