@@ -41,8 +41,10 @@ function afterContent() {
 			loadSingular(pathslug);
 		}
 		else {
-			changeUrl("", "Serilum's CurseForge Mods");
+			$(".belowtw").fadeIn(200);
 			$("#content").fadeIn(200);
+
+			changeUrl("", "Serilum's CurseForge Mods");
 		}
 	});
 }
@@ -415,12 +417,12 @@ $(document).on('click', '#singular .version', function(e) {
 	var url;
 	if (fileid != "other") {
 		url = 'https://curseforge.com/minecraft/mc-mods/' + slug + '/download/' + fileid;
+		downloadFile(url, filename);
 	}
 	else {
 		url = 'https://curseforge.com/minecraft/mc-mods/' + slug + '/files';
+		openInNewTab(url);
 	}
-
-	downloadFile(url, filename);
 });
 
 $(document).on('click', '#singular .navigation p', function(e) {
@@ -430,6 +432,8 @@ $(document).on('click', '#singular .navigation p', function(e) {
 
 		$("#content").fadeIn(200);
 		$(".belowtw").fadeIn(200);
+
+		changeUrl("", "Serilum's CurseForge Mods");
 	}
 	else {
 		var slug = $("#sngltitle").attr('value');
@@ -518,6 +522,11 @@ function changeUrl(url, title) {
 	var new_url = '/' + url;
 	window.history.pushState('data', 'Title', new_url);
 	document.title = title;
+}
+
+function openInNewTab(url) {
+	var win = window.open(url, '_blank');
+	win.focus();
 }
 
 function downloadFile(data, fileName, type="application/java-archive") {
