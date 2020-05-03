@@ -408,7 +408,7 @@ function setDescription(id) {
 				return;
 			}
 
-			$("#sngldescription").html(data);
+			$("#sngldescription").html(data.replace('"40">', '"40"><br>'));
 
 			$("#loadingwrapper").hide();
 			$("#singular").fadeIn(200);
