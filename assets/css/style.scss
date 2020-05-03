@@ -588,5 +588,7 @@ section#singular {
 }
 
 .singular #sngldescription img {
-	height: 100%;
+	display: block;
+	width: auto;
+	height: auto;
 }
