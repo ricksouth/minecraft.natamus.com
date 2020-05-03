@@ -1,1 +1,1 @@
-http://minecraft.natamus.com/
+https://minecraft.natamus.com/
