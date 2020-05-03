@@ -341,6 +341,15 @@ $(document).on('click', '.tiles a', function(e) {
 	e.preventDefault();
 });
 
+$(document).on('click', '#singular a', function(e) {
+	var url = $(this).attr('href');
+	var target = $(this).attr('target');
+
+	if (target == "_blank" && !url.includes("https")) {
+		$(this).removeAttr('target');
+	}
+});
+
 /* SINGULAR */
 var skipversions = ["1.13"];
 var otherfilehtml = '<div class="version" value="other"><p>Other Files</p><p>On CurseForge</p><img class="dlicon" src="/assets/images/external.png"></div>';
@@ -408,7 +417,16 @@ function setDescription(id) {
 				return;
 			}
 
-			$("#sngldescription").html(data.replace('"40">', '"40"><br>'));
+			// Adds a newline after the external links image
+			var description = data.replace('"40">', '"40"><br>');
+			// replaces curseforge links with local page urls.
+			description = replaceAll(description, "https://www.curseforge.com/minecraft/mc-mods/", "/");
+			description = replaceAll(description, "https://curseforge.com/minecraft/mc-mods/", "/");
+			// remove linkout? prefix
+			description = replaceAll(description, "/linkout\\?remoteUrl=https%253a%252f%252fnatam.us%252fsupport", "https://natam.us/support");
+			description = replaceAll(description, 'rel="nofollow"', "target=_blank");
+
+			$("#sngldescription").html(description);
 
 			$("#loadingwrapper").hide();
 			$("#singular").fadeIn(200);
