@@ -20,7 +20,7 @@ function responsiveResize() {
 	var width = $(window).width();
 	var len = $(".navigation .left").html().length;
 
-	if (width <= 700) {
+	if (width < 810-15) {
 		if (len > 10) {
 			$(".navigation .left").html("←←");
 			$(".navigation .middle").html("↑↑");
@@ -351,7 +351,7 @@ $(document).on('click', '#singular a', function(e) {
 });
 
 /* SINGULAR */
-var skipversions = ["1.13"];
+var skipversions = ["1.11", "1.13"];
 var otherfilehtml = '<div class="version" value="other"><p>Other Files</p><p>On CurseForge</p><img class="dlicon" src="/assets/images/external.png"></div>';
 function loadSingular(slug) {
 	$("#content").hide();
@@ -399,6 +399,7 @@ function loadSingular(slug) {
 	}
 	filehtml += otherfilehtml;
 	$("#versionwrapper").html(filehtml);
+	$("#dlcount").html(numberWithCommas(data["downloadCount"]));
 
 	var modid = data["id"];
 	setDescription(modid);
@@ -413,6 +414,8 @@ function setDescription(id) {
 		type: "GET",
 		url: corsprefix + "https://addons-ecs.forgesvc.net/api/v2/addon/" + id + "/description",
 		success: function(data) {
+			clearTimeout(window.setd);
+
 			if (num != randomized) {
 				return;
 			}
@@ -432,7 +435,12 @@ function setDescription(id) {
 			$("#singular").fadeIn(200);
 		},
 		error: function(data) {}
-	});	
+	});
+
+	// forces re-load when connection takes too long.
+	window.setd = setTimeout(function(){ 
+		setDescription(id);
+	}, 500);
 }
 
 $(document).on('click', '#singular .version', function(e) {
@@ -490,6 +498,19 @@ $(document).on('click', '#singular .navigation p', function(e) {
 	$(document).scrollTop(0);
 });
 
+var ak = { "left" : 37, "right" : 39};
+$(document).keydown(function(e) { 
+	var which = e.which;
+
+	if ($("#singular").is(":visible")) {
+		if (which == ak["left"]) {
+			$(".navigation .left").click();
+		}
+		else if (which == ak["right"]) {
+			$(".navigation .right").click();
+		}
+	}
+});
 
 // Util functions
 var corsprefix = "https://cors.ntmsdata.com:8080/";

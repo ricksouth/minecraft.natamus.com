@@ -89,7 +89,7 @@ footer p.footercontent {
 	.tiles {
 		margin-top: 185px;
 	}
-	.activetags, .abovetagswrapper, .belowtw {
+	.activetags, .abovetagswrapper, .belowtw, .singular {
 		width: 90%;
 		left: 5%;
 	}
@@ -109,7 +109,7 @@ footer p.footercontent {
 	.tiles {
 		margin-top: 185px;
 	}
-	.tiles,	.activetags, .abovetagswrapper, .belowtw {
+	.tiles,	.activetags, .abovetagswrapper, .belowtw, .singular {
 		width: 524px;
 		left: calc(50% - 262px);
 	}
@@ -122,7 +122,7 @@ footer p.footercontent {
 	.tiles {
 		margin-top: 125px;
 	}
-	.tiles,	.activetags, .abovetagswrapper, .belowtw {
+	.tiles,	.activetags, .abovetagswrapper, .belowtw, .singular {
 		width: 786px;
 		left: calc(50% - 393px);
 	}
@@ -135,7 +135,7 @@ footer p.footercontent {
 	.tiles {
 		margin-top: 125px;
 	}
-	.tiles,	.activetags, .abovetagswrapper, .belowtw {
+	.tiles,	.activetags, .abovetagswrapper, .belowtw, .singular {
 		width: 1048px;
 		left: calc(50% - 524px);
 	}
@@ -148,7 +148,7 @@ footer p.footercontent {
 	.tiles {
 		margin-top: 65px;
 	}
-	.tiles,	.activetags, .abovetagswrapper, .belowtw {
+	.tiles,	.activetags, .abovetagswrapper, .belowtw, .singular {
 		width: 1310px;
 		left: calc(50% - 655px);
 	}
@@ -166,7 +166,7 @@ footer p.footercontent {
 	.tiles {
 		margin-top: 65px;
 	}
-	.tiles,	.activetags, .abovetagswrapper, .belowtw {
+	.tiles,	.activetags, .abovetagswrapper, .belowtw, .singular {
 		width: 1572px;
 		left: calc(50% - 786px);
 	}
@@ -496,9 +496,7 @@ section#topwrapper {
 /* SINGULAR */
 section#singular {
 	position: absolute;
-	width: 90%;
 	top: 400px;
-	left: 5%;
 
 	border: 1px solid black;
 }
@@ -550,8 +548,15 @@ section#singular {
 	border-left: 1px solid black;
 	border-bottom: 1px solid black;
 }
+.singular .moddownloads h1,
 .singular .moddownloads p {
 	margin: 0;
+}
+
+.singular .moddownloads .versiondl {
+	font-style: italic;
+	padding-left: 5px;
+	margin-bottom: -5px;
 }
 
 .singular .moddownloads .version {
