@@ -11,6 +11,26 @@ $(document).ready(function(e) {
 	loadJsonData();
 });
 
+$(window).on('resize', function(){
+	var width = $(window).width();
+	var len = $(".navigation .left").html().length;
+
+	if (width <= 700) {
+		if (len > 10) {
+			$(".navigation .left").html("←←");
+			$(".navigation .middle").html("↑↑");
+			$(".navigation .right").html("→→");
+		}
+	}
+	else {
+		if (len < 10) {
+			$(".navigation .left").html("← Previous mod");
+			$(".navigation .middle").html("↑ Back to overview ↑");
+			$(".navigation .right").html("Next mod →");
+		}
+	}
+});
+
 function afterContent() {
 	$("#content").waitForImages(function(e) {
 		$("#loadingwrapper").hide();
@@ -29,7 +49,7 @@ function afterContent() {
 
 function loadJsonData() {
 	$.ajax({
-		url: "https://cors.ntmsdata.com:8080/https://addons-ecs.forgesvc.net/api/v2/addon/search?searchFilter=serilum&gameId=432",
+		url: corsprefix + "https://addons-ecs.forgesvc.net/api/v2/addon/search?searchFilter=serilum&gameId=432",
 		type: "GET",
 		dataType: 'json',
 		success: function(data){
@@ -211,8 +231,6 @@ function processTags(actives, inactives) {
 	}
 
 	var search = $("#searchinput").val().toLowerCase();
-	console.log(search, actives, inactives);
-
 	$(".col.mod").each(function() {
 		var foundtag = false;
 
@@ -366,11 +384,19 @@ function loadSingular(slug) {
 	setDescription(modid);
 }
 
+var randomized = 0;
 function setDescription(id) {
+	var num = Math.floor((Math.random() * 100000) + 1);
+	randomized = num;
+
 	$.ajax({
 		type: "GET",
-		url: "https://cors.ntmsdata.com:8080/https://addons-ecs.forgesvc.net/api/v2/addon/" + id + "/description",
+		url: corsprefix + "https://addons-ecs.forgesvc.net/api/v2/addon/" + id + "/description",
 		success: function(data) {
+			if (num != randomized) {
+				return;
+			}
+
 			$("#sngldescription").html(data);
 
 			$("#loadingwrapper").hide();
@@ -382,6 +408,8 @@ function setDescription(id) {
 
 $(document).on('click', '#singular .version', function(e) {
 	var fileid = $(this).attr('value');
+	var filename = $(this).children(".filename").html();
+
 	var slug = $("#sngltitle").attr('value');
 
 	var url;
@@ -392,7 +420,7 @@ $(document).on('click', '#singular .version', function(e) {
 		url = 'https://curseforge.com/minecraft/mc-mods/' + slug + '/files';
 	}
 
-	$.fileDownload(url, {});
+	downloadFile(url, filename);
 });
 
 $(document).on('click', '#singular .navigation p', function(e) {
@@ -411,7 +439,6 @@ $(document).on('click', '#singular .navigation p', function(e) {
 			}
 		}
 
-		console.log("III", i);
 		var slugi = i;
 		if (side == "left") {
 			slugi -= 1;
@@ -434,6 +461,8 @@ $(document).on('click', '#singular .navigation p', function(e) {
 
 
 // Util functions
+var corsprefix = "https://cors.ntmsdata.com:8080/";
+
 function replaceAll(str, find, replace) { 
 	return str.replace(new RegExp(find, 'g'), replace);
 }
@@ -489,4 +518,17 @@ function changeUrl(url, title) {
 	var new_url = '/' + url;
 	window.history.pushState('data', 'Title', new_url);
 	document.title = title;
+}
+
+function downloadFile(data, fileName, type="application/java-archive") {
+	const a = document.createElement("a");
+	a.style.display = "none";
+	document.body.appendChild(a);
+
+	a.href = window.URL.createObjectURL(new Blob([data], { type }));
+	a.setAttribute("download", fileName);
+	a.click();
+
+	window.URL.revokeObjectURL(a.href);
+	document.body.removeChild(a);
 }
