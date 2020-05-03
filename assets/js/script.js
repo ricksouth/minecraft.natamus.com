@@ -160,7 +160,7 @@ function loadContent() {
 					}
 
 					style += 'div#mod' + i + ':before { background: url("/assets/images/icons/' + slug + '.' + filetype + '"); background-position: center center; background-size: cover; } div#mod' + i + ':after { content: "' + dlcontent + formatNames(name, " ", " \\A ") + '"; }';
-					html += '<div class="col mod"' + value + ' title="' + fullname + '"><a href="#" value="' + url + '"></a><a href="#" value="' + url + '"></a><a href="#" value="' + url + '"></a><a href="#" value="' + url + '"></a><div id="mod' + i + '" class="box"></div></div>';
+					html += '<div class="col mod"' + value + ' title="' + fullname + '"><a href="/' + slug + '" value="' + url + '"></a><a href="/' + slug + '" value="' + url + '"></a><a href="/' + slug + '" value="' + url + '"></a><a href="/' + slug + '" value="' + url + '"></a><div id="mod' + i + '" class="box"></div></div>';
 					
 					totalmods += 1;
 					activemods.push(slug);
@@ -330,6 +330,10 @@ $(document).on('click', '.tiles .col.mod', function(e) {
 	var slug = url.split("/mc-mods/")[1];
 
 	loadSingular(slug);
+});
+
+$(document).on('click', '.tiles a', function(e) {
+	e.preventDefault();
 });
 
 /* SINGULAR */
