@@ -363,7 +363,9 @@ function loadSingular(slug) {
 	var data = moddata[slug];
 
 	var name = data["name"];
+
 	changeUrl(slug + "/", "Minecraft Mod | " + name);
+	updateAl('set', 'page', '/' + slug + '/')
 
 	var categories = modtags[slug];
 	var datecreated = data["dateCreated"];
@@ -469,6 +471,7 @@ $(document).on('click', '#singular .navigation p', function(e) {
 		$(".belowtw").fadeIn(200);
 
 		changeUrl("", "Serilum's CurseForge Mods");
+		updateAl('set', 'page', '/')
 	}
 	else {
 		var slug = $("#sngltitle").attr('value');
@@ -601,4 +604,12 @@ String.prototype.includes = function (str) {
 }
 Array.prototype.includes = function (elt) { 
 	return this.indexOf(elt) !== -1;
+}
+
+// Analytics
+function updateAl(a, b, c) {
+	try {
+		ga(a, b, c);
+		ga('send', 'pageview');
+	} catch (e) {}
 }
