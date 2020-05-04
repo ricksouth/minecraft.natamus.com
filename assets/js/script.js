@@ -452,7 +452,7 @@ $(document).on('click', '#singular .version', function(e) {
 	var url;
 	if (fileid != "other") {
 		url = 'https://curseforge.com/minecraft/mc-mods/' + slug + '/download/' + fileid;
-		downloadFile(url, filename);
+		downloadFile(url, filename, "application/java-archive");
 	}
 	else {
 		url = 'https://curseforge.com/minecraft/mc-mods/' + slug + '/files';
@@ -577,7 +577,7 @@ function openInNewTab(url) {
 	win.focus();
 }
 
-function downloadFile(data, fileName, type="application/java-archive") {
+function downloadFile(data, fileName, type) {
 	const a = document.createElement("a");
 	a.style.display = "none";
 	document.body.appendChild(a);
