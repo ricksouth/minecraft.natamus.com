@@ -577,12 +577,12 @@ function openInNewTab(url) {
 	win.focus();
 }
 
-function downloadFile(data, fileName, type) {
+function downloadFile(data, fileName, mime) {
 	const a = document.createElement("a");
 	a.style.display = "none";
 	document.body.appendChild(a);
 
-	a.href = window.URL.createObjectURL(new Blob([data], { type }));
+	a.href = window.URL.createObjectURL(new Blob([data], { mime }));
 	a.setAttribute("download", fileName);
 	a.click();
 
