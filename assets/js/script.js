@@ -578,14 +578,19 @@ function openInNewTab(url) {
 }
 
 function downloadFile(data, fileName, mime) {
-	const a = document.createElement("a");
-	a.style.display = "none";
-	document.body.appendChild(a);
-
-	a.href = window.URL.createObjectURL(new Blob([data], { mime }));
-	a.setAttribute("download", fileName);
-	a.click();
-
-	window.URL.revokeObjectURL(a.href);
-	document.body.removeChild(a);
-}
+	var csvData = new Blob([data], { type: mime });
+	if (window.navigator && window.navigator.msSaveOrOpenBlob) { // for IE
+		window.navigator.msSaveOrOpenBlob(csvData, fileName);
+	}
+	else { // for Non-IE (chrome, firefox etc.)
+		var a = document.createElement("a");
+		document.body.appendChild(a);
+		a.style = "display: none";
+		var csvUrl = URL.createObjectURL(csvData);
+		a.href =  csvUrl;
+		a.download = fileName;
+		a.click();
+		URL.revokeObjectURL(a.href)
+		a.remove();
+	}
+};
