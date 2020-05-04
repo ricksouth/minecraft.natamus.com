@@ -594,3 +594,11 @@ function downloadFile(data, fileName, mime) {
 		a.remove();
 	}
 };
+
+// for IE
+String.prototype.includes = function (str) {
+	return this.indexOf(str) !== -1;
+}
+Array.prototype.includes = function (elt) { 
+	return this.indexOf(elt) !== -1;
+}
