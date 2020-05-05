@@ -164,7 +164,7 @@ function loadContent() {
 						value = 'value="API and Library"';
 					}
 
-					style += 'div#mod' + i + ':before { background: url("/assets/images/icons/' + slug + '.' + filetype + '"); background-position: center center; background-size: cover; } div#mod' + i + ':after { content: "' + dlcontent + formatNames(name, " ", " \\A ") + '"; }';
+					style += 'div#mod' + i + ':before { background: url("/assets/images/icons/' + slug + '.' + filetype + '"); background-position: center center; background-size: cover; } div#mod' + i + ':after { content: "' + dlcontent + formatTileNames(name, " ", " \\A ") + '"; }';
 					html += '<div class="col mod"' + value + ' title="' + fullname + '"><a href="/' + slug + '/" value="' + url + '"></a><a href="/' + slug + '/" value="' + url + '"></a><a href="/' + slug + '/" value="' + url + '"></a><a href="/' + slug + '/" value="' + url + '"></a><div id="mod' + i + '" class="box"></div></div>';
 					
 					totalmods += 1;
@@ -371,6 +371,8 @@ function loadSingular(slug) {
 	var datecreated = data["dateCreated"];
 	var datemodified = data["dateModified"];
 
+	setNextAndPrevious(slug);
+
 	$("#sngltitle").html(name);
 	$("#sngltitle").attr('value', slug);
 	$("#snglimage").attr('src', '/assets/images/icons/' + slug + getImageType(slug));
@@ -404,23 +406,20 @@ function loadSingular(slug) {
 	$("#dlcount").html(numberWithCommas(data["downloadCount"]));
 
 	var modid = data["id"];
-	setDescription(modid);
+	setDescription(modid, slug);
 }
 
 var randomized = 0;
-function setDescription(id) {
-	var num = Math.floor((Math.random() * 100000) + 1);
-	randomized = num;
-
+function setDescription(id, slug) {
 	$.ajax({
 		type: "GET",
 		url: corsprefix + "https://addons-ecs.forgesvc.net/api/v2/addon/" + id + "/description",
 		success: function(data) {
-			clearTimeout(window.setd);
-
-			if (num != randomized) {
+			if ($("#sngltitle").attr('value') != slug) {
 				return;
 			}
+			
+			clearTimeout(window.setd);
 
 			// Adds a newline after the external links image
 			var description = data.replace('"40">', '"40"><br>');
@@ -441,7 +440,7 @@ function setDescription(id) {
 
 	// forces re-load when connection takes too long.
 	window.setd = setTimeout(function(){ 
-		setDescription(id);
+		setDescription(id, slug);
 	}, 500);
 }
 
@@ -462,7 +461,7 @@ $(document).on('click', '#singular .version', function(e) {
 	}
 });
 
-$(document).on('click', '#singular .navigation p', function(e) {
+$(document).on('click', '#singular .navigation div', function(e) {
 	var side = $(this).attr('class');
 	if (side == "middle") {
 		$("#singular").hide();
@@ -475,27 +474,9 @@ $(document).on('click', '#singular .navigation p', function(e) {
 	}
 	else {
 		var slug = $("#sngltitle").attr('value');
-		for (var i = 0; i < activemods.length; i++) {
-			if (activemods[i] == slug) {
-				break;
-			}
-		}
+		var newslug = getNextOrPrevious(slug, side);
 
-		var slugi = i;
-		if (side == "left") {
-			slugi -= 1;
-			if (slugi < 0) {
-				slugi = activemods.length-1;
-			}
-		}
-		else {
-			slugi += 1;
-			if (slugi >= activemods.length) {
-				slugi = 0;
-			}
-		}
-
-		loadSingular(activemods[slugi]);
+		loadSingular(newslug);
 	}
 
 	$(document).scrollTop(0);
@@ -515,6 +496,35 @@ $(document).keydown(function(e) {
 	}
 });
 
+function setNextAndPrevious(slug) {
+	$("#singular #previousmod").html(getNextOrPrevious(slug, "left"));
+	$("#singular #nextmod").html(getNextOrPrevious(slug, "right"));
+}
+function getNextOrPrevious(slug, side) {
+	for (var i = 0; i < activemods.length; i++) {
+		if (activemods[i] == slug) {
+			break;
+		}
+	}
+
+	var slugi = i;
+	if (side == "left") {
+		slugi -= 1;
+		if (slugi < 0) {
+			slugi = activemods.length-1;
+		}
+	}
+	else {
+		slugi += 1;
+		if (slugi >= activemods.length) {
+			slugi = 0;
+		}
+	}
+
+	console.log(slug, side, slugi, activemods[slugi]);
+	return activemods[slugi];
+}
+
 // Util functions
 var corsprefix = "https://cors.ntmsdata.com:8080/";
 
@@ -522,7 +532,7 @@ function replaceAll(str, find, replace) {
 	return str.replace(new RegExp(find, 'g'), replace);
 }
 
-function formatNames(str, find, replace) {
+function formatTileNames(str, find, replace) {
 	var returnstr = "";
 	var strspl = str.split(find);
 	for (var i = 0; i < strspl.length; i++) {

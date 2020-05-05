@@ -530,7 +530,11 @@ section#singular {
 
 	font-size: 22px;
 }
-.singular .navigation p:hover {
+.singular .navigation p {
+	margin: 0;
+}
+.singular .navigation .left:hover,
+.singular .navigation .right:hover {
 	cursor: pointer;
 	color: black;
 }
@@ -538,6 +542,9 @@ section#singular {
 	position: absolute;
 	z-index: 1;
 	left: 0;
+}
+.singular .navigation .left p {
+	position: relative;
 }
 .singular .navigation .middle {
 	position: absolute;
@@ -548,6 +555,15 @@ section#singular {
 	position: absolute;
 	z-index: 1;
 	right: 0;
+
+	text-align: right;
+}
+.singular .navigation .right p {
+	position: relative;
+}
+.singular .navigation .sub {
+	font-size: 12px;
+	font-style: italic;
 }
 
 .singular .modinfo {
