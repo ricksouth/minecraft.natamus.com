@@ -175,7 +175,7 @@ function loadContent() {
 					}
 
 					style += 'div#mod' + i + ':before { background: url("/assets/images/icons/' + slug + '.' + filetype + '"); background-position: center center; background-size: cover; } div#mod' + i + ':after { content: "' + dlcontent + formatTileNames(name, " ", " \\A ") + '"; }';
-					html += '<div class="col mod"' + value + ' title="' + fullname + '"><a href="/' + slug + '/" value="' + url + '"></a><a href="/' + slug + '/" value="' + url + '"></a><a href="/' + slug + '/" value="' + url + '"></a><a href="/' + slug + '/" value="' + url + '"></a><div id="mod' + i + '" class="box"></div><div class="addcart modcart hidden"><img class="modcart" src="/assets/images/add-to-cart-white.png"></div></div>';
+					html += '<div class="col mod"' + value + ' name="' + fullname + '"><a href="/' + slug + '/" value="' + url + '"></a><a href="/' + slug + '/" value="' + url + '"></a><a href="/' + slug + '/" value="' + url + '"></a><a href="/' + slug + '/" value="' + url + '"></a><div id="mod' + i + '" class="box"></div><div class="addcart modcart hidden"><img class="modcart" src="/assets/images/add-to-cart-white.png"></div></div>';
 					
 					totalmods += 1;
 					activemods.push(slug);
@@ -263,8 +263,8 @@ function processTags(actives, inactives) {
 
 		if (foundtag) {
 			if (search != "") {
-				var title = $(this).attr('title');
-				if (!title.toLowerCase().includes(search)) {
+				var name = $(this).attr('name');
+				if (!name.toLowerCase().includes(search)) {
 					$(this).hide();
 					return true;
 				}
@@ -322,6 +322,9 @@ $(document).on({
 		if ($(this).hasClass("emptyimage")) {
 			tag = "Empty cart";
 		}
+		else if ($(this).hasClass("addcart")) {
+			tag = "Add to cart"
+		}
 		else {
 			tag = $(this).attr('alt');
 		}
@@ -334,7 +337,7 @@ $(document).on({
 	mouseleave: function () {
 		$(".tooltipwrapper").hide();
 	}
-}, ".activetags img, .emptywrapper img");
+}, ".activetags img, .emptywrapper img, .tiles .addcart");
 
 $(document).on('input', '#searchinput', function(e) {
 	var val = $(this).val();
@@ -377,7 +380,7 @@ $(document).on({
 
 $(document).on('click', '.tiles .col.mod .addcart', function(e) {
 	var tile = $(this).parents('.col.mod');
-	var name = tile.attr('title');
+	var name = tile.attr('name');
 	var slug = replaceAll($(tile.children("a")[0]).attr('href'), "/", "");
 
 	addToCart(name, slug, []);
@@ -881,7 +884,6 @@ $(".dlscreen").on('click', '#startdownload', function(e) {
 			manifest : JSON.stringify(manifest)
 		},
 		success: function(response) {
-			console.log(response);
 			downloadFile(response, filename + ".zip", "application/zip");
 		},
 		error: function(data) {}

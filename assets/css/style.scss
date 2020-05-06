@@ -947,12 +947,13 @@ section#singular {
 }
 
 .dlscreenwrapper .dlscreen .closewrapper {
-	position: absolute;
-	top: -15px;
-	right: 10px;
+	position: fixed;
+	top: calc(20% - 70px);
+	right: calc(20% - 45px);
 }
 .dlscreenwrapper .dlscreen .closewrapper p {
 	font-size: 60px;
+	color: white;
 }
 .dlscreenwrapper .dlscreen .closewrapper p:hover {
 	cursor: pointer;
