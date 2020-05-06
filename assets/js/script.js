@@ -875,7 +875,7 @@ $(".dlscreen").on('click', '#startdownload', function(e) {
 	manifest["files"] = files;
 	manifest["overrides"] = "overrides";
 
-	var filename = "serilum_manifest_" + $(".insidecart .inventory .item").length + "_mods";
+	var filename = "serilum_manifest_" + $(".dlcontent .compatibleamount").html() + "_mods";
 	$.ajax({
 		type: "POST",
 		url: "https://ntmsdata.com/a/p/i/post/curseforge/pack.php",
