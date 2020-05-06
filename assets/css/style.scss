@@ -11,7 +11,7 @@ body {
 
 div.wrapper {
 	position: absolute;
-	top: 0;
+	top: 20px;
 	left: 0;
 
 	width: 100%;
@@ -20,9 +20,15 @@ div.wrapper {
 body {
 	font: 14px/1.4 "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+body.faded {
+	pointer-events: none;
+	height: 100%;
+	overflow: hidden;
+}
 
 section {
 	border: none !important;
+	padding: 0 !important;
 }
 
 section#buttons {
@@ -38,7 +44,7 @@ section#content {
 	width: 100%;
 	height: 100%;
 
-	margin-top: 150px;
+	margin-top: 170px;
 }
 section#loadingwrapper {
 	position: absolute;
@@ -85,6 +91,12 @@ footer p.footercontent {
 }
 
 /* RESPONSIVE */
+@media only screen and (max-width: 809px) {
+	div.wrapper {
+		top: 105px;
+	}
+}
+
 @media only screen and (min-width: 0px) {
 	.tiles {
 		margin-top: 245px;
@@ -102,7 +114,7 @@ footer p.footercontent {
 		left: 5%;
 	}
 	.insidetw h1 {
-		font-size: 40px;
+		font-size: 30px;
 	}
 }
 @media only screen and (max-width: 323px) {
@@ -140,6 +152,9 @@ footer p.footercontent {
 		width: 80%;
 		left: 10%;
 	}
+	.insidetw h1 {
+		font-size: 40px;
+	}
 }
 @media only screen and (min-width: 1072px) {
 	.tiles {
@@ -165,11 +180,6 @@ footer p.footercontent {
 	#topwrapper .insidetw {
 		width: 60%;
 		left: 20%;
-	}
-}
-@media only screen and (min-width: 548px) and (max-width: 1595px) {
-	.insidetw h1 {
-		font-size: 3.5vw;
 	}
 }
 @media only screen and (min-width: 1596px) {
@@ -239,6 +249,208 @@ section#topwrapper {
 	position: relative;
 
 	font-size: 18px;
+}
+
+/* Shopping cart */
+.shoppingwrapper {
+	position: fixed;
+	z-index: 20;
+	top: 19px;
+	right: 20px;
+
+	text-align: right;
+	pointer-events: none;
+}
+
+.shoppingcart {
+	position: relative;
+	z-index: 20;
+	float: right;
+
+	width: 200px;
+	height: 50px;
+
+	margin-right: 6px;
+
+	border: 1px solid black;
+	border-radius: 10px;
+	background-color: white;
+	pointer-events: all;
+}
+.shoppingcart:hover {
+	cursor: pointer;
+}
+
+.shoppingcart i {
+	float: left;
+	padding: 8px 8px 8px 14px;
+
+	font-size: 32px;
+}
+
+.shoppingcart .collapse {
+	position: absolute;
+	margin-top: 3px;
+	margin-left: 50px;
+
+	font-size: 33px;
+}
+
+.shoppingcart p {
+	padding: 8px 14px 8px 8px;
+	margin-top: 8px;
+}
+
+.insidecart {
+	position: fixed;
+	top: 70px;
+	z-index: 21;
+
+	width: 200px;
+	height: 280px;
+
+	border: 1px solid black;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+
+	pointer-events: all;
+	background-color: white;
+}
+
+.insidecart .emptywrapper {
+	position: fixed;
+	top: 20px;
+	right: 235px;
+}
+.insidecart .emptywrapper img {
+	width: 48px;
+}
+.insidecart .emptywrapper img:hover {
+	cursor: pointer;
+	filter: brightness(110%);
+}
+
+.insidecart .inventory {
+	position: relative;
+	top: 20px;
+	left: 10px;
+
+	width: 180px;
+	height: 200px;
+
+	border-left: 1px dashed grey;
+	border-right: 1px dashed grey;
+
+	text-align: left;
+	overflow-x: scroll;
+	white-space: nowrap;
+	-ms-overflow-style: none;
+}
+.insidecart .inventory .item {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.insidecart .inventory div {
+	margin-top: 1px;
+	border-left: 31px solid transparent;
+
+	height: 20px;
+	width: 140px;
+
+	overflow-x: scroll;
+	white-space: nowrap;
+	-ms-overflow-style: none;
+}
+
+.insidecart .inventory div img {
+	position: absolute;
+	margin: 2px 0px 0px -21px;
+	
+	width: 16px;
+	height: 16px;
+
+	margin-right: 5px;
+}
+
+.insidecart .explanation {
+	padding: 10px;
+	height: 100px;
+
+	white-space: initial;
+}
+
+.insidecart .addallcartbutton {
+	margin: 10px 0px 0px 10%;
+	width: 80%;
+}
+.insidecart .addallcartbutton:hover {
+	cursor: pointer;
+}
+
+.insidecart .inventory .itemoverlap {
+	margin: 2px 0px 0px 0px;
+	height: 12px;
+	width: 140px;
+
+	pointer-events: none;
+}
+.insidecart .inventory .itemoverlap p {
+	display: inline;
+
+	font-size: 12px;
+}
+.insidecart .inventory .itemoverlap p#tomodpage {
+	float: left;
+	margin-left: 5px;
+	padding: 0px 5px 0px 5px;
+
+	pointer-events: all;
+}
+.insidecart .inventory .itemoverlap p#tomodpage:hover {
+	cursor: pointer;
+	color: white;
+	background-color: green;
+}
+.insidecart .inventory .itemoverlap p#removemod {
+	float: right;
+	margin-right: 5px;
+	padding: 0px 5px 0px 5px;
+
+	pointer-events: all;
+}
+.insidecart .inventory .itemoverlap p#removemod:hover {
+	cursor: pointer;
+	color: white;
+	background-color: red;
+}
+
+/* Hide scrollbars */
+.insidecart .inventory::-webkit-scrollbar,
+.insidecart .inventory div::-webkit-scrollbar {
+	display: none;
+}
+
+.insidecart .downloadcartbutton {
+	position: fixed;
+	right: 51px;
+	top: 310px;
+
+	padding: 5px;
+	width: 150px;
+
+	font-weight: bolder;
+
+	background-color: white;
+	border: 2px solid #009CE4;
+}
+.insidecart .downloadcartbutton:hover {
+	cursor: pointer;
+	color: white;
+	background-color: #009CE4;
 }
 
 /* Tags */
@@ -435,6 +647,28 @@ section#topwrapper {
 	display: block;
 }
 
+.tiles .addcart {
+	position: relative;
+	z-index: 5;
+	margin: 185px 0px 0px 0px;
+	float: right;
+	height: 64px;
+	width: 64px;
+}
+.tiles .addcart img {
+	height: 48px;
+	width: 48px;
+	margin: 8px 0px 0px 8px;
+}
+.tiles .addcart:hover {
+	cursor: pointer;
+	filter: brightness(75%);
+}
+.tiles .addcart.hidden {
+	opacity: 0;
+	display: none;
+}
+
 /* Spinner */
 
 @-webkit-keyframes spin {
@@ -518,6 +752,54 @@ section#singular {
 	top: 400px;
 
 	border: 1px solid black;
+
+	margin-bottom: 100px;
+}
+
+.singular .jumpwrapper {
+	overflow: visible;
+
+	margin-bottom: 10px;
+}
+.singular .jumpwrapper input {
+	padding: 10px 10px 10px 20px;
+	width: 250px;
+
+	border-top-left-radius: 15px;
+	border-bottom-left-radius: 15px;
+	border: none;
+	border-top: 1px solid grey;
+	border-left: 1px solid grey;
+	border-bottom: 1px solid grey;
+}
+
+.singular .jumpwrapper .resultwrapper {
+	position: absolute;
+	z-index: 40;
+	margin-left: 20px;
+	width: 259px;
+	height: auto;
+
+	background-color: white;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+}
+.singular .jumpwrapper .resultwrapper p {
+	margin: 12px 0px 15px 40px;
+
+	font-size: 16px;
+	font-weight: bold;
+}
+.singular .jumpwrapper .resultwrapper p:hover {
+	cursor: pointer;
+	color: darkgreen;
+}
+.singular .jumpwrapper .resultwrapper img {
+	position: absolute;
+	margin: -5px 0px 0px -35px;
+
+	width: 32px;
 }
 
 .singular #snglimage {
@@ -533,8 +815,7 @@ section#singular {
 .singular .navigation p {
 	margin: 0;
 }
-.singular .navigation .left:hover,
-.singular .navigation .right:hover {
+.singular .navigation div:hover {
 	cursor: pointer;
 	color: black;
 }
@@ -548,7 +829,8 @@ section#singular {
 }
 .singular .navigation .middle {
 	position: absolute;
-	width: 100%;
+	width: 250px;
+	left: calc(50% - 125px);
 	text-align: center;
 }
 .singular .navigation .right {
@@ -625,10 +907,117 @@ section#singular {
 	width: 100%;
 
 	margin-top: 25px;
+
+	min-height: 600px;
 }
 
 .singular #sngldescription img {
 	display: inline-block;
 	width: auto;
 	height: auto;
+}
+
+/* Download Screen */
+.dlscreenwrapper {
+	position: fixed;
+	z-index: 1000;
+	top: 0;
+	left: 0;
+
+	height: 100%;
+	width: 100%;
+
+	background-color: rgb(0, 0, 0, 0.8);
+	pointer-events: all;
+	overflow: scroll;
+}
+
+.dlscreenwrapper .dlscreen {
+	position: fixed;
+	z-index: 1001;
+
+	top: calc(20%);
+	left: calc(20%);
+
+	height: 60%;
+	width: 60%;
+
+	overflow-y: scroll;
+	background-color: white;
+}
+
+.dlscreenwrapper .dlscreen .closewrapper {
+	position: absolute;
+	top: -15px;
+	right: 10px;
+}
+.dlscreenwrapper .dlscreen .closewrapper p {
+	font-size: 60px;
+}
+.dlscreenwrapper .dlscreen .closewrapper p:hover {
+	cursor: pointer;
+	color: black;
+}
+
+.dlscreenwrapper .dlscreen .dlcontent {
+	width: 94%;
+	height: 94%;
+
+	padding: 3%;
+}
+.dlscreenwrapper .dlscreen .dlcontent p {
+	margin: 10px 0px 0px 0px;
+	padding: 5px;
+	font-size: 15px;
+}
+
+.dlscreenwrapper .dlscreen .dlcontent img {
+	margin: 15px 0px 0px 0px;
+
+	width: 50%;
+	height: auto;
+
+	border: 1px solid black;
+}
+.dlscreenwrapper .dlscreen .dlcontent p.imagedescription {
+	margin: -5px 0px 0px 0px;
+	font-size: 13px;
+	font-style: italic;
+	font-weight: bold;
+}
+
+.dlscreenwrapper .dlscreen .dlcontent button {
+	margin: 15px 0px 25px 0px;
+	width: auto;
+	height: 28px;
+
+	color: rgb(66, 66, 66);
+	font-weight: bold;
+	background-color: white;
+	border: 2px solid #009CE4;
+}
+.dlscreenwrapper .dlscreen .dlcontent button:hover {
+	cursor: pointer;
+	color: white;
+	background-color: #009CE4;
+}
+.dlscreenwrapper .dlscreen .dlcontent select {
+	margin-top: 10px;
+	padding: 5px 5px 5px 10px;
+	width: 150px;
+
+	color: rgb(66, 66, 66);
+	font-weight: bold;
+	border: 2px solid #009CE4;
+}
+
+.dlscreenwrapper #incompatibles p {
+	margin: -10px 0px 0px 0px;
+}
+.dlscreenwrapper #incompatibles .prefix {
+	padding-left: 10px;
+	font-weight: bolder;
+}
+.dlscreenwrapper #incompatibles .suffix {
+	font-style: italic;
 }

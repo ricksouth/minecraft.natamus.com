@@ -91,6 +91,19 @@ function loadJsonData() {
 			
 			$("#totaldownloads").html(numberWithCommas(totaldownloads));
 
+			// Process cookies
+			var cartisopen = Cookies.get('cartisopen');
+			if (cartisopen == "true") {
+				$(".shoppingwrapper .insidecart").fadeIn(200);
+				$(".shoppingcart .collapse").html("⇑");
+			}
+
+			var cartitems = Cookies.get('cartitems');
+			if (cartitems != undefined && cartitems.length > 5) {
+				addToCart("", "", cartitems.split(";"));
+			}
+
+			updateCart(false);
 			loadContent();
 		},
 		error: function(data) { }
@@ -160,12 +173,9 @@ function loadContent() {
 					if (slug in modtags) {
 						value = 'value="' + modtags[slug].join(";") + '"';
 					}
-					else if (slug == "sam-library") { // temp until api updates
-						value = 'value="API and Library"';
-					}
 
 					style += 'div#mod' + i + ':before { background: url("/assets/images/icons/' + slug + '.' + filetype + '"); background-position: center center; background-size: cover; } div#mod' + i + ':after { content: "' + dlcontent + formatTileNames(name, " ", " \\A ") + '"; }';
-					html += '<div class="col mod"' + value + ' title="' + fullname + '"><a href="/' + slug + '/" value="' + url + '"></a><a href="/' + slug + '/" value="' + url + '"></a><a href="/' + slug + '/" value="' + url + '"></a><a href="/' + slug + '/" value="' + url + '"></a><div id="mod' + i + '" class="box"></div></div>';
+					html += '<div class="col mod"' + value + ' title="' + fullname + '"><a href="/' + slug + '/" value="' + url + '"></a><a href="/' + slug + '/" value="' + url + '"></a><a href="/' + slug + '/" value="' + url + '"></a><a href="/' + slug + '/" value="' + url + '"></a><div id="mod' + i + '" class="box"></div><div class="addcart modcart hidden"><img class="modcart" src="/assets/images/add-to-cart-white.png"></div></div>';
 					
 					totalmods += 1;
 					activemods.push(slug);
@@ -184,6 +194,7 @@ function loadContent() {
 
 
 			afterContent();
+			setIncompatibles();
 		}
 	});
 }
@@ -307,7 +318,14 @@ $(document).on('click', '.abovetagswrapper button', function(e) {
 
 $(document).on({
 	mouseenter: function () {
-		var tag = $(this).attr('alt');
+		var tag = "";
+		if ($(this).hasClass("emptyimage")) {
+			tag = "Empty cart";
+		}
+		else {
+			tag = $(this).attr('alt');
+		}
+
 		var pos = $(this).offset();
 
 		$("#tooltip").html(tag);
@@ -316,7 +334,7 @@ $(document).on({
 	mouseleave: function () {
 		$(".tooltipwrapper").hide();
 	}
-}, ".activetags img");
+}, ".activetags img, .emptywrapper img");
 
 $(document).on('input', '#searchinput', function(e) {
 	var val = $(this).val();
@@ -331,6 +349,10 @@ $(document).on('input', '#searchinput', function(e) {
 });
 
 $(document).on('click', '.tiles .col.mod', function(e) {
+	if ($(e.target).hasClass('modcart')) {
+		return;
+	}
+
 	var url = $(this).children("a").attr('value');
 	var slug = url.split("/mc-mods/")[1];
 
@@ -341,18 +363,30 @@ $(document).on('click', '.tiles a', function(e) {
 	e.preventDefault();
 });
 
-$(document).on('click', '#singular a', function(e) {
-	var url = $(this).attr('href');
-	var target = $(this).attr('target');
-
-	if (target == "_blank" && !url.includes("https")) {
-		$(this).removeAttr('target');
+$(document).on({
+	mouseenter: function () {
+		$(this).children(".addcart").delay(200).queue(function(next){
+			$(this).removeClass("hidden");
+			next();
+		});
+	},
+	mouseleave: function () {
+		$(this).children(".addcart").stop().addClass("hidden");
 	}
+}, ".tiles .col.mod");
+
+$(document).on('click', '.tiles .col.mod .addcart', function(e) {
+	var tile = $(this).parents('.col.mod');
+	var name = tile.attr('title');
+	var slug = replaceAll($(tile.children("a")[0]).attr('href'), "/", "");
+
+	addToCart(name, slug, []);
 });
 
 /* SINGULAR */
-var skipversions = ["1.11", "1.13"];
+var skipversions = ["1.7.", "1.11", "1.13"];
 var otherfilehtml = '<div class="version" value="other"><p>Other Files</p><p>On CurseForge</p><img class="dlicon" src="/assets/images/external.png"></div>';
+var addtocarthtml = '<div class="version" value="cart"><p>Add to cart</p><p>For bulk download</p><img class="dlicon" src="/assets/images/add-to-cart.png"></div>';
 function loadSingular(slug) {
 	$("#content").hide();
 	$(".belowtw").hide();
@@ -401,7 +435,7 @@ function loadSingular(slug) {
 		filehtml += '<p class="filename">' + filename + '</p>';
 		filehtml += '<img class="dlicon" src="/assets/images/download.png"></div>';
 	}
-	filehtml += otherfilehtml;
+	filehtml += otherfilehtml + addtocarthtml;
 	$("#versionwrapper").html(filehtml);
 	$("#dlcount").html(numberWithCommas(data["downloadCount"]));
 
@@ -429,6 +463,12 @@ function setDescription(id, slug) {
 			// remove linkout? prefix
 			description = replaceAll(description, "/linkout\\?remoteUrl=https%253a%252f%252fnatam.us%252fsupport", "https://natam.us/support");
 			description = replaceAll(description, 'rel="nofollow"', "target=_blank");
+			description = replaceAll(description, "/linkout\\?remoteUrl=", "");
+
+			var htmlelems = {"%253a" : ":", "%252f" : "/"};
+			for (var key in htmlelems) {
+				description = replaceAll(description, key, htmlelems[key]);
+			}
 
 			$("#sngldescription").html(description);
 
@@ -444,6 +484,21 @@ function setDescription(id, slug) {
 	}, 500);
 }
 
+$(document).on('click', '#singular a, .dlcontent a', function(e) {
+	var url = $(this).attr('href');
+	var target = $(this).attr('target');
+
+	if (url.startsWith('/')) {
+		e.preventDefault();
+		loadSingular(replaceAll(url, '/', ''));
+	}
+
+	if ($(".dlscreenwrapper").is(":visible")) {
+		$("body").removeClass("faded");
+		$(".dlscreenwrapper").hide();
+	}
+});
+
 $(document).on('click', '#singular .version', function(e) {
 	var fileid = $(this).attr('value');
 	var filename = $(this).children(".filename").html();
@@ -451,13 +506,17 @@ $(document).on('click', '#singular .version', function(e) {
 	var slug = $("#sngltitle").attr('value');
 
 	var url;
-	if (fileid != "other") {
-		url = 'https://curseforge.com/minecraft/mc-mods/' + slug + '/download/' + fileid;
-		downloadFile(url, filename, "application/java-archive");
-	}
-	else {
+	if (fileid == "other") {
 		url = 'https://curseforge.com/minecraft/mc-mods/' + slug + '/files';
 		openInNewTab(url);
+	}
+	else if (fileid == "cart") {
+		var name = $("#sngltitle").html();
+		addToCart(name, slug, []);
+	}
+	else {
+		url = 'https://curseforge.com/minecraft/mc-mods/' + slug + '/download/' + fileid;
+		downloadFile(url, filename, "application/java-archive");	
 	}
 });
 
@@ -478,8 +537,6 @@ $(document).on('click', '#singular .navigation div', function(e) {
 
 		loadSingular(newslug);
 	}
-
-	$(document).scrollTop(0);
 });
 
 var ak = { "left" : 37, "right" : 39};
@@ -521,9 +578,315 @@ function getNextOrPrevious(slug, side) {
 		}
 	}
 
-	console.log(slug, side, slugi, activemods[slugi]);
 	return activemods[slugi];
 }
+
+// Shopping cart
+var explanationhtml = '<p class="explanation">You can add mods to your cart by clicking the quick add button when hovering over the tile, or when on the mod project page.<button id="cartselectall" class="addallcartbutton">Add all mods</button></p>';
+var itemoverlaphtml = '<section class="itemoverlap"><p id="tomodpage">Mod page</p><p id="removemod">Remove</p></section>';
+function setHover() {
+	$(".shoppingwrapper .insidecart .inventory div").hover(
+		function () {
+			$(this).children("span").html(itemoverlaphtml);
+		},
+		function () {
+			$(this).children("span").html($(this).attr('name'));
+		}
+	);
+}
+
+$(".shoppingwrapper .shoppingcart").on('click', function(e) {
+	var isopen;
+	var collapseicon = "";
+	if($(".insidecart").is(":visible")) {
+		$(".insidecart").fadeOut(200);
+		collapseicon = "⇓";
+		isopen = false;
+	}
+	else {
+		$(".insidecart").fadeIn(200);
+		collapseicon = "⇑";
+		isopen = true;
+	}
+
+	$(".shoppingcart .collapse").html(collapseicon);
+	Cookies.set('cartisopen', isopen.toString(), { expires: 365 });
+});
+$(".shoppingwrapper").on('click', '#tomodpage', function(e) {
+	var slug = $(this).parents("div.item").attr('value');
+	loadSingular(slug);
+});
+$(".shoppingwrapper").on('click', '#removemod', function(e) {
+	$(this).parents("div.item").remove();
+	updateCart(true);
+});
+
+$(".shoppingwrapper .arrowwrapper .clickdiv").on('click', function(e) {
+	$(".shoppingwrapper .arrowwrapper").fadeOut(1000);
+});
+
+$(".shoppingwrapper .emptywrapper img").on('click', function(e) {
+	$(".shoppingwrapper .inventory").html("");
+	updateCart(true);
+});
+
+function updateCart(setcookie) {
+	if (setcookie) {
+		var cartitems = [];
+		$(".shoppingwrapper .insidecart .inventory .item").each(function(e) {
+			cartitems.push($(this).attr('value'));
+		});
+		Cookies.set('cartitems', cartitems.join(";"), { expires: 365 });
+	}
+
+	var selectamount = $(".shoppingwrapper .insidecart .inventory .item").length;
+	if (selectamount == 1) {
+		$(".modcount").html("mod");
+	}
+	else {
+		$(".modcount").html("mods");
+
+		if (selectamount == 0) {
+			$(".shoppingwrapper .inventory").html(explanationhtml);
+		}
+	}
+
+	$(".selectamount").html(selectamount);
+	setHover();
+}
+
+function addToCart(name, slug, multiple) {
+	if ($(".shoppingwrapper .inventory .explanation").is(":visible")) {
+		$(".shoppingwrapper .inventory .explanation").hide();
+	}
+
+	var html = "";
+	if (multiple.length == 0) {
+		var cartcontent = {};
+		var found = false;
+		$(".shoppingwrapper .inventory .item").each(function(e) {
+			var loopslug = $(this).attr('value');
+			if (loopslug == slug) {
+				found = true;
+				return false;
+			}
+
+			cartcontent[loopslug] = $(this)[0].outerHTML;
+		});
+
+		if (found) {
+			return;
+		}
+
+		var newhtml = '<div class="item" name="' + name + '" value="' + slug + '">';
+		newhtml += '<img src="/assets/images/icons/' + slug + getImageType(slug) + '">';
+		newhtml += '<span>' + name + '</span></div>';
+		cartcontent[slug] = newhtml;
+
+		var sorted = sortedKeys(cartcontent);
+		for (var i = 0; i < sorted.length; i++) {
+			html += cartcontent[sorted[i]];
+		}
+	}
+	else {
+		multiple.sort();
+		for (var i = 0; i < multiple.length; i++) {
+			var slug = multiple[i];
+			var name = moddata[slug]["name"];
+
+			html += '<div class="item" name="' + name + '" value="' + slug + '">';
+			html += '<img src="/assets/images/icons/' + slug + getImageType(slug) + '">';
+			html += '<span>' + name + '</span></div>';
+		}
+	}
+
+	$(".shoppingwrapper .inventory").html(html);
+	updateCart(true);
+}
+
+$("#downloadcart").on('click', function(e) {
+	$("body").addClass("faded");
+	$(".dlscreenwrapper").fadeIn(200);
+
+	setIncompatibles();
+});
+
+$("#selectversion").on('change', function(e) { 
+	var version = $(this).val();
+
+	$(".dlcontent .minecraftversion").html(version);
+	setIncompatibles();
+});
+
+function setIncompatibles() {
+	var incompatibles = {};
+	var activeversion = $("#selectversion").val();
+	$(".insidecart .inventory .item").each(function() {
+		var slug = $(this).attr('value');
+
+		var versiondata;
+		var latestversions = moddata[slug]["gameVersionLatestFiles"];
+		for (var i = 0; i < latestversions.length; i++) {
+			versiondata = latestversions[i];
+			if (versiondata["gameVersion"].includes(activeversion)) {
+				break;
+			}
+			versiondata = null;
+		}
+
+		if (versiondata == null) {
+			incompatibles[slug] = '<a href="/' + slug + '/">' + moddata[slug]["name"] + '</a>';
+		}
+	});
+
+	var incompatiblelength = Object.keys(incompatibles).length;
+	if (incompatiblelength > 0) {
+		var joinhtml = Object.values(incompatibles).join(", ");
+		var inchtml = '<p><span class="prefix">The incompatible ';
+
+		if (incompatiblelength > 1) {
+			inchtml += 'mods are: ';
+			joinhtml = joinhtml.replaceLast(", ", " and ")
+		}
+		else {
+			inchtml += 'mod is: ';
+		}
+
+		inchtml += '</span><span class="suffix">' + joinhtml + "</span>.</p>";
+		$("#incompatibles").html(inchtml);
+	}
+	else {
+		$("#incompatibles").html("");
+	}
+
+	var compatibleamount = parseInt($(".dlcontent .sub .selectamount").html()) - incompatiblelength;
+	$(".dlcontent .compatibleamount").html(compatibleamount);
+}
+
+$(".dlscreen .closewrapper p").on('click', function(e) {
+	if ($(".dlscreenwrapper").is(":visible")) {
+		$("body").removeClass("faded");
+		$(".dlscreenwrapper").hide();
+	}
+});
+
+$("#singular .jumpwrapper input").on('focusin', function(e) {
+	updateJumpWrapperResult();
+	$(".jumpwrapper .resultwrapper").stop().fadeIn(200);
+});
+
+$("#singular .jumpwrapper input").on('focusout', function(e) {
+	$(".jumpwrapper .resultwrapper").stop().fadeOut(200);
+});
+
+$("#singular .jumpwrapper input").on('input', function(e) {
+	updateJumpWrapperResult();
+});
+
+$("#singular .jumpwrapper .resultwrapper").on('click', 'p', function(e) {
+	var slug = $(this).attr('value');
+
+	$("#singular .jumpwrapper input").val("");
+	loadSingular(slug);
+});
+
+function updateJumpWrapperResult() {
+	var val = replaceAll($('#singular .jumpwrapper input').val().toLowerCase(), " ", "-");
+
+	var showmods = [];
+	for (var i = 0; i < activemods.length; i++) {
+		var slug = activemods[i];
+		if (slug.includes(val)) {
+			showmods.push(slug);
+			if (showmods.length >= 3) {
+				break;
+			}
+		}
+	}
+
+	var resulthtml = "";
+	for (var i = 0; i < showmods.length; i++) {
+		var slug = showmods[i];
+		var name = moddata[slug]["name"];
+		resulthtml += '<p value="' + slug + '"><img src="/assets/images/icons/' + slug + getImageType(slug) + '">' + name + '</p>';
+	}
+	
+	$(".jumpwrapper .resultwrapper").html(resulthtml);
+}
+
+$(".shoppingwrapper").on('click', '#cartselectall', function(e) {
+	addToCart("", "", activemods)
+});
+
+// Send data to php server which returns a file which you can zip and download..
+var subversions = { '1.15' : '1.15.2', '1.14' : '1.14.4', '1.12' : '1.12.2' };
+var forgeversions = { '1.15' : '31.1.75', '1.14' : '28.2.10', '1.12' : '14.23.5.2854' };
+$(".dlscreen").on('click', '#startdownload', function(e) {
+	var activeversion = $("#selectversion").val();
+
+	var manifest = {};
+
+	var minecraft = {};
+	minecraft["version"] = subversions[activeversion];
+	var modloaders = {};
+	modloaders["id"] = forgeversions[activeversion];
+	modloaders["primary"] = true;
+	minecraft["modLoaders"] = [modloaders];
+	manifest["minecraft"] = minecraft;
+
+	manifest["manifestType"] = "minecraftModpack";
+	manifest["manifestVersion"] = 1;
+	manifest["name"] = "Mod Collection from https://minecraft.natamus.com/";
+	manifest["version"] = "1.0";
+	manifest["author"] = "Serilum";
+
+	var files = [];
+	$(".insidecart .inventory .item").each(function() {
+		var slug = $(this).attr('value');
+
+		var versiondata;
+		var latestversions = moddata[slug]["gameVersionLatestFiles"];
+		for (var i = 0; i < latestversions.length; i++) {
+			versiondata = latestversions[i];
+			if (versiondata["gameVersion"].includes(activeversion)) {
+				break;
+			}
+			versiondata = null;
+		}
+
+		if (versiondata == null) {
+			return true;
+		}
+
+		var fileid = versiondata["projectFileId"];
+		var projectid = moddata[slug]["id"];
+		
+		var fileline = {};
+		fileline["projectID"] = projectid;
+		fileline["fileID"] = fileid;
+		fileline["required"] = true;
+
+		files.push(fileline);
+	});
+
+	manifest["files"] = files;
+	manifest["overrides"] = "overrides";
+
+	var filename = "serilum_manifest_" + $(".insidecart .inventory .item").length + "_mods";
+	$.ajax({
+		type: "POST",
+		url: "https://ntmsdata.com/a/p/i/post/curseforge/pack.php",
+		data: { 
+			name : filename,
+			manifest : JSON.stringify(manifest)
+		},
+		success: function(response) {
+			console.log(response);
+			downloadFile(response, filename + ".zip", "application/zip");
+		},
+		error: function(data) {}
+	});
+});
 
 // Util functions
 var corsprefix = "https://cors.ntmsdata.com:8080/";
@@ -599,8 +962,14 @@ function downloadFile(data, fileName, mime) {
 		var a = document.createElement("a");
 		document.body.appendChild(a);
 		a.style = "display: none";
-		var csvUrl = URL.createObjectURL(csvData);
-		a.href =  csvUrl;
+		if (mime.includes("zip")) {
+			a.href = data;
+		}
+		else {
+			var csvUrl = URL.createObjectURL(csvData);
+			a.href =  csvUrl;
+		}
+		
 		a.download = fileName;
 		a.click();
 		URL.revokeObjectURL(a.href)
@@ -615,6 +984,12 @@ String.prototype.includes = function (str) {
 Array.prototype.includes = function (elt) { 
 	return this.indexOf(elt) !== -1;
 }
+
+String.prototype.replaceLast = function (what, replacement) {
+	var pcs = this.split(what);
+	var lastPc = pcs.pop();
+	return pcs.join(what) + replacement + lastPc;
+};
 
 // Analytics
 function setAlPath(path) {

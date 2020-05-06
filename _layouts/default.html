@@ -19,6 +19,20 @@
 	<body>
 		<div class="wrapper">
 			<section id="topwrapper">
+				<div class="shoppingwrapper">
+					<div class="shoppingcart noselect">
+						<i class="fa fa-shopping-cart" aria-hidden="true"></i>
+						<div class="collapse">⇓</div>
+						<p><span class="selectamount">0</span> <span class="modcount">mods</span> selected</p>
+					</div>
+					<div class="insidecart" hidden>
+						<div class="emptywrapper">
+							<img class="emptyimage" src="/assets/images/empty-cart.png">
+						</div>
+						<div class="inventory"></div>
+						<button id="downloadcart" class="downloadcartbutton">Download <span class="selectamount">0</span> <span class="modcount">mods</span></button>
+					</div>
+				</div>
 				<div class="insidetw">
 					<a href="/"><img src="/assets/images/serilum_with_mouth.png"></a>
 					<h1 class="centered uppertitle">Serilum's CurseForge Mods<br>for Minecraft</h1>
@@ -34,13 +48,17 @@
 
 			<section id="content" hidden></section>
 			<section id="singular" class="singular" hidden>
+				<div class="jumpwrapper">
+					<input type="text" placeholder="Quick mod search navigation_">
+					<div class="resultwrapper" hidden></div>
+				</div>
 				<div class="navigation noselect">
 					<div class="left">
 						<p id="leftarrow">← Previous mod</p>
 						<p id="previousmod" class="sub"></p>
 					</div>
 					
-					<p class="middle">↑ Back to overview ↑</p>
+					<div class="middle"><p>↑ Back to overview ↑</p></div>
 
 					<div class="right">
 						<p id="rightarrow">Next mod →</p>
@@ -87,6 +105,30 @@
 				<p id="tooltip" class="tooltip"></p>
 			</div>
 			<section id="inlinestyle"></section>
+		</div>
+		<div class="dlscreenwrapper" hidden>
+			<div class="dlscreen">
+				<div class="closewrapper">
+					<p>×</p>
+				</div>
+				<div class="dlcontent">
+					<p>Amazing! You're about to download <span class="selectamount">0</span> <span class="modcount">mods</span>! All that's left is to select your preferred Minecraft version. Keep in mind that not all mods are available for all versions. You'll be notified if a mod is incompatible.</p>
+					<select id="selectversion">
+						<option value="1.15">Minecraft 1.15</option>
+						<option value="1.14">Minecraft 1.14</option>
+						<option value="1.12">Minecraft 1.12</option>
+					</select>
+					<p class="sub">Out of your selection of <span class="selectamount">0</span> <span class="modcount">mods</span>, <span class="compatibleamount">0</span> are compatible with Minecraft <span class="minecraftversion">1.15</span>.</p>
+					<div id="incompatibles"></div>
+					<p>When clicking the button below, you'll receive a compressed (.zip) file containing a 'manifest' of the mods you've chosen.</p>
+					<p>To download all the .jar mod archives, you'll need the open-sourced downloader <a href="https://github.com/Franckyi/CMPDL/releases" target=_blank>CMPDL by Franckyi</a>. On this page, download the file 'cmpdl-2.x.x.jar' and open it.</p>
+					<img src="/assets/images/cmpdl.png"><br>
+					<p class="imagedescription">A screenshot of the CMPDL program by Franckyi.</p>
+					<p>Once opened, choose "From ZIP file", point it to the zip file you download here and click Start. Below that, select a target folder where you want the mods downloaded to. That's it!</p>
+					<p>Thank you very much for giving these mods a try! If you come across an issue, I'd appreciate it if you could submit it <a href="https://github.com/ricksouth/serilum-mc-mods/issues/new/choose" target=_blank>here</a> so I can fix them. Don't let me keep you any longer, click that button below.</p>
+					<button id="startdownload">Start manifest download for <span class="selectamount">0</span> <span class="modcount">mods</span>.</button>
+				</div>
+			</div>
 		</div>
 	</body>
 	<script src="{{ "/assets/js/scale.fix.js" | relative_url }}"></script>
