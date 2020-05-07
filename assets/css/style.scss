@@ -720,6 +720,39 @@ section#topwrapper {
 	border: 3px solid #666;
 }
 
+/* TOASTER */
+.toasterwrapper {
+	position: fixed;
+	right: 38px;
+	top: 80px;
+
+	width: 200px;
+	height: auto;
+}
+div.toasterwrapper.offset {
+	top: 360px;
+}
+.toasterwrapper .toast {
+	width: 100%;
+	height: auto;
+	margin: 10px;
+
+	color: white;
+	font-size: 14px;
+	border-radius: 15px;
+	background-color: rgb(46, 184, 46);
+
+	text-align: center;
+}
+.toasterwrapper .toast p {
+	margin: 0;
+	padding: 10px;
+}
+
+.toasterwrapper .toast .slug {
+	font-style: italic;
+}
+
 /* Tooltip */
 .tooltipwrapper {
 	position: absolute;

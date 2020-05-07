@@ -96,6 +96,7 @@ function loadJsonData() {
 			if (cartisopen == "true") {
 				$(".shoppingwrapper .insidecart").fadeIn(200);
 				$(".shoppingcart .collapse").html("⇑");
+				$(".toasterwrapper").addClass("offset");
 			}
 
 			var cartitems = Cookies.get('cartitems');
@@ -603,11 +604,15 @@ $(".shoppingwrapper .shoppingcart").on('click', function(e) {
 	var collapseicon = "";
 	if($(".insidecart").is(":visible")) {
 		$(".insidecart").fadeOut(200);
+		$(".toasterwrapper").removeClass("offset");
+
 		collapseicon = "⇓";
 		isopen = false;
 	}
 	else {
 		$(".insidecart").fadeIn(200);
+		$(".toasterwrapper").addClass("offset");
+
 		collapseicon = "⇑";
 		isopen = true;
 	}
@@ -620,7 +625,10 @@ $(".shoppingwrapper").on('click', '#tomodpage', function(e) {
 	loadSingular(slug);
 });
 $(".shoppingwrapper").on('click', '#removemod', function(e) {
-	$(this).parents("div.item").remove();
+	var parent = $(this).parents("div.item");
+	showToast('<p>Removed <span class="slug">' + parent.attr('name') + '</span> from the download cart.</p>');
+	
+	parent.remove();
 	updateCart(true);
 });
 
@@ -630,6 +638,7 @@ $(".shoppingwrapper .arrowwrapper .clickdiv").on('click', function(e) {
 
 $(".shoppingwrapper .emptywrapper img").on('click', function(e) {
 	$(".shoppingwrapper .inventory").html("");
+	showToast('<p>The cart has been emptied.</p>');
 	updateCart(true);
 });
 
@@ -704,7 +713,26 @@ function addToCart(name, slug, multiple) {
 	}
 
 	$(".shoppingwrapper .inventory").html(html);
+	if (multiple.length == 0) {
+		showToast('<p>Added <span class="slug">' + name + '</span> to the download cart.</p>');
+	}
+
 	updateCart(true);
+}
+
+var toastnumber = 0;
+function showToast(message) {
+	var toastid = 'toast_' + toastnumber;
+	var toasthtml = '<div id="' + toastid + '" class="toast">' + message + '</div>';
+	$(".toasterwrapper").append(toasthtml);
+
+	window[toastid + "_0"] = setTimeout(function(){ 
+		$("#" + toastid).fadeOut(1000);
+		window[toastid + "_1"] = setTimeout(function(){ 
+			$("#" + toastid).remove();
+		}, 1000);
+	}, 2500);
+	toastnumber+=1;
 }
 
 $("#downloadcart").on('click', function(e) {
@@ -875,12 +903,13 @@ $(".dlscreen").on('click', '#startdownload', function(e) {
 	manifest["files"] = files;
 	manifest["overrides"] = "overrides";
 
-	var filename = "serilum_manifest_" + $(".dlcontent .compatibleamount").html() + "_mods";
+	var filename = $(".dlcontent .compatibleamount").html() + "_serilum_mods_manifest_" + activeversion;
 	$.ajax({
 		type: "POST",
 		url: "https://ntmsdata.com/a/p/i/post/curseforge/pack.php",
 		data: { 
 			name : filename,
+			version : activeversion,
 			manifest : JSON.stringify(manifest)
 		},
 		success: function(response) {
