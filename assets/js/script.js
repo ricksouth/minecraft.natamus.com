@@ -1,10 +1,15 @@
 var activetags = {};
 var activemods = [];
+
 var neverclicked = true;
+var showtiledescriptions = true;
+var lastscrolltop = 0;
+var activetooltipslug = "";
 
 var moddata = {};
 var moddls = {};
 var modtags = {};
+var moddescriptions = {};
 var gifs = [];
 
 $(document).ready(function(e) {
@@ -17,21 +22,21 @@ $(window).on('resize', function(){
 });
 
 function responsiveResize() {
-	var width = $(window).width();
+	var width = $("#singular").width();
 	var len = $(".navigation .left").html().length;
 
-	if (width < 810-15) {
+	if (width < 700) {
 		if (len > 10) {
-			$(".navigation .left").html("←←");
+			$(".navigation #leftarrow").html("←←");
 			$(".navigation .middle").html("↑↑");
-			$(".navigation .right").html("→→");
+			$(".navigation #rightarrow").html("→→");
 		}
 	}
 	else {
 		if (len < 10) {
-			$(".navigation .left").html("← Previous mod");
+			$(".navigation #leftarrow").html("← Previous mod");
 			$(".navigation .middle").html("↑ Back to overview ↑");
-			$(".navigation .right").html("Next mod →");
+			$(".navigation #rightarrow").html("Next mod →");
 		}
 	}
 }
@@ -333,12 +338,38 @@ $(document).on({
 		var pos = $(this).offset();
 
 		$("#tooltip").html(tag);
-		$(".tooltipwrapper").css( { left: (pos.left + $(this).width() + 10), top: pos.top } ).show();
+		$(".tooltipwrapper").css( { left: (pos.left + $(this).width() + 10), right: "initial", top: pos.top } ).show();
 	},
 	mouseleave: function () {
 		$(".tooltipwrapper").hide();
 	}
 }, ".activetags img, .emptywrapper img, .tiles .addcart");
+
+$(document).on({
+	mouseenter: function () {
+		var tile = $(this).parents(".col.mod");
+		var slug = replaceAll($(this).attr('href'), "/", "");
+		
+		activetooltipslug = slug;
+		setDescription(moddata[slug]["id"], slug, "tooltip");
+
+		var pos = $(this).offset();
+		var spaceleft = $(window).width() - pos.left;
+		if (spaceleft < 750) {
+			$(".tooltipwrapper").css( { left: "initial", right : spaceleft+10, top: pos.top } );
+		}
+		else {
+			$(".tooltipwrapper").css( { left: (pos.left + $(this).width() + 10), right : "initial", top: pos.top } );
+		}
+
+		if (showtiledescriptions) {
+			$(".tooltipwrapper").show();
+		}
+	},
+	mouseleave: function () {
+		$(".tooltipwrapper").hide();
+	}
+}, ".tiles .col.mod a");
 
 $(document).on('input', '#searchinput', function(e) {
 	var val = $(this).val();
@@ -361,6 +392,24 @@ $(document).on('click', '.tiles .col.mod', function(e) {
 	var slug = url.split("/mc-mods/")[1];
 
 	loadSingular(slug);
+
+	lastscrolltop = $(document).scrollTop();
+	$(document).scrollTop(0);
+});
+
+$(document).on('contextmenu', '.tiles .col.mod', function(e) {
+	showtiledescriptions = !showtiledescriptions;
+
+	if (showtiledescriptions) {
+		$(".tooltipwrapper").fadeIn(100);
+		showToast("<p>Now showing tile descriptions on hover.</p>");
+	}
+	else {
+		$(".tooltipwrapper").fadeOut(100);
+		showToast("<p>Now hiding tile descriptions on hover.</p>");
+	}
+
+	e.preventDefault();
 });
 
 $(document).on('click', '.tiles a', function(e) {
@@ -444,40 +493,35 @@ function loadSingular(slug) {
 	$("#dlcount").html(numberWithCommas(data["downloadCount"]));
 
 	var modid = data["id"];
-	setDescription(modid, slug);
+	setDescription(modid, slug, "singular");
 }
 
 var randomized = 0;
-function setDescription(id, slug) {
+function setDescription(id, slug, type) {
+	if (slug in moddescriptions) {
+		var data = moddescriptions[slug];
+		if (type == "singular") {
+			processSingularDescription(slug, data);
+		}
+		else if (type == "tooltip") {
+			$("#tooltip").html(formatTooltipDescription(slug, data));
+		}
+		return;
+	}
+
 	$.ajax({
 		type: "GET",
 		url: corsprefix + "https://addons-ecs.forgesvc.net/api/v2/addon/" + id + "/description",
 		success: function(data) {
-			if ($("#sngltitle").attr('value') != slug) {
-				return;
+			moddescriptions[slug] = data;
+			if (type == "singular") {
+				processSingularDescription(slug, data);	
 			}
-			
-			clearTimeout(window.setd);
-
-			// Adds a newline after the external links image
-			var description = data.replace('"40">', '"40"><br>');
-			// replaces curseforge links with local page urls.
-			description = replaceAll(description, "https://www.curseforge.com/minecraft/mc-mods/", "/");
-			description = replaceAll(description, "https://curseforge.com/minecraft/mc-mods/", "/");
-			// remove linkout? prefix
-			description = replaceAll(description, "/linkout\\?remoteUrl=https%253a%252f%252fnatam.us%252fsupport", "https://natam.us/support");
-			description = replaceAll(description, 'rel="nofollow"', "target=_blank");
-			description = replaceAll(description, "/linkout\\?remoteUrl=", "");
-
-			var htmlelems = {"%253a" : ":", "%252f" : "/"};
-			for (var key in htmlelems) {
-				description = replaceAll(description, key, htmlelems[key]);
+			else if (type == "tooltip") {
+				if (activetooltipslug == slug) {
+					$("#tooltip").html(formatTooltipDescription(slug, data));
+				}
 			}
-
-			$("#sngldescription").html(description);
-
-			$("#loadingwrapper").hide();
-			$("#singular").fadeIn(200);
 		},
 		error: function(data) {}
 	});
@@ -486,6 +530,41 @@ function setDescription(id, slug) {
 	window.setd = setTimeout(function(){ 
 		setDescription(id, slug);
 	}, 500);
+}
+function formatTooltipDescription(slug, data) {
+	var description = data.split('<br><br><img src="https://rebr')[0] + '</p>';
+	
+	description = '<img class="icon" src="/assets/images/icons/' + slug + getImageType(slug) + '">' + description;
+	description = '<div class="clickex"><p class="left"><img src="/assets/images/mouse-left.png">Left-click to go to the project page</p><p class="right"><img src="/assets/images/mouse-right.png">Right-click to hide this description</p></div>' + description;
+
+	return '<div class="description">' + description + '</div>';
+}
+function processSingularDescription(slug, data) {
+	if ($("#sngltitle").attr('value') != slug) {
+		return;
+	}
+	
+	clearTimeout(window.setd);
+
+	// Adds a newline after the external links image
+	var description = data.replace('"40">', '"40"><br>');
+	// replaces curseforge links with local page urls.
+	description = replaceAll(description, "https://www.curseforge.com/minecraft/mc-mods/", "/");
+	description = replaceAll(description, "https://curseforge.com/minecraft/mc-mods/", "/");
+	// remove linkout? prefix
+	description = replaceAll(description, "/linkout\\?remoteUrl=https%253a%252f%252fnatam.us%252fsupport", "https://natam.us/support");
+	description = replaceAll(description, 'rel="nofollow"', "target=_blank");
+	description = replaceAll(description, "/linkout\\?remoteUrl=", "");
+
+	var htmlelems = {"%253a" : ":", "%252f" : "/"};
+	for (var key in htmlelems) {
+		description = replaceAll(description, key, htmlelems[key]);
+	}
+
+	$("#sngldescription").html(description);
+
+	$("#loadingwrapper").hide();
+	$("#singular").fadeIn(200);
 }
 
 $(document).on('click', '#singular a, .dlcontent a', function(e) {
@@ -534,6 +613,7 @@ $(document).on('click', '#singular .navigation div', function(e) {
 
 		changeUrl("", "Serilum's CurseForge Mods");
 		setAlPath('/');
+		$(document).scrollTop(lastscrolltop);
 	}
 	else {
 		var slug = $("#sngltitle").attr('value');
@@ -600,9 +680,12 @@ function setHover() {
 }
 
 $(".shoppingwrapper .shoppingcart").on('click', function(e) {
+	toggleCart(false);
+});
+function toggleCart(forceopen) {
 	var isopen;
 	var collapseicon = "";
-	if($(".insidecart").is(":visible")) {
+	if($(".insidecart").is(":visible") && !forceopen) {
 		$(".insidecart").fadeOut(200);
 		$(".toasterwrapper").removeClass("offset");
 
@@ -619,7 +702,8 @@ $(".shoppingwrapper .shoppingcart").on('click', function(e) {
 
 	$(".shoppingcart .collapse").html(collapseicon);
 	Cookies.set('cartisopen', isopen.toString(), { expires: 365 });
-});
+}
+
 $(".shoppingwrapper").on('click', '#tomodpage', function(e) {
 	var slug = $(this).parents("div.item").attr('value');
 	loadSingular(slug);
@@ -654,9 +738,11 @@ function updateCart(setcookie) {
 	var selectamount = $(".shoppingwrapper .insidecart .inventory .item").length;
 	if (selectamount == 1) {
 		$(".modcount").html("mod");
+		$(".areis").html("is");
 	}
 	else {
 		$(".modcount").html("mods");
+		$(".areis").html("are");
 
 		if (selectamount == 0) {
 			$(".shoppingwrapper .inventory").html(explanationhtml);
@@ -714,7 +800,7 @@ function addToCart(name, slug, multiple) {
 
 	$(".shoppingwrapper .inventory").html(html);
 	if (multiple.length == 0) {
-		showToast('<p>Added <span class="slug">' + name + '</span> to the download cart.</p>');
+		showToast('<p class="carttoast">Added <span class="slug">' + name + '</span> to the download cart.</p>');
 	}
 
 	updateCart(true);
@@ -734,6 +820,10 @@ function showToast(message) {
 	}, 2500);
 	toastnumber+=1;
 }
+
+$(".toasterwrapper").on('click', '.toast .carttoast', function(e) {
+	toggleCart(true);
+});
 
 $("#downloadcart").on('click', function(e) {
 	$("body").addClass("faded");
