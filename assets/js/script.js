@@ -47,8 +47,13 @@ function afterContent() {
 		
 		var pathname = window.location.pathname;
 		var pathslug = replaceAll(pathname, "/", "");
+		var clpathslug = pathslug.replace("changelog", "");
+
 		if (activemods.includes(pathslug)) {
-			loadSingular(pathslug);
+			loadSingular(pathslug, false);
+		}
+		else if (activemods.includes(clpathslug)) {
+			loadSingular(clpathslug, true);
 		}
 		else {
 			$(".belowtw").fadeIn(200);
@@ -391,7 +396,7 @@ $(document).on('click', '.tiles .col.mod', function(e) {
 	var url = $(this).children("a").attr('value');
 	var slug = url.split("/mc-mods/")[1];
 
-	loadSingular(slug);
+	loadSingular(slug, false);
 
 	lastscrolltop = $(document).scrollTop();
 	$(document).scrollTop(0);
@@ -440,7 +445,16 @@ $(document).on('click', '.tiles .col.mod .addcart', function(e) {
 var skipversions = ["1.7.", "1.11", "1.13"];
 var otherfilehtml = '<div class="version" value="other"><p>Other Files</p><p>On CurseForge</p><img class="dlicon" src="/assets/images/external.png"></div>';
 var addtocarthtml = '<div class="version" value="cart"><p>Add to cart</p><p>For bulk download</p><img class="dlicon" src="/assets/images/add-to-cart.png"></div>';
-function loadSingular(slug) {
+function loadSingular(slug, forcechangelog) {
+	if (!forcechangelog) {
+		$(".changelognav").removeClass("showing");
+		$(".changelognav img").attr('src', '/assets/images/changelog-right.png')
+		$(".changelognav span").html('Show version changelog ->');
+
+		$(".changelog").hide();
+		//$("#snglimage").fadeIn(200);
+	}
+
 	$("#content").hide();
 	$(".belowtw").hide();
 	$("#loadingwrapper").fadeIn(200);
@@ -452,7 +466,6 @@ function loadSingular(slug) {
 	var name = data["name"];
 
 	changeUrl(slug + "/", "Minecraft Mod | " + name);
-	setAlPath('/' + slug + '/');
 
 	var categories = modtags[slug];
 	var datecreated = data["dateCreated"];
@@ -494,6 +507,10 @@ function loadSingular(slug) {
 
 	var modid = data["id"];
 	setDescription(modid, slug, "singular");
+
+	if (forcechangelog) {
+		processChangelog(true, false);
+	}
 }
 
 var randomized = 0;
@@ -573,7 +590,7 @@ $(document).on('click', '#singular a, .dlcontent a', function(e) {
 
 	if (url.startsWith('/')) {
 		e.preventDefault();
-		loadSingular(replaceAll(url, '/', ''));
+		loadSingular(replaceAll(url, '/', ''), false);
 	}
 
 	if ($(".dlscreenwrapper").is(":visible")) {
@@ -612,16 +629,64 @@ $(document).on('click', '#singular .navigation div', function(e) {
 		$(".belowtw").fadeIn(200);
 
 		changeUrl("", "Serilum's CurseForge Mods");
-		setAlPath('/');
 		$(document).scrollTop(lastscrolltop);
 	}
 	else {
 		var slug = $("#sngltitle").attr('value');
 		var newslug = getNextOrPrevious(slug, side);
 
-		loadSingular(newslug);
+		loadSingular(newslug, false);
 	}
 });
+
+$(document).on('click', '.changelognav', function(e) {
+	$(this).toggleClass("showing");
+
+	processChangelog(false, true);
+});
+function processChangelog(forceshow, changeurl) {
+	var slug = $("#sngltitle").attr('value');
+	var name = $("#sngltitle").html();
+
+	if ($(".changelognav").hasClass("showing") || forceshow) {
+		if (forceshow) {
+			$(".changelognav").addClass("showing");
+		}
+		setChangelog(slug, name);
+	}
+	else {
+		$(".changelognav img").attr('src', '/assets/images/changelog-right.png')
+		$(".changelognav span").html('Show version changelog ->');
+
+		$(".changelog").hide();
+		//$("#snglimage").fadeIn(200);
+
+		if (changeurl) {
+			changeUrl(slug + "/", "Minecraft Mod | " + name);
+		}
+	}
+}
+function setChangelog(slug, name) {
+	var url = 'https://raw.githubusercontent.com/ricksouth/serilum-mc-mods/master/changelog/' + slug + '.txt';
+
+	$.ajax({
+		type: "GET",
+		url: url,
+		success: function(data) {
+			var html = replaceAll(data, "\n", "<br>");
+			
+			$(".changelognav img").attr('src', '/assets/images/changelog-left.png')
+			$(".changelognav span").html('Hide version changelog <-');
+
+			$(".changelog").html('<p>' + html + '</p>');
+			//$("#snglimage").hide();
+			$(".changelog").fadeIn(200);
+
+			changeUrl(slug + "/changelog/", "Changelog | " + name);
+		},
+		error: function(data) {}
+	});
+}
 
 var ak = { "left" : 37, "right" : 39};
 $(document).keydown(function(e) { 
@@ -706,7 +771,7 @@ function toggleCart(forceopen) {
 
 $(".shoppingwrapper").on('click', '#tomodpage', function(e) {
 	var slug = $(this).parents("div.item").attr('value');
-	loadSingular(slug);
+	loadSingular(slug, false);
 });
 $(".shoppingwrapper").on('click', '#removemod', function(e) {
 	var parent = $(this).parents("div.item");
@@ -908,7 +973,7 @@ $("#singular .jumpwrapper .resultwrapper").on('click', 'p', function(e) {
 	var slug = $(this).attr('value');
 
 	$("#singular .jumpwrapper input").val("");
-	loadSingular(slug);
+	loadSingular(slug, false);
 });
 
 function updateJumpWrapperResult() {
@@ -1067,6 +1132,8 @@ function changeUrl(url, title) {
 	var new_url = '/' + url;
 	window.history.pushState('data', 'Title', new_url);
 	document.title = title;
+
+	setAlPath('/' + url);
 }
 
 function openInNewTab(url) {

@@ -14,7 +14,7 @@
 		<link rel="stylesheet" href="/assets/external/css/font-awesome.min.css">
 
 		{% include analytics.html %}
-		<script data-ad-client="ca-pub-7103228011189262" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+		<!--<script data-ad-client="ca-pub-7103228011189262" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
 	</head>
 	<body>
 		<div class="wrapper">
@@ -67,7 +67,13 @@
 				</div>
 				<div class="modinfo">
 					<h1 id="sngltitle" value=""></h1>
-					<img id="snglimage" src="">
+					<div class="changelognav noselect">
+						<p><img src="/assets/images/changelog-right.png"><span>Show version changelog -></span></p>
+					</div>
+					<div class="snglimagewrapper">
+						<img id="snglimage" src="">
+						<div class="changelog"></div>
+					</div>
 					<table class="subinfo">
 						<tr id="sngltags"><td>Categories:</td> <td class="val"></td></tr>
 						<tr id="snglcreated"><td>Date Created:</td> <td class="val"></td></tr>

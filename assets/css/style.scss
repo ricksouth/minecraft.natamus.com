@@ -95,7 +95,7 @@ footer p.footercontent {
 	div.wrapper {
 		top: 105px;
 	}
-	.singular img#snglimage {
+	.singular .snglimagewrapper {
 		width: 100%;
 	}
 }
@@ -889,8 +889,31 @@ section#singular {
 	width: 32px;
 }
 
-.singular #snglimage {
+.singular .snglimagewrapper {
 	width: 500px;
+	height: 500px;
+	min-width: 500px;
+	min-height: 500px;
+
+	border: 1px solid grey;
+}
+.singular .snglimagewrapper .changelog {
+	position: absolute;
+	margin-top: -505px;
+
+	height: 500px;
+	width: 500px;
+	overflow-y: scroll;
+
+	background-color: rgb(0, 0, 0, 0.65)
+}
+.singular .snglimagewrapper img {
+	width: 100%;
+	height: auto;
+}
+.singular .snglimagewrapper p {
+	padding: 20px;
+	color: white;
 }
 
 .singular .navigation {
@@ -937,8 +960,29 @@ section#singular {
 	font-style: italic;
 }
 
+.singular .changelognav {
+	width: 100%;
+	height: auto;
+}
+.singular .changelognav:hover {
+	cursor: pointer;
+	color: darkgreen;
+}
+.singular .changelognav p {
+	margin: 0;
+	padding: 0px 5px 5px 10px;
+
+	font-weight: bolder;
+}
+.singular .changelognav img {
+	position: relative;
+	top: 4px;
+	width: 20px;
+	margin-right: 5px;
+}
+
 .singular #sngltitle {
-	margin-bottom: 3px;
+	margin: 0;
 }
 .singular .modinfo {
 	float: left;
