@@ -549,7 +549,11 @@ function setDescription(id, slug, type) {
 	}, 500);
 }
 function formatTooltipDescription(slug, data) {
-	var description = data.split('<br><br><img src="https://rebr')[0] + '</p>';
+	var description = data.split('<br><br><img src="https://github.com/ricksouth/serilum-mc-mods/raw/master/description/b1.jpg')[0] + '</p>';
+	
+	if (description.includes('height="400"></a><br><br>')) {
+		description = '<p>' + description.split('height="400"></a><br><br>')[1];
+	}
 	
 	description = '<img class="icon" src="/assets/images/icons/' + slug + getImageType(slug) + '">' + description;
 	description = '<div class="clickex"><p class="left"><img src="/assets/images/mouse-left.png">Left-click to go to the project page</p><p class="right"><img src="/assets/images/mouse-right.png">Right-click to hide this description</p></div>' + description;
@@ -565,6 +569,13 @@ function processSingularDescription(slug, data) {
 
 	// Adds a newline after the external links image
 	var description = data.replace('"40">', '"40"><br>');
+	console.log(description);
+
+	// hide top image
+	if (description.includes('height="400"></a><br><br>')) {
+		description = '<p>' + description.split('height="400"></a><br><br>')[1];
+	}
+
 	// replaces curseforge links with local page urls.
 	description = replaceAll(description, "https://www.curseforge.com/minecraft/mc-mods/", "/");
 	description = replaceAll(description, "https://curseforge.com/minecraft/mc-mods/", "/");
