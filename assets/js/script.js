@@ -538,6 +538,7 @@ function setDescription(id, slug, type) {
 		return;
 	}
 
+	$("#tooltip").html('<div class="loadingwrap">' + $("#loadingwrapper").html() + '</div>');
 	$.ajax({
 		type: "GET",
 		url: corsprefix + "https://addons-ecs.forgesvc.net/api/v2/addon/" + id + "/description",
