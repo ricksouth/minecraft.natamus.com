@@ -20,6 +20,7 @@ def main():
 		smfile.write('<?xml version="1.0" encoding="UTF-8"?>' + "\n")
 		smfile.write('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">' + "\n")
 
+		# main page index.php
 		smfile.write('	<url>' + "\n")
 		smfile.write('		<loc>https://minecraft.natamus.com/</loc>' + "\n")
 		smfile.write('		<lastmod>' + lastmod + '</lastmod>' + "\n")
@@ -32,12 +33,15 @@ def main():
 			if "/mc-mods/" in line:
 				slug = line.split("/mc-mods/")[1].split(")")[0]
 
+				# main subpage of *slug*
 				smfile.write('	<url>' + "\n")
 				smfile.write('		<loc>https://minecraft.natamus.com/' + slug + '/</loc>' + "\n")
 				smfile.write('		<lastmod>' + lastmod + '</lastmod>' + "\n")
 				smfile.write('		<changefreq>weekly</changefreq>' + "\n")
 				smfile.write('		<priority>0.80</priority>' + "\n")
 				smfile.write('	</url>' + "\n")
+
+				# changelog page of *slug*
 				smfile.write('	<url>' + "\n")
 				smfile.write('		<loc>https://minecraft.natamus.com/' + slug + '/changelog/</loc>' + "\n")
 				smfile.write('		<lastmod>' + lastmod + '</lastmod>' + "\n")
