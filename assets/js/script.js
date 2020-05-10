@@ -1130,7 +1130,7 @@ $(".dlscreen").on('click', '#startdownload', function(e) {
 	var filename = $(".dlcontent .compatibleamount").html() + "_serilum_mods_manifest_" + activeversion;
 	$.ajax({
 		type: "POST",
-		url: "https://ntmsdata.com/a/p/i/post/curseforge/pack.php",
+		url: "https://ntmsdata.com/a/p/i/post/curseforge/pack_zip.php",
 		data: { 
 			name : filename,
 			version : activeversion,
