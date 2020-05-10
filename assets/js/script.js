@@ -39,6 +39,16 @@ function responsiveResize() {
 			$(".navigation #rightarrow").html("Next mod →");
 		}
 	}
+
+	if (width < 548) {
+		var imageheight = $(".snglimagewrapper img").height();
+		if (imageheight > 0) {
+			$(".changelog").css({ "height": imageheight, "margin-top": (-505 + (500-imageheight)) });
+		}
+	}
+	else {
+		$(".changelog").css({ "height": 500, "margin-top": -505 });
+	}
 }
 
 function afterContent() {
@@ -343,7 +353,7 @@ $(document).on({
 		var pos = $(this).offset();
 
 		$("#tooltip").html(tag);
-		$(".tooltipwrapper").css( { left: (pos.left + $(this).width() + 10), right: "initial", top: pos.top } ).show();
+		$(".tooltipwrapper").css( { left: (pos.left + $(this).width() + 10), right: "initial", top: pos.top - $(document).scrollTop() } ).show();
 	},
 	mouseleave: function () {
 		$(".tooltipwrapper").hide();
@@ -361,10 +371,10 @@ $(document).on({
 		var pos = $(this).offset();
 		var spaceleft = $(window).width() - pos.left;
 		if (spaceleft < 750) {
-			$(".tooltipwrapper").css( { left: "initial", right : spaceleft+10, top: pos.top } );
+			$(".tooltipwrapper").css( { left: "initial", right : spaceleft+10, top: pos.top - $(document).scrollTop() } );
 		}
 		else {
-			$(".tooltipwrapper").css( { left: (pos.left + $(this).width() + 10), right : "initial", top: pos.top } );
+			$(".tooltipwrapper").css( { left: (pos.left + $(this).width() + 10), right : "initial", top: pos.top - $(document).scrollTop() } );
 		}
 
 		if (showtiledescriptions) {
@@ -523,6 +533,8 @@ function setDescription(id, slug, type) {
 		else if (type == "tooltip") {
 			$("#tooltip").html(formatTooltipDescription(slug, data));
 		}
+
+		responsiveResize();
 		return;
 	}
 
@@ -539,6 +551,8 @@ function setDescription(id, slug, type) {
 					$("#tooltip").html(formatTooltipDescription(slug, data));
 				}
 			}
+
+			responsiveResize();
 		},
 		error: function(data) {}
 	});

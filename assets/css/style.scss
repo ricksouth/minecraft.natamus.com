@@ -95,8 +95,19 @@ footer p.footercontent {
 	div.wrapper {
 		top: 105px;
 	}
-	.singular .snglimagewrapper {
+	.singular div.snglimagewrapper {
 		width: 100%;
+		height: initial;
+
+		min-width: initial;
+		min-height: initial;
+	}
+	.singular div.snglimagewrapper div.changelog {
+		width: 100%;
+
+	}
+	.singular div.snglimagewrapper img {
+
 	}
 }
 
@@ -762,7 +773,7 @@ div.toasterwrapper.offset {
 
 /* Tooltip */
 .tooltipwrapper {
-	position: absolute;
+	position: fixed;
 	z-index: 1001;
 	top: 0;
 	left: 0;
@@ -776,7 +787,8 @@ div.toasterwrapper.offset {
 	border-radius: 10px;
 	border: 1px solid black;
 
-	pointer-events:none
+	pointer-events: none;
+	overflow: hidden;
 }
 
 .tooltipwrapper .tooltip {
