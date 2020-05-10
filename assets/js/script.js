@@ -5,6 +5,7 @@ var neverclicked = true;
 var showtiledescriptions = true;
 var lastscrolltop = 0;
 var activetooltipslug = "";
+var tooltipelem = null;
 
 var moddata = {};
 var moddls = {};
@@ -17,8 +18,33 @@ $(document).ready(function(e) {
 	loadJsonData();
 });
 
-$(window).on('resize', function(){
+$(window).on('resize', function(e) {
 	responsiveResize();
+});
+
+$(document).on('scroll', function(e) {
+	if ($(".tooltipwrapper").is(":visible") && tooltipelem != null) {
+		$(".tooltipwrapper").css( { top: tooltipelem.offset().top - $(document).scrollTop() } );
+	}
+});
+
+var kbkeys = { "left" : 37, "right" : 39, "escape" : 27};
+$(document).keydown(function(e) { 
+	var which = e.which;
+
+	if ($("#singular").is(":visible")) {
+		if (which == kbkeys["left"]) {
+			$(".navigation .left").click();
+		}
+		else if (which == kbkeys["right"]) {
+			$(".navigation .right").click();
+		}
+	}
+	if ($(".dlscreenwrapper").is(":visible")) {
+		if (which == kbkeys["escape"]) {
+			hideDownloadScreen();
+		}
+	}
 });
 
 function responsiveResize() {
@@ -56,6 +82,11 @@ function afterContent() {
 		$("#loadingwrapper").hide();
 		
 		var pathname = window.location.pathname;
+		var pathsearch = window.location.search;
+		if (pathsearch.includes("?path=")) {
+			pathname = pathsearch.split("?path=")[1];
+		}
+
 		var pathslug = replaceAll(pathname, "/", "");
 		var clpathslug = pathslug.replace("changelog", "");
 
@@ -351,6 +382,7 @@ $(document).on({
 		}
 
 		var pos = $(this).offset();
+		tooltipelem = $(this);
 
 		$("#tooltip").html(tag);
 		$(".tooltipwrapper").css( { left: (pos.left + $(this).width() + 10), right: "initial", top: pos.top - $(document).scrollTop() } ).show();
@@ -369,6 +401,8 @@ $(document).on({
 		setDescription(moddata[slug]["id"], slug, "tooltip");
 
 		var pos = $(this).offset();
+		tooltipelem = $(this);
+
 		var spaceleft = $(window).width() - pos.left;
 		if (spaceleft < 750) {
 			$(".tooltipwrapper").css( { left: "initial", right : spaceleft+10, top: pos.top - $(document).scrollTop() } );
@@ -462,7 +496,6 @@ function loadSingular(slug, forcechangelog) {
 		$(".changelognav span").html('Show version changelog ->');
 
 		$(".changelog").hide();
-		//$("#snglimage").fadeIn(200);
 	}
 
 	$("#content").hide();
@@ -584,7 +617,6 @@ function processSingularDescription(slug, data) {
 
 	// Adds a newline after the external links image
 	var description = data.replace('"40">', '"40"><br>');
-	console.log(description);
 
 	// hide top image
 	if (description.includes('height="400"></a><br><br>')) {
@@ -620,8 +652,7 @@ $(document).on('click', '#singular a, .dlcontent a', function(e) {
 	}
 
 	if ($(".dlscreenwrapper").is(":visible")) {
-		$("body").removeClass("faded");
-		$(".dlscreenwrapper").hide();
+		hideDownloadScreen();
 	}
 });
 
@@ -685,7 +716,6 @@ function processChangelog(forceshow, changeurl) {
 		$(".changelognav span").html('Show version changelog ->');
 
 		$(".changelog").hide();
-		//$("#snglimage").fadeIn(200);
 
 		if (changeurl) {
 			changeUrl(slug + "/", "Minecraft Mod | " + name);
@@ -700,12 +730,16 @@ function setChangelog(slug, name) {
 		url: url,
 		success: function(data) {
 			var html = replaceAll(data, "\n", "<br>");
+			if (html.includes("#")) {
+				html = replaceAll(html, "#", 'https://github.com/ricksouth/serilum-mc-mods/issues/');
+			}
+
+			html = createLinks(html);
 			
 			$(".changelognav img").attr('src', '/assets/images/changelog-left.png')
 			$(".changelognav span").html('Hide version changelog <-');
 
 			$(".changelog").html('<p>' + html + '</p>');
-			//$("#snglimage").hide();
 			$(".changelog").fadeIn(200);
 
 			changeUrl(slug + "/changelog/", "Changelog | " + name);
@@ -713,20 +747,6 @@ function setChangelog(slug, name) {
 		error: function(data) {}
 	});
 }
-
-var ak = { "left" : 37, "right" : 39};
-$(document).keydown(function(e) { 
-	var which = e.which;
-
-	if ($("#singular").is(":visible")) {
-		if (which == ak["left"]) {
-			$(".navigation .left").click();
-		}
-		else if (which == ak["right"]) {
-			$(".navigation .right").click();
-		}
-	}
-});
 
 function setNextAndPrevious(slug) {
 	$("#singular #previousmod").html(getNextOrPrevious(slug, "left"));
@@ -897,6 +917,30 @@ function addToCart(name, slug, multiple) {
 	updateCart(true);
 }
 
+var previous
+function showDownloadScreen() {
+	$("body").addClass("faded");
+	$(".dlscreenwrapper").fadeIn(200);
+
+	var pathname = window.location.pathname;
+	var title = document.title;
+	changeUrl("download/?path=" + pathname, title);
+}
+function hideDownloadScreen() {
+	$("body").removeClass("faded");
+	$(".dlscreenwrapper").hide();
+
+	var pathname = window.location.pathname + window.location.search;
+	if (pathname.includes("?path=")) {
+		pathname = pathname.split("?path=")[1];
+	}
+	else {
+		pathname = pathname.replace('/download/', '');
+	}
+
+	changeUrl(pathname, document.title);
+}
+
 var toastnumber = 0;
 function showToast(message) {
 	var toastid = 'toast_' + toastnumber;
@@ -917,9 +961,7 @@ $(".toasterwrapper").on('click', '.toast .carttoast', function(e) {
 });
 
 $("#downloadcart").on('click', function(e) {
-	$("body").addClass("faded");
-	$(".dlscreenwrapper").fadeIn(200);
-
+	showDownloadScreen();
 	setIncompatibles();
 });
 
@@ -977,8 +1019,7 @@ function setIncompatibles() {
 
 $(".dlscreen .closewrapper p").on('click', function(e) {
 	if ($(".dlscreenwrapper").is(":visible")) {
-		$("body").removeClass("faded");
-		$(".dlscreenwrapper").hide();
+		hideDownloadScreen();
 	}
 });
 
@@ -1155,11 +1196,18 @@ function formatDate(date) {
 }
 
 function changeUrl(url, title) {
-	var new_url = '/' + url;
-	window.history.pushState('data', 'Title', new_url);
+	var newurl = url;
+	if (newurl.length == 0) {
+		newurl = "/";
+	}
+	else if (newurl[0] != "/") {
+		newurl = "/" + url;
+	}
+
+	window.history.pushState('data', 'Title', newurl);
 	document.title = title;
 
-	setAlPath('/' + url);
+	setAlPath(url);
 }
 
 function openInNewTab(url) {
@@ -1190,6 +1238,14 @@ function downloadFile(data, fileName, mime) {
 		a.remove();
 	}
 };
+
+function createLinks(inputText) {
+	var replacedText, replacePattern1;
+
+	replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+	replacedText = inputText.replace(replacePattern1, '<a href="$1" target="_blank">$1</a>');
+	return replacedText;
+}
 
 // for IE
 String.prototype.includes = function (str) {
