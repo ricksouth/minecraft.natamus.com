@@ -605,6 +605,7 @@ function formatTooltipDescription(slug, data) {
 	
 	description = '<img class="icon" src="/assets/images/icons/' + slug + getImageType(slug) + '">' + description;
 	description = '<div class="clickex"><p class="left"><img src="/assets/images/mouse-left.png">Left-click to go to the project page</p><p class="right"><img src="/assets/images/mouse-right.png">Right-click to hide this description</p></div>' + description;
+	description = replaceAll(description, "minimalistic ", "");
 
 	return '<div class="description">' + description + '</div>';
 }
