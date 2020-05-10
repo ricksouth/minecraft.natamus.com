@@ -38,6 +38,12 @@ def main():
 				smfile.write('		<changefreq>weekly</changefreq>' + "\n")
 				smfile.write('		<priority>0.80</priority>' + "\n")
 				smfile.write('	</url>' + "\n")
+				smfile.write('	<url>' + "\n")
+				smfile.write('		<loc>https://minecraft.natamus.com/' + slug + '/changelog/</loc>' + "\n")
+				smfile.write('		<lastmod>' + lastmod + '</lastmod>' + "\n")
+				smfile.write('		<changefreq>weekly</changefreq>' + "\n")
+				smfile.write('		<priority>0.50</priority>' + "\n")
+				smfile.write('	</url>' + "\n")
 
 			if "Discontinued" in line:
 				break
