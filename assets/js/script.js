@@ -498,6 +498,7 @@ function loadSingular(slug, forcechangelog) {
 		$(".changelog").hide();
 	}
 
+	$(".tooltipwrapper").hide();
 	$("#content").hide();
 	$(".belowtw").hide();
 	$("#loadingwrapper").fadeIn(200);
