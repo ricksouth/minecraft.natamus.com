@@ -7,6 +7,12 @@
 		<priority>1.00</priority>
 	</url>
 	<url>
+		<loc>https://minecraft.natamus.com/download/</loc>
+		<lastmod>2020-05-10</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.90</priority>
+	</url>
+	<url>
 		<loc>https://minecraft.natamus.com/fab-library/</loc>
 		<lastmod>2020-05-10</lastmod>
 		<changefreq>weekly</changefreq>

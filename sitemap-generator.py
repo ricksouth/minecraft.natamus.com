@@ -28,6 +28,14 @@ def main():
 		smfile.write('		<priority>1.00</priority>' + "\n")
 		smfile.write('	</url>' + "\n")
 
+		# mod download page
+		smfile.write('	<url>' + "\n")
+		smfile.write('		<loc>https://minecraft.natamus.com/download/</loc>' + "\n")
+		smfile.write('		<lastmod>' + lastmod + '</lastmod>' + "\n")
+		smfile.write('		<changefreq>weekly</changefreq>' + "\n")
+		smfile.write('		<priority>0.90</priority>' + "\n")
+		smfile.write('	</url>' + "\n")
+
 		for decl in urllib.request.urlopen(url):
 			line = decl.decode('utf-8')
 			if "/mc-mods/" in line:
