@@ -125,14 +125,18 @@ function loadJsonData() {
 				var thistags = [];
 				var tags = data[i]["categories"];
 				for (var j = 0; j < tags.length; j++) {
-					var tagname = tags[j]["name"];
+					var tagname = tags[j]["name"].trim();
 					var tagimg = tags[j]["avatarUrl"];
 					if (!(tagname in activetags)) {
 						activetags[tagname] = tagimg;
 					}
 
-					thistags.push(tagname);
+					if (!thistags.includes(tagname)){
+						thistags.push(tagname);
+					}
 				}
+
+				console.log(thistags);
 
 				moddata[slug] = data[i];
 				modtags[slug] = thistags;
