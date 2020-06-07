@@ -136,8 +136,6 @@ function loadJsonData() {
 					}
 				}
 
-				console.log(thistags);
-
 				moddata[slug] = data[i];
 				modtags[slug] = thistags;
 
