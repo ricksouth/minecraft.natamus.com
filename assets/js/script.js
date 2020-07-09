@@ -529,18 +529,38 @@ function loadSingular(slug, forcechangelog) {
 
 	var doneversions = [];
 	var filehtml = "";
-	var latestfiles = data["gameVersionLatestFiles"];
+
+	var latestfiles = data["latestFiles"];
+	for (var key in data["gameVersionLatestFiles"]) {
+		latestfiles[key] = data["gameVersionLatestFiles"]["key"];
+	}
+
 	for (var key in latestfiles) {
 		var filedata = latestfiles[key];
 
-		var gameversion = filedata["gameVersion"].slice(0, -2);
-		if (doneversions.includes(gameversion) || skipversions.includes(gameversion)) {
-			continue;
+		var gameversion;
+		var fileid;
+		var filename;
+
+		if (filedata["fileName"].includes("1.16")) {
+			gameversion = "1.16";
+
+			fileid = filedata["id"];
+			filename = filedata["fileName"];
 		}
+		else {
+			gameversion = filedata["gameVersion"].slice(0, -2);
+			if (doneversions.includes(gameversion) || skipversions.includes(gameversion)) {
+				continue;
+			}		
+
+			fileid = filedata["projectFileId"];
+			filename = filedata["projectFileName"];
+		}
+
 		doneversions.push(gameversion);
 
-		var fileid = filedata["projectFileId"];
-		var filename = filedata["projectFileName"];
+
 		
 		filehtml += '<div class="version" value="' + fileid + '">';
 		filehtml += '<p>Minecraft ' + gameversion + '</p>';
