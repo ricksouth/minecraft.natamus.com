@@ -542,7 +542,7 @@ function loadSingular(slug, forcechangelog) {
 		var fileid;
 		var filename;
 
-		if (filedata["fileName"].includes("1.16")) {
+		if ("fileName" in filedata && filedata["fileName"].includes("1.16")) {
 			gameversion = "1.16";
 
 			fileid = filedata["id"];
