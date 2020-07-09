@@ -531,12 +531,17 @@ function loadSingular(slug, forcechangelog) {
 	var filehtml = "";
 
 	var latestfiles = data["latestFiles"];
+	console.log("A", latestfiles);
 	for (var key in data["gameVersionLatestFiles"]) {
+		console.log("B", key);
 		latestfiles[key] = data["gameVersionLatestFiles"][key];
 	}
 
+	console.log("C", latestfiles);
+
 	for (var key in latestfiles) {
 		var filedata = latestfiles[key];
+		console.log("D", filedata);
 
 		var gameversion;
 		var fileid;
