@@ -508,6 +508,7 @@ function loadSingular(slug, forcechangelog) {
 	$("#sngldescription").html("");
 
 	var data = moddata[slug];
+	console.log(data);
 
 	var name = data["name"];
 
