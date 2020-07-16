@@ -1219,6 +1219,10 @@ function openInNewTab(url, focus) {
 	if (focus) {
 		win.focus();
 	}
+	else {
+		win.blur();
+		window.focus();
+	}
 }
 
 function downloadFile(data, fileName, mime) {
