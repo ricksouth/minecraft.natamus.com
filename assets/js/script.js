@@ -676,7 +676,7 @@ $(document).on('click', '#singular .version', function(e) {
 		addToCart(name, slug, []);
 	}
 	else {
-		url = 'https://curseforge.com/minecraft/mc-mods/' + slug + '/download/' + fileid;
+		url = 'https://curseforge.com/minecraft/mc-mods/' + slug + '/download/' + fileid + "/file";
 		downloadFile(url, filename, "application/java-archive");	
 	}
 });
