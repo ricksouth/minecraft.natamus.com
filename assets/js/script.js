@@ -1238,7 +1238,7 @@ function downloadFile(data, fileName, mime) {
 			a.remove();
 		}
 		else {
-			window.open(href, '_blank');
+			openInNewTab(data);
 		}
 	}
 };
