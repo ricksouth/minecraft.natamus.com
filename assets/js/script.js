@@ -669,7 +669,7 @@ $(document).on('click', '#singular .version', function(e) {
 	var url;
 	if (fileid == "other") {
 		url = 'https://curseforge.com/minecraft/mc-mods/' + slug + '/files';
-		openInNewTab(url);
+		openInNewTab(url, true);
 	}
 	else if (fileid == "cart") {
 		var name = $("#sngltitle").html();
@@ -1214,9 +1214,11 @@ function changeUrl(url, title) {
 	setAlPath(url);
 }
 
-function openInNewTab(url) {
+function openInNewTab(url, focus) {
 	var win = window.open(url, '_blank');
-	win.focus();
+	if (focus) {
+		win.focus();
+	}
 }
 
 function downloadFile(data, fileName, mime) {
@@ -1238,7 +1240,7 @@ function downloadFile(data, fileName, mime) {
 			a.remove();
 		}
 		else {
-			openInNewTab(data);
+			openInNewTab(data, false);
 		}
 	}
 };
