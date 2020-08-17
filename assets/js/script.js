@@ -1076,8 +1076,8 @@ $(".shoppingwrapper").on('click', '#cartselectall', function(e) {
 });
 
 // Send data to php server which returns a file which you can zip and download..
-var subversions = { '1.16' : '1.16.1', '1.15' : '1.15.2', '1.14' : '1.14.4', '1.12' : '1.12.2' };
-var forgeversions = { '1.16' : '32.0.67', '1.15' : '31.2.31', '1.14' : '28.2.23', '1.12' : '14.23.5.2854' };
+var subversions = { '1.16' : '1.16.2', '1.15' : '1.15.2', '1.14' : '1.14.4', '1.12' : '1.12.2' };
+var forgeversions = { '1.16' : '33.0.5', '1.15' : '31.2.31', '1.14' : '28.2.23', '1.12' : '14.23.5.2854' };
 $(".dlscreen").on('click', '#startdownload', function(e) {
 	var activeversion = $("#selectversion").val();
 
