@@ -118,10 +118,9 @@ function loadJsonData() {
 				var downloads = data[i]["downloadCount"];
 
 				moddls[slug] = downloads;
-				if (data[i]["attachments"][0]["thumbnailUrl"].includes(".gif")) {
+				if (data[i]["attachments"][0]["url"].includes(".gif")) {
 					gifs.push(slug);
 				}
-				console.log(gifs)
 
 				var thistags = [];
 				var tags = data[i]["categories"];
