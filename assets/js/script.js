@@ -908,7 +908,7 @@ function addToCart(name, slug, multiple) {
 			try {
 				var name = moddata[slug]["name"];
 			}
-			catch(TypeError) {
+			catch(e) {
 				continue;
 			}
 
