@@ -909,6 +909,7 @@ function addToCart(name, slug, multiple) {
 				var name = moddata[slug]["name"];
 			}
 			catch(e) {
+				console.log("Error adding mod " + slug + ".")
 				continue;
 			}
 
