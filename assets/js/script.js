@@ -905,7 +905,12 @@ function addToCart(name, slug, multiple) {
 		multiple.sort();
 		for (var i = 0; i < multiple.length; i++) {
 			var slug = multiple[i];
-			var name = moddata[slug]["name"];
+			try {
+				var name = moddata[slug]["name"];
+			}
+			catch(TypeError e) {
+				continue;
+			}
 
 			html += '<div class="item" name="' + name + '" value="' + slug + '">';
 			html += '<img src="/assets/images/icons/' + slug + getImageType(slug) + '">';
