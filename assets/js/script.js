@@ -401,6 +401,7 @@ $(document).on({
 		
 		try {
 			setDescription(moddata[slug]["id"], slug, "tooltip");
+		}
 		catch(e) {
 			return;
 		}
@@ -498,6 +499,7 @@ var addtocarthtml = '<div class="version" value="cart"><p>Add to cart</p><p>For 
 function loadSingular(slug, forcechangelog) {
 	try {
 		var data = moddata[slug];
+	}
 	catch(e) {
 		return;
 	}
