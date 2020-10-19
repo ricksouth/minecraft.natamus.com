@@ -399,8 +399,12 @@ $(document).on({
 		var tile = $(this).parents(".col.mod");
 		var slug = replaceAll($(this).attr('href'), "/", "");
 		
+		try {
+			setDescription(moddata[slug]["id"], slug, "tooltip");
+		catch(e) {
+			return;
+		}
 		activetooltipslug = slug;
-		setDescription(moddata[slug]["id"], slug, "tooltip");
 
 		var pos = $(this).offset();
 		tooltipelem = $(this);
@@ -492,6 +496,12 @@ var skipversions = ["1.7.", "1.11", "1.13"];
 var otherfilehtml = '<div class="version" value="other"><p>Other Files</p><p>On CurseForge</p><img class="dlicon" src="/assets/images/external.png"></div>';
 var addtocarthtml = '<div class="version" value="cart"><p>Add to cart</p><p>For bulk download</p><img class="dlicon" src="/assets/images/add-to-cart.png"></div>';
 function loadSingular(slug, forcechangelog) {
+	try {
+		var data = moddata[slug];
+	catch(e) {
+		return;
+	}
+
 	if (!forcechangelog) {
 		$(".changelognav").removeClass("showing");
 		$(".changelognav img").attr('src', '/assets/images/changelog-right.png')
@@ -506,8 +516,6 @@ function loadSingular(slug, forcechangelog) {
 	$("#loadingwrapper").fadeIn(200);
 
 	$("#sngldescription").html("");
-
-	var data = moddata[slug];
 
 	var name = data["name"];
 
