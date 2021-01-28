@@ -98,6 +98,7 @@ function afterContent() {
 		}
 		else {
 			$(".belowtw").fadeIn(200);
+			$(".bhsection").fadeIn(200);
 			$("#content").fadeIn(200);
 
 			changeUrl("", "Serilum's CurseForge Mods");
@@ -515,6 +516,7 @@ function loadSingular(slug, forcechangelog) {
 	$(".tooltipwrapper").hide();
 	$("#content").hide();
 	$(".belowtw").hide();
+	$(".bhsection").hide();
 	$("#loadingwrapper").fadeIn(200);
 
 	$("#sngldescription").html("");
@@ -698,6 +700,7 @@ $(document).on('click', '#singular .navigation div', function(e) {
 
 		$("#content").fadeIn(200);
 		$(".belowtw").fadeIn(200);
+		$(".bhsection").fadeIn(200);
 
 		changeUrl("", "Serilum's CurseForge Mods");
 		$(document).scrollTop(lastscrolltop);
