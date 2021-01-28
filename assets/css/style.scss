@@ -79,9 +79,6 @@ div.spacer {
 .bhsection {
 	text-align: center;
 }
-.bhsection img {
-	display: inline-block;
-}
 
 /* Footer */
 footer {
@@ -242,7 +239,7 @@ section#topwrapper {
 	text-align: center;
 }
 
-.insidetw img {
+.insidetw .serilum {
 	position: relative;
 	left: calc(50% - 75px);
 	margin-bottom: -6px;
