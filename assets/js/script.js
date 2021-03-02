@@ -121,7 +121,7 @@ function loadJsonData() {
 				var downloads = data[i]["downloadCount"];
 
 				moddls[slug] = downloads;
-				if (data[i]["attachments"][0]["url"].includes(".gif")  || aregifs.includes(slug)) {
+				if (data[i]["attachments"][0]["url"].includes(".gif")  || forcegifs.includes(slug)) {
 					gifs.push(slug);
 				}
 
@@ -213,7 +213,7 @@ function loadContent() {
 					var slug = url.split("/mc-mods/")[1];
 
 					var filetype = "png";
-					if (gifs.includes(slug) || aregifs.includes(slug)) {
+					if (gifs.includes(slug) || forcegifs.includes(slug)) {
 						filetype = "gif";
 					}
 
@@ -1208,7 +1208,7 @@ function sortedKeys(dct) {
 }
 
 function getImageType(slug) {
-	if (gifs.includes(slug) || aregifs.includes(slug)) {
+	if (gifs.includes(slug) || forcegifs.includes(slug)) {
 		return ".gif";
 	}
 	return ".png";
