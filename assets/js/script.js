@@ -13,6 +13,8 @@ var modtags = {};
 var moddescriptions = {};
 var gifs = [];
 
+var forcegifs = ["campfire-and-spawn-tweaks"]
+
 $(document).ready(function(e) {
 	responsiveResize();
 	loadJsonData();
@@ -106,7 +108,6 @@ function afterContent() {
 	});
 }
 
-aregifs = ["campfire-and-spawn-tweaks"]
 function loadJsonData() {
 	$.ajax({
 		url: corsprefix + "https://addons-ecs.forgesvc.net/api/v2/addon/search?searchFilter=serilum&gameId=432",
@@ -120,7 +121,7 @@ function loadJsonData() {
 				var downloads = data[i]["downloadCount"];
 
 				moddls[slug] = downloads;
-				if (data[i]["attachments"][0]["url"].includes(".gif") || aregifs.includes(slug)) {
+				if (data[i]["attachments"][0]["url"].includes(".gif")  || aregifs.includes(slug)) {
 					gifs.push(slug);
 				}
 
@@ -212,7 +213,7 @@ function loadContent() {
 					var slug = url.split("/mc-mods/")[1];
 
 					var filetype = "png";
-					if (gifs.includes(slug)) {
+					if (gifs.includes(slug) || aregifs.includes(slug)) {
 						filetype = "gif";
 					}
 
@@ -1207,7 +1208,7 @@ function sortedKeys(dct) {
 }
 
 function getImageType(slug) {
-	if (gifs.includes(slug)) {
+	if (gifs.includes(slug) || aregifs.includes(slug)) {
 		return ".gif";
 	}
 	return ".png";
