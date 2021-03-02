@@ -106,6 +106,7 @@ function afterContent() {
 	});
 }
 
+aregifs = ["campfire-and-spawn-tweaks"]
 function loadJsonData() {
 	$.ajax({
 		url: corsprefix + "https://addons-ecs.forgesvc.net/api/v2/addon/search?searchFilter=serilum&gameId=432",
@@ -119,7 +120,7 @@ function loadJsonData() {
 				var downloads = data[i]["downloadCount"];
 
 				moddls[slug] = downloads;
-				if (data[i]["attachments"][0]["url"].includes(".gif")) {
+				if (data[i]["attachments"][0]["url"].includes(".gif") || aregifs.includes(slug)) {
 					gifs.push(slug);
 				}
 
