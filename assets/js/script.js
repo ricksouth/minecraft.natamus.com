@@ -119,7 +119,7 @@ function loadJsonData() {
 				var downloads = data[i]["downloadCount"];
 
 				moddls[slug] = downloads;
-				if (data[i]["attachments"][0]["url"].includes(".gif")) {
+				if (data[i]["attachments"][0]["url"].includes(".gif") || slug == "campfire-spawn-and-tweaks") {
 					gifs.push(slug);
 				}
 
