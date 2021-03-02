@@ -11,6 +11,7 @@ var moddata = {};
 var moddls = {};
 var modtags = {};
 var moddescriptions = {};
+var gifs = [];
 
 $(document).ready(function(e) {
 	responsiveResize();
@@ -118,6 +119,9 @@ function loadJsonData() {
 				var downloads = data[i]["downloadCount"];
 
 				moddls[slug] = downloads;
+				if (data[i]["attachments"][0]["url"].includes(".gif")) {
+					gifs.push(slug);
+				}
 
 				var thistags = [];
 				var tags = data[i]["categories"];
@@ -206,7 +210,10 @@ function loadContent() {
 					var url = linespl[1].split(")")[0];
 					var slug = url.split("/mc-mods/")[1];
 
-					var filetype = getImageType(slug);
+					var filetype = "png";
+					if (gifs.includes(slug)) {
+						filetype = "gif";
+					}
 
 					dlcontent = '\\A \\f019   ';
 					if (slug in moddls) {
@@ -1199,22 +1206,10 @@ function sortedKeys(dct) {
 }
 
 function getImageType(slug) {
-	var image = $('<img src="/assets/images/icons/' + slug + '.png" />');
-	if (image.attr('width') > 0) {
-		return ".png";
-	}
-	return ".gif";
-	/*if (gifs.includes(slug) || forcegifs.includes(slug)) {
+	if (gifs.includes(slug)) {
 		return ".gif";
 	}
-	return ".png";*/
-}
-
-function checkImage(imageSrc, good, bad) {
-    var img = new Image();
-    img.onload = good; 
-    img.onerror = bad;
-    img.src = imageSrc;
+	return ".png";
 }
 
 // 2019-09-21T10:48:44.38Z
