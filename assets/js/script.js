@@ -11,7 +11,7 @@ var moddata = {};
 var moddls = {};
 var modtags = {};
 var moddescriptions = {};
-var gifs = [];
+var gifs = ["bamboo-spreads", "campfire-spawn-and-tweaks", "eroding-stone-entities", "hidden-recipe-book", "hide-hands", "kelp-fertilizer", "passive-shield", "random-sheep-colours", "realistic-bees", "recast", "replanting-crops", "stack-refill"];
 
 $(document).ready(function(e) {
 	responsiveResize();
@@ -119,7 +119,7 @@ function loadJsonData() {
 				var downloads = data[i]["downloadCount"];
 
 				moddls[slug] = downloads;
-				if (data[i]["attachments"][0]["url"].includes(".gif") || slug == "campfire-spawn-and-tweaks") {
+				if (data[i]["attachments"][0]["url"].includes(".gif")) {
 					gifs.push(slug);
 				}
 
