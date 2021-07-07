@@ -521,6 +521,7 @@ function loadSingular(slug, forcechangelog) {
 
 	$("#sngldescription").html("");
 
+	console.log(data);
 	var name = data["name"];
 
 	changeUrl(slug + "/", "Minecraft Mod | " + name);
