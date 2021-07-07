@@ -498,6 +498,8 @@ var skipversions = ["1.7.", "1.11", "1.13"];
 var otherfilehtml = '<div class="version" value="other"><p>Other Files</p><p>On CurseForge</p><img class="dlicon" src="/assets/images/external.png"></div>';
 var addtocarthtml = '<div class="version" value="cart"><p>Add to cart</p><p>For bulk download</p><img class="dlicon" src="/assets/images/add-to-cart.png"></div>';
 function loadSingular(slug, forcechangelog) {
+	console.log(slug);
+	console.log(moddata);
 	try {
 		var data = moddata[slug];
 	}
