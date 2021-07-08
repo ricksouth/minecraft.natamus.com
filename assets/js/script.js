@@ -112,7 +112,6 @@ function loadJsonData() {
 		type: "GET",
 		dataType: 'json',
 		success: function(data){
-			console.log(data);
 			var totaldownloads = 0;
 
 			for (var datakey in data) {
