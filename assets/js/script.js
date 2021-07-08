@@ -108,7 +108,7 @@ function afterContent() {
 
 function loadJsonData() {
 	$.ajax({
-		url: corsprefix + "https://addons-ecs.forgesvc.net/api/v2/addon/search?searchFilter=serilum&gameId=432",
+		url: corsprefix + "https://raw.githubusercontent.com/ricksouth/serilum-mc-mods/master/data/mod_data.json",
 		type: "GET",
 		dataType: 'json',
 		success: function(data){
@@ -498,8 +498,6 @@ var skipversions = ["1.7.", "1.11", "1.13"];
 var otherfilehtml = '<div class="version" value="other"><p>Other Files</p><p>On CurseForge</p><img class="dlicon" src="/assets/images/external.png"></div>';
 var addtocarthtml = '<div class="version" value="cart"><p>Add to cart</p><p>For bulk download</p><img class="dlicon" src="/assets/images/add-to-cart.png"></div>';
 function loadSingular(slug, forcechangelog) {
-	console.log(slug);
-	console.log(moddata);
 	try {
 		var data = moddata[slug];
 	}
@@ -523,7 +521,6 @@ function loadSingular(slug, forcechangelog) {
 
 	$("#sngldescription").html("");
 
-	console.log(data);
 	var name = data["name"];
 
 	changeUrl(slug + "/", "Minecraft Mod | " + name);
