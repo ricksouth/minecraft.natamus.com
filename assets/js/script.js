@@ -112,19 +112,22 @@ function loadJsonData() {
 		type: "GET",
 		dataType: 'json',
 		success: function(data){
+			console.log(data);
 			var totaldownloads = 0;
 
-			for (var i = 0; i < data.length; i++) {
-				var slug = replaceAll(data[i]["name"].toLowerCase(), " ", "-");
-				var downloads = data[i]["downloadCount"];
+			for (var datakey in data) {
+				var dataline = data[datakey];
+
+				var slug = replaceAll(dataline["name"].toLowerCase(), " ", "-");
+				var downloads = dataline["downloadCount"];
 
 				moddls[slug] = downloads;
-				if (data[i]["attachments"][0]["url"].includes(".gif")) {
+				if (dataline["attachments"][0]["url"].includes(".gif")) {
 					gifs.push(slug);
 				}
 
 				var thistags = [];
-				var tags = data[i]["categories"];
+				var tags = dataline["categories"];
 				for (var j = 0; j < tags.length; j++) {
 					var tagname = tags[j]["name"].trim();
 					var tagimg = tags[j]["avatarUrl"];
@@ -137,7 +140,7 @@ function loadJsonData() {
 					}
 				}
 
-				moddata[slug] = data[i];
+				moddata[slug] = dataline;
 				modtags[slug] = thistags;
 
 				totaldownloads += downloads;
