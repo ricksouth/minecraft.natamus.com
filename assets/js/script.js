@@ -642,10 +642,10 @@ function processSingularDescription(slug, data) {
 	}
 
 	// replaces curseforge links with local page urls.
-	description = replaceAll(description, "https://www.curseforge.com/minecraft/mc-mods/" + slug + "/files/all?", "TEMP/" + slug + "/files/all?")
+	description = replaceAll(description, "curseforge.com/minecraft/mc-mods/" + slug + "/files/all?", "TEMP/" + slug + "/files/all?")
 	description = replaceAll(description, "https://www.curseforge.com/minecraft/mc-mods/", "/");
 	description = replaceAll(description, "https://curseforge.com/minecraft/mc-mods/", "/");
-	description = replaceAll(description, "TEMP/" + slug + "/files/all?", "https://www.curseforge.com/minecraft/mc-mods/" + slug + "/files/all?")
+	description = replaceAll(description, "TEMP/" + slug + "/files/all?", "curseforge.com/minecraft/mc-mods/" + slug + "/files/all?")
 
 	// remove linkout? prefix
 	description = replaceAll(description, "/linkout\\?remoteUrl=https%253a%252f%252fnatam.us%252fsupport", "https://natam.us/support");
