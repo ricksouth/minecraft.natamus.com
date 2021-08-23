@@ -515,9 +515,11 @@ function loadSingular(slug, forcechangelog) {
 		var data = moddata[slug];
 	}
 	catch(e) {
-		console.log("Unable to load moddata for " + slug + ".")
+		console.log("Unable to load moddata for " + slug + ".");
 		return;
 	}
+
+	console.log(data);
 
 	if (!forcechangelog) {
 		$(".changelognav").removeClass("showing");
