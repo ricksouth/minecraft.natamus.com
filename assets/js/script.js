@@ -79,6 +79,8 @@ function responsiveResize() {
 
 function afterContent() {
 	$("#content").waitForImages(function(e) {
+		$("#loadingwrapper").hide();
+		
 		var pathname = window.location.pathname;
 		var pathsearch = window.location.search;
 		if (pathsearch.includes("?path=")) {
@@ -515,11 +517,8 @@ function loadSingular(slug, forcechangelog) {
 		var data = moddata[slug];
 	}
 	catch(e) {
-		console.log("Unable to load moddata for " + slug + ".");
 		return;
 	}
-
-	console.log(data);
 
 	if (!forcechangelog) {
 		$(".changelognav").removeClass("showing");
@@ -533,6 +532,7 @@ function loadSingular(slug, forcechangelog) {
 	$("#content").hide();
 	$(".belowtw").hide();
 	$(".bhsection").hide();
+	$("#loadingwrapper").fadeIn(200);
 
 	$("#sngldescription").html("");
 
@@ -586,6 +586,7 @@ function loadSingular(slug, forcechangelog) {
 	}
 }
 
+var randomized = 0;
 function setDescription(id, slug, type) {
 	if (slug in moddescriptions) {
 		var data = moddescriptions[slug];
@@ -599,6 +600,31 @@ function setDescription(id, slug, type) {
 		responsiveResize();
 		return;
 	}
+
+	$("#tooltip").html('<div class="loadingwrap">' + $("#loadingwrapper").html() + '</div>');
+	$.ajax({
+		type: "GET",
+		url: corsprefix + "https://addons-ecs.forgesvc.net/api/v2/addon/" + id + "/description",
+		success: function(data) {
+			moddescriptions[slug] = data;
+			if (type == "singular") {
+				processSingularDescription(slug, data);	
+			}
+			else if (type == "tooltip") {
+				if (activetooltipslug == slug) {
+					$("#tooltip").html(formatTooltipDescription(slug, data));
+				}
+			}
+
+			responsiveResize();
+		},
+		error: function(data) {}
+	});
+
+	// forces re-load when connection takes too long.
+	window.setd = setTimeout(function(){ 
+		setDescription(id, slug);
+	}, 500);
 }
 function formatTooltipDescription(slug, data) {
 	var description = data.split('<br><br><img src="https://github.com/ricksouth/serilum-mc-mods/raw/master/description/b1.jpg')[0] + '</p>';
@@ -645,6 +671,8 @@ function processSingularDescription(slug, data) {
 	}
 
 	$("#sngldescription").html(description);
+
+	$("#loadingwrapper").hide();
 	$("#singular").fadeIn(200);
 }
 
@@ -1155,6 +1183,8 @@ $(".dlscreen").on('click', '#startdownload', function(e) {
 });
 
 // Util functions
+var corsprefix = "https://cors.ntmsdata.com:8080/";
+
 function replaceAll(str, find, replace) { 
 	return str.replace(new RegExp(find, 'g'), replace);
 }
