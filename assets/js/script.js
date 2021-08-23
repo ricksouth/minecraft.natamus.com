@@ -586,7 +586,6 @@ function loadSingular(slug, forcechangelog) {
 	}
 }
 
-var randomized = 0;
 function setDescription(id, slug, type) {
 	if (slug in moddescriptions) {
 		var data = moddescriptions[slug];
@@ -602,29 +601,6 @@ function setDescription(id, slug, type) {
 	}
 
 	$("#tooltip").html('<div class="loadingwrap">' + $("#loadingwrapper").html() + '</div>');
-	$.ajax({
-		type: "GET",
-		url: corsprefix + "https://addons-ecs.forgesvc.net/api/v2/addon/" + id + "/description",
-		success: function(data) {
-			moddescriptions[slug] = data;
-			if (type == "singular") {
-				processSingularDescription(slug, data);	
-			}
-			else if (type == "tooltip") {
-				if (activetooltipslug == slug) {
-					$("#tooltip").html(formatTooltipDescription(slug, data));
-				}
-			}
-
-			responsiveResize();
-		},
-		error: function(data) {}
-	});
-
-	// forces re-load when connection takes too long.
-	window.setd = setTimeout(function(){ 
-		setDescription(id, slug);
-	}, 500);
 }
 function formatTooltipDescription(slug, data) {
 	var description = data.split('<br><br><img src="https://github.com/ricksouth/serilum-mc-mods/raw/master/description/b1.jpg')[0] + '</p>';
