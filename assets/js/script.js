@@ -108,7 +108,7 @@ function afterContent() {
 
 function loadJsonData() {
 	$.ajax({
-		url: corsprefix + "https://raw.githubusercontent.com/ricksouth/serilum-mc-mods/master/data/mod_data.json",
+		url: "/data/mod_data.json",
 		type: "GET",
 		dataType: 'json',
 		success: function(data){
