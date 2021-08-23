@@ -79,8 +79,6 @@ function responsiveResize() {
 
 function afterContent() {
 	$("#content").waitForImages(function(e) {
-		$("#loadingwrapper").hide();
-		
 		var pathname = window.location.pathname;
 		var pathsearch = window.location.search;
 		if (pathsearch.includes("?path=")) {
@@ -532,7 +530,6 @@ function loadSingular(slug, forcechangelog) {
 	$("#content").hide();
 	$(".belowtw").hide();
 	$(".bhsection").hide();
-	$("#loadingwrapper").fadeIn(200);
 
 	$("#sngldescription").html("");
 
@@ -599,8 +596,6 @@ function setDescription(id, slug, type) {
 		responsiveResize();
 		return;
 	}
-
-	$("#tooltip").html('<div class="loadingwrap">' + $("#loadingwrapper").html() + '</div>');
 }
 function formatTooltipDescription(slug, data) {
 	var description = data.split('<br><br><img src="https://github.com/ricksouth/serilum-mc-mods/raw/master/description/b1.jpg')[0] + '</p>';
@@ -647,8 +642,6 @@ function processSingularDescription(slug, data) {
 	}
 
 	$("#sngldescription").html(description);
-
-	$("#loadingwrapper").hide();
 	$("#singular").fadeIn(200);
 }
 
