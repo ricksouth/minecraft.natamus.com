@@ -5,6 +5,7 @@ import urllib.request
 import pathlib
 import os
 import json
+import shutil
 
 # Updates mod file information via the CurseForge API.
 # by Rick South.
@@ -12,6 +13,10 @@ def main():
 	localpath = str(pathlib.Path(__file__).parent)
 	url = "https://raw.githubusercontent.com/ricksouth/serilum-mc-mods/master/data/project_ids.json"
 
+	# Copy README
+	shutil.copy("C:/The Forge/serilum-mc-mods/README.md", "C:/The Forge/minecraft.natamus.com/data/README.md")
+
+	# Copy mod data from CurseForge.
 	allglobaldata = "{"
 	alldescriptions = {}
 	for decl in urllib.request.urlopen(url):
