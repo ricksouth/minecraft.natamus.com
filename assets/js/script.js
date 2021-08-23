@@ -117,6 +117,7 @@ function loadJsonData() {
 			for (var datakey in data) {
 				var dataline = data[datakey];
 
+				dataline["name"] = dataline["name"].replace(/[\[\]]/g,'');
 				var slug = replaceAll(dataline["name"].toLowerCase(), " ", "-");
 				var downloads = dataline["downloadCount"];
 
