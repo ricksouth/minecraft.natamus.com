@@ -639,6 +639,7 @@ function processSingularDescription(slug, data) {
 	description = replaceAll(description, "/linkout\\?remoteUrl=https%253a%252f%252fnatam.us%252fsupport", "https://natam.us/support");
 	description = replaceAll(description, 'rel="nofollow"', "target=_blank");
 	description = replaceAll(description, "/linkout\\?remoteUrl=", "");
+	description = replaceAll(description, "???", "?");
 
 	var htmlelems = {"%253a" : ":", "%252f" : "/"};
 	for (var key in htmlelems) {
