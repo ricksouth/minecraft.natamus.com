@@ -484,6 +484,10 @@ section#topwrapper {
 	overflow-y: hidden;
 	white-space: nowrap;
 }
+.abovetagswrapper .stwrapper::-webkit-scrollbar,
+.abovetagswrapper .stwrapper div::-webkit-scrollbar {
+	display: none;
+}
 .abovetagswrapper .buttons {
 	display: inline-block;
 	position: relative;
