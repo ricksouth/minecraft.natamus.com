@@ -515,6 +515,7 @@ function loadSingular(slug, forcechangelog) {
 		var data = moddata[slug];
 	}
 	catch(e) {
+		console.log("Unable to load moddata for " + slug + ".")
 		return;
 	}
 
@@ -1152,8 +1153,6 @@ $(".dlscreen").on('click', '#startdownload', function(e) {
 });
 
 // Util functions
-var corsprefix = "https://cors.ntmsdata.com:8080/";
-
 function replaceAll(str, find, replace) { 
 	return str.replace(new RegExp(find, 'g'), replace);
 }
