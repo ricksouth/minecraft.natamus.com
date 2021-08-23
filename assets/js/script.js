@@ -162,6 +162,24 @@ function loadJsonData() {
 
 			updateCart(false);
 			loadContent();
+			loadDescriptionsFromJson();
+		},
+		error: function(data) { }
+	});
+}
+
+function loadDescriptionsFromJson() {
+	$.ajax({
+		url: "/data/description_data.json",
+		type: "GET",
+		dataType: 'json',
+		success: function(data){
+			print(data);
+
+			for (var datakey in data) {
+				var dataline = data[datakey];
+				print(datakey, dataline);
+			}
 		},
 		error: function(data) { }
 	});
