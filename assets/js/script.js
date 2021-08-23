@@ -169,7 +169,7 @@ function loadJsonData() {
 
 function loadContent() {
 	$.ajax({
-		url: "https://raw.githubusercontent.com/ricksouth/serilum-mc-mods/master/README.md",
+		url: "/data/README.md",
 		success: function(data){
 			var totalmods = 0;
 
