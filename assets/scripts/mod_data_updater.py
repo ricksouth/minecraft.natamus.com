@@ -28,6 +28,7 @@ def main():
 		linespl = line.split(" : ")
 
 		modname = linespl[0]
+		slug = modname.lower().replace(" ", "-")
 		projectid = linespl[1]
 		print(modname, projectid)
 
@@ -44,7 +45,7 @@ def main():
 		descurl = "https://addons-ecs.forgesvc.net/api/v2/addon/" + projectid + "/description"
 		for mdecldesc in urllib.request.urlopen(descurl):
 			descdata = mdecldesc.decode('utf-8')
-			alldescriptions[modname] = descdata
+			alldescriptions[slug] = descdata
 			break
 
 		print("Processed " + modname + ".")

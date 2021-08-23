@@ -174,12 +174,7 @@ function loadDescriptionsFromJson() {
 		type: "GET",
 		dataType: 'json',
 		success: function(data){
-			console.log(data);
-
-			for (var datakey in data) {
-				var dataline = data[datakey];
-				console.log(datakey, dataline);
-			}
+			moddescriptions = data;
 		},
 		error: function(data) { }
 	});
