@@ -174,11 +174,11 @@ function loadDescriptionsFromJson() {
 		type: "GET",
 		dataType: 'json',
 		success: function(data){
-			print(data);
+			console.log(data);
 
 			for (var datakey in data) {
 				var dataline = data[datakey];
-				print(datakey, dataline);
+				console.log(datakey, dataline);
 			}
 		},
 		error: function(data) { }
