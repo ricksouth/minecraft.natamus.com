@@ -101,6 +101,7 @@ function afterContent() {
 			loadSingular(clpathslug, true);
 		}
 		else {
+			$("#singular").hide();
 			$(".belowtw").fadeIn(200);
 			$(".bhsection").fadeIn(200);
 			$("#content").fadeIn(200);
