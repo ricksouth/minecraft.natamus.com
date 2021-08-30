@@ -268,7 +268,7 @@ function loadContent() {
 			}
 
 			style += '</style>';
-			html += '<br><br><div class="mainad"><!-- MC Home Bottom --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7103228011189262" data-ad-slot="8133203633" data-ad-format="auto" data-full-width-responsive="true"></ins></div><div class="spacer"></div></div>';
+			html += '<div class="mainad"><br><br><!-- MC Home Bottom --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7103228011189262" data-ad-slot="8133203633" data-ad-format="auto" data-full-width-responsive="true"></ins></div><div class="spacer"></div></div>';
 
 			$("#totalmods").html(numberWithCommas(totalmods));
 			$("#inlinestyle").html(style);
