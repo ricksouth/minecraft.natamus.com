@@ -518,6 +518,8 @@ var skipversions = ["1.7.", "1.11", "1.13"];
 var otherfilehtml = '<div class="version" value="other"><p>Other Files</p><p>On CurseForge</p><img class="dlicon" src="/assets/images/external.png"></div>';
 var addtocarthtml = '<div class="version" value="cart"><p>Add to cart</p><p>For bulk download</p><img class="dlicon" src="/assets/images/add-to-cart.png"></div>';
 function loadSingular(slug, forcechangelog) {
+	console.log("Loading singular mod: " + slug + ".");
+
 	try {
 		var data = moddata[slug];
 	}
@@ -593,6 +595,7 @@ function loadSingular(slug, forcechangelog) {
 }
 
 function setDescription(id, slug, type) {
+	console.log("Setting description for " + slug + ".");
 	if (slug in moddescriptions) {
 		var data = moddescriptions[slug];
 		if (type == "singular") {
