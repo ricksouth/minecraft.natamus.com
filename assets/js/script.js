@@ -83,8 +83,6 @@ function responsiveResize() {
 
 function afterContent() {
 	$("#content").waitForImages(function(e) {
-		$("#loadingwrapper").hide();
-		
 		var pathname = window.location.pathname;
 		var pathsearch = window.location.search;
 		if (pathsearch.includes("?path=")) {
@@ -548,7 +546,6 @@ function loadSingular(slug, forcechangelog) {
 	$("#content").hide();
 	$(".belowtw").hide();
 	$(".bhsection").hide();
-	$("#loadingwrapper").fadeIn(200);
 
 	$("#sngldescription").html("");
 
@@ -667,7 +664,6 @@ function processSingularDescription(slug, data) {
 
 	$("#sngldescription").html(modpageadtop + description + modpageadbottom);
 
-	$("#loadingwrapper").hide();
 	$("#singular").show();
 
 	try {
