@@ -660,8 +660,8 @@ function processSingularDescription(slug, data) {
 		description = replaceAll(description, key, htmlelems[key]);
 	}
 
-	var modpageadtop = '<p><!-- MC Singular Top --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7103228011189262" data-ad-slot="8392417459" data-ad-format="auto" data-full-width-responsive="true"></ins></p><br>';
-	var modpageadbottom = '<br><p><!-- MC Singular Bottom --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7103228011189262" data-ad-slot="4020899935" data-ad-format="auto" data-full-width-responsive="true"></ins></p>'
+	var modpageadtop = '<p align="center"><!-- MC Singular Top --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7103228011189262" data-ad-slot="8392417459" data-ad-format="auto" data-full-width-responsive="true"></ins></p><br>';
+	var modpageadbottom = '<br><p align="center"><!-- MC Singular Bottom --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7103228011189262" data-ad-slot="4020899935" data-ad-format="auto" data-full-width-responsive="true"></ins></p>'
 
 	$("#sngldescription").html(modpageadtop + description + modpageadbottom);
 
