@@ -11,7 +11,7 @@ var moddata = {};
 var moddls = {};
 var modtags = {};
 var moddescriptions = {};
-var gifs = [];
+var gifs = [ "campfire-spawn-and-tweaks", "hidden-recipe-book" ];
 
 $(document).ready(function(e) {
 	var subpath = window.location.pathname;
