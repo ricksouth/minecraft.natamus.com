@@ -74,10 +74,9 @@ div.spacer {
 }
 
 .belowtilead {
+	display: inline-block;
 	position: relative;
 	top: 10px;
-	left: 5vh;
-	width: 90vh;
 }
 
 .noselect {
@@ -142,6 +141,9 @@ footer p.footercontent {
 		width: 262px;
 		left: calc(50% - 131px);
 	}
+	.belowtilead {
+		width: 262px;
+	}
 	#topwrapper .insidetw {
 		width: 90%;
 		left: 5%;
@@ -168,6 +170,9 @@ footer p.footercontent {
 		width: 524px;
 		left: calc(50% - 262px);
 	}
+	.belowtilead {
+		width: 524px;
+	}
 	#topwrapper .insidetw {
 		width: 90%;
 		left: 5%;
@@ -180,6 +185,9 @@ footer p.footercontent {
 	.tiles,	.activetags, .abovetagswrapper, .belowtw, .singular {
 		width: 786px;
 		left: calc(50% - 393px);
+	}
+	.belowtilead {
+		width: 786px;
 	}
 	#topwrapper .insidetw {
 		width: 80%;
@@ -197,6 +205,9 @@ footer p.footercontent {
 		width: 1048px;
 		left: calc(50% - 524px);
 	}
+	.belowtilead {
+		width: 1048px;
+	}
 	#topwrapper .insidetw {
 		width: 80%;
 		left: 10%;
@@ -210,6 +221,9 @@ footer p.footercontent {
 		width: 1310px;
 		left: calc(50% - 655px);
 	}
+	.belowtilead {
+		width: 1310px;
+	}
 	#topwrapper .insidetw {
 		width: 60%;
 		left: 20%;
@@ -222,6 +236,9 @@ footer p.footercontent {
 	.tiles,	.activetags, .abovetagswrapper, .belowtw {
 		width: 1572px;
 		left: calc(50% - 786px);
+	}
+	.belowtilead {
+		width: 1572px;
 	}
 	#topwrapper .insidetw {
 		width: 60%;
