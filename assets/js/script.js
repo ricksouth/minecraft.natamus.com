@@ -15,7 +15,7 @@ var gifs = [];
 
 $(document).ready(function(e) {
 	console.log("Loading minecraft.natamus.com.");
-	console.log("Subpage: " + window.location.href);
+	console.log("Subpath: " + window.location.pathname);
 
 	responsiveResize();
 	loadJsonData();
