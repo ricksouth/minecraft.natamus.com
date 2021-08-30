@@ -672,7 +672,7 @@ function processSingularDescription(slug, data) {
 			console.log("Push: ", $(this));
 			(adsbygoogle = window.adsbygoogle || []).push({});
 		});
-	}, 500);
+	}, 1000);
 }
 
 $(document).on('click', '#singular a, .dlcontent a', function(e) {
