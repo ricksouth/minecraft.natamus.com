@@ -668,10 +668,25 @@ function processSingularDescription(slug, data) {
 	$("#loadingwrapper").hide();
 	$("#singular").show();
 
-	$('#singular ins').each(function() {
-		console.log("Push: ", $(this));
-		(adsbygoogle = window.adsbygoogle || []).push({});
-	});
+	try {
+		$('#singular ins').each(function() {
+			console.log("Push: ", $(this));
+			(adsbygoogle = window.adsbygoogle || []).push({});
+		});
+	}
+	catch(e1) {
+		console.log("Unable to push, trying again.");
+		try {
+			$('#singular ins').each(function() {
+				console.log("Push: ", $(this));
+				(adsbygoogle = window.adsbygoogle || []).push({});
+			});
+		}
+		catch(e2) {
+			console.log("Unable to push.");
+			return;
+		}
+	}
 }
 
 $(document).on('click', '#singular a, .dlcontent a', function(e) {
