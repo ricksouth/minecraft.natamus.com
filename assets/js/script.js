@@ -646,7 +646,9 @@ function processSingularDescription(slug, data) {
 		description = replaceAll(description, key, htmlelems[key]);
 	}
 
-	$("#sngldescription").html(description);
+	var modpagead = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7103228011189262" crossorigin="anonymous"></script><!-- Mc.Nata Mod Page --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7103228011189262" data-ad-slot="8392417459" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>';
+
+	$("#sngldescription").html(modpagead + description);
 
 	$("#loadingwrapper").hide();
 	$("#singular").fadeIn(200);
