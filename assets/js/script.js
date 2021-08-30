@@ -423,6 +423,7 @@ $(document).on({
 			setDescription(moddata[slug]["id"], slug, "tooltip");
 		}
 		catch(e) {
+			console.log("Error caught on 'mouseenter: function'.");
 			return;
 		}
 		activetooltipslug = slug;
@@ -521,6 +522,7 @@ function loadSingular(slug, forcechangelog) {
 		var data = moddata[slug];
 	}
 	catch(e) {
+		console.log("Error caught on 'loadSingular(slug, forcechangelog)'.", slug, forcechangelog);
 		return;
 	}
 
