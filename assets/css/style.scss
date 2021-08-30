@@ -1081,6 +1081,12 @@ section#singular {
 	margin-bottom: 100px;
 }
 
+.singular #sngldescription p {
+	width: 100%;
+	min-width: 5px;
+	min-height: 5px;
+}
+
 .singular #sngldescription img,
 .tooltip img {
 	display: inline-block;
