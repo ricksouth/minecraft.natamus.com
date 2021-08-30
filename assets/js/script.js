@@ -973,11 +973,13 @@ function addToCart(name, slug, multiple) {
 var previous
 function showDownloadScreen() {
 	$("body").addClass("faded");
-	$(".dlscreenwrapper").fadeIn(200);
+	$(".dlscreenwrapper").show();
 
 	var pathname = window.location.pathname;
 	var title = document.title;
 	changeUrl("download/?path=" + pathname, title);
+
+	(adsbygoogle = window.adsbygoogle || []).push({});
 }
 function hideDownloadScreen() {
 	$("body").removeClass("faded");
