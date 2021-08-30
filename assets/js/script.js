@@ -665,11 +665,11 @@ function processSingularDescription(slug, data) {
 	$("#sngldescription").html(modpageadtop + description + modpageadbottom);
 
 	$("#loadingwrapper").hide();
-	$("#singular").fadeIn(200);
-
-	$('#singular ins').each(function() {
-		console.log("Push: ", $(this));
-		(adsbygoogle = window.adsbygoogle || []).push({});
+	$("#singular").fadeIn(200, function() {
+		$('#singular ins').each(function() {
+			console.log("Push: ", $(this));
+			(adsbygoogle = window.adsbygoogle || []).push({});
+		});
 	});
 }
 
