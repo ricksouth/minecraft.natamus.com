@@ -666,7 +666,9 @@ function processSingularDescription(slug, data) {
 	$("#loadingwrapper").hide();
 	$("#singular").fadeIn(200);
 
-	(adsbygoogle = window.adsbygoogle || []).push({});
+	$('#sngldescription ins').each(function() {
+		(adsbygoogle = window.adsbygoogle || []).push({});
+	});
 }
 
 $(document).on('click', '#singular a, .dlcontent a', function(e) {
