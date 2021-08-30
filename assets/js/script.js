@@ -11,7 +11,7 @@ var moddata = {};
 var moddls = {};
 var modtags = {};
 var moddescriptions = {};
-var gifs = ["bamboo-spreads", "campfire-spawn-and-tweaks", "eroding-stone-entities", "hidden-recipe-book", "hide-hands", "kelp-fertilizer", "passive-shield", "random-sheep-colours", "realistic-bees", "recast", "replanting-crops", "stack-refill"];
+var gifs = [];
 
 $(document).ready(function(e) {
 	console.log("Loading minecraft.natamus.com.");
