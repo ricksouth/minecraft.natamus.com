@@ -14,11 +14,17 @@ var moddescriptions = {};
 var gifs = [];
 
 $(document).ready(function(e) {
+	var subpath = window.location.pathname;
 	console.log("Loading minecraft.natamus.com.");
-	console.log("Subpath: " + window.location.pathname);
+	console.log("Subpath: " + subpath);
 
 	responsiveResize();
 	loadJsonData();
+
+	if (subpath.length > 3) {
+		$("#loadingwrapper").hide();
+		$("#singular").show();
+	}
 });
 
 $(window).on('resize', function(e) {
