@@ -669,7 +669,7 @@ function processSingularDescription(slug, data) {
 
 	$('#singular ins').each(function() {
 		console.log("Push: ", $(this));
-		//(adsbygoogle = window.adsbygoogle || []).push({});
+		(adsbygoogle = window.adsbygoogle || []).push({});
 	});
 }
 
