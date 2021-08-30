@@ -598,7 +598,6 @@ function loadSingular(slug, forcechangelog) {
 
 function setDescription(id, slug, type) {
 	console.log("Setting description for " + slug + ".");
-	console.log(moddescriptions);
 	if (slug in moddescriptions) {
 		var data = moddescriptions[slug];
 		if (type == "singular") {
