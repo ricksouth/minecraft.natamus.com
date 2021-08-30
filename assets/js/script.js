@@ -626,7 +626,7 @@ function processSingularDescription(slug, data) {
 
 	// hide top image
 	if (description.includes('height="400"></a><br><br>')) {
-		description = '<p>' + description.split('height="400"></a><br><br>')[1];
+		description = description.split('height="400"></a><br><br>')[1];
 	}
 
 	// replaces curseforge links with local page urls.
@@ -648,7 +648,7 @@ function processSingularDescription(slug, data) {
 
 	var modpagead = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7103228011189262" crossorigin="anonymous"></script><!-- Mc.Nata Mod Page --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7103228011189262" data-ad-slot="8392417459" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>';
 
-	$("#sngldescription").html(modpagead + description);
+	$("#sngldescription").html('<p>' + modpagead + description);
 
 	$("#loadingwrapper").hide();
 	$("#singular").fadeIn(200);
