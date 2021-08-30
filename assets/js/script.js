@@ -636,7 +636,7 @@ function processSingularDescription(slug, data) {
 
 	// hide top image
 	if (description.includes('height="400"></a><br><br>')) {
-		description = description.split('height="400"></a><br><br>')[1];
+		description = '<p>' + description.split('height="400"></a><br><br>')[1];
 	}
 
 	// replaces curseforge links with local page urls.
@@ -656,9 +656,10 @@ function processSingularDescription(slug, data) {
 		description = replaceAll(description, key, htmlelems[key]);
 	}
 
-	var modpagead = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7103228011189262" crossorigin="anonymous"></script><!-- Mc.Nata Mod Page --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7103228011189262" data-ad-slot="8392417459" data-ad-format="auto" data-full-width-responsive="true"></ins>';
+	var modpageadtop = '<p><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7103228011189262" crossorigin="anonymous"></script><!-- MC Singular Top --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7103228011189262" data-ad-slot="8392417459" data-ad-format="auto" data-full-width-responsive="true"></ins></p><br><br>';
+	var modpageadbottom = '<br><br><p><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7103228011189262" crossorigin="anonymous"></script><!-- MC Singular Bottom --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7103228011189262" data-ad-slot="4020899935" data-ad-format="auto" data-full-width-responsive="true"></ins></p>'
 
-	$("#sngldescription").html('<p>' + modpagead + '<br><br>' + description);
+	$("#sngldescription").html(modpageadtop + description + modpageadbottom);
 
 	$('ins').each(function() {
 		(adsbygoogle = window.adsbygoogle || []).push({});
