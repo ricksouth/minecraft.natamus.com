@@ -6,6 +6,7 @@ import pathlib
 import os
 import json
 import shutil
+import demjson
 
 # Updates mod file information via the CurseForge API.
 # by Rick South.
@@ -42,13 +43,14 @@ def main():
 			allglobaldata += '"' + modname + '" : ' + moddata
 			break
 
+		descdata = ""
 		descurl = "https://addons-ecs.forgesvc.net/api/v2/addon/" + projectid + "/description"
 		for mdecldesc in urllib.request.urlopen(descurl):
-			descdata = mdecldesc.decode('utf-8')
-			alldescriptions[slug] = descdata
-			break
+			descdata += mdecldesc.decode('utf-8')
 
+		alldescriptions[slug] = descdata
 		print("Processed " + modname + ".")
+		
 
 	allglobaldata += "}"
 
@@ -60,7 +62,7 @@ def main():
 		allfile.write(allglobaldata)
 
 	with open('C:/The Forge/minecraft.natamus.com/data/description_data.json', 'w') as descfile:
-		descfile.write(json.dumps(alldescriptions))
+		descfile.write(demjson.encode(alldescriptions))
 
 	print("Mod data generated.")
 	return
