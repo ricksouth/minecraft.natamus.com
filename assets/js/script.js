@@ -108,7 +108,7 @@ function afterContent() {
 
 			changeUrl("", "Serilum's CurseForge Mods");
 
-			console.log("Push: Header");
+			//console.log("Push: Header");
 			(adsbygoogle = window.adsbygoogle || []).push({});
 		}
 	});
@@ -601,10 +601,10 @@ function loadSingular(slug, forcechangelog) {
 }
 
 function setDescription(id, slug, type) {
-	console.log("Setting description for " + slug + ".");
 	if (slug in moddescriptions) {
 		var data = moddescriptions[slug];
 		if (type == "singular") {
+			console.log("Setting description for " + slug + ".");
 			processSingularDescription(slug, data);
 		}
 		else if (type == "tooltip") {
@@ -670,15 +670,14 @@ function processSingularDescription(slug, data) {
 
 	try {
 		$('#singular ins').each(function() {
-			console.log("Push: ", $(this));
+			//console.log("Push: ", $(this));
 			(adsbygoogle = window.adsbygoogle || []).push({});
 		});
 	}
 	catch(e1) {
-		console.log("Unable to push, trying again.");
 		try {
 			$('#singular ins').each(function() {
-				console.log("Push: ", $(this));
+				// console.log("Push: ", $(this));
 				(adsbygoogle = window.adsbygoogle || []).push({});
 			});
 		}
