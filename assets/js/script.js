@@ -20,6 +20,10 @@ $(document).ready(function(e) {
 
 	responsiveResize();
 	loadJsonData();
+
+	$('ins').each(function() {
+		(adsbygoogle = window.adsbygoogle || []).push({});
+	});
 });
 
 $(window).on('resize', function(e) {
