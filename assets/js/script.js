@@ -21,9 +21,7 @@ $(document).ready(function(e) {
 	responsiveResize();
 	loadJsonData();
 
-	$('ins').each(function() {
-		(adsbygoogle = window.adsbygoogle || []).push({});
-	});
+	(adsbygoogle = window.adsbygoogle || []).push({});
 });
 
 $(window).on('resize', function(e) {
@@ -664,10 +662,7 @@ function processSingularDescription(slug, data) {
 	var modpageadbottom = '<br><br><p><!-- MC Singular Bottom --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7103228011189262" data-ad-slot="4020899935" data-ad-format="auto" data-full-width-responsive="true"></ins></p>'
 
 	$("#sngldescription").html(modpageadtop + description + modpageadbottom);
-
-	$('ins').each(function() {
-		(adsbygoogle = window.adsbygoogle || []).push({});
-	});
+	(adsbygoogle = window.adsbygoogle || []).push({});
 
 	$("#loadingwrapper").hide();
 	$("#singular").fadeIn(200);
