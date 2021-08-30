@@ -107,7 +107,7 @@ function afterContent() {
 
 			changeUrl("", "Serilum's CurseForge Mods");
 
-			console.log("adpush: Header");
+			console.log("Push: Header");
 			(adsbygoogle = window.adsbygoogle || []).push({});
 		}
 	});
@@ -667,8 +667,8 @@ function processSingularDescription(slug, data) {
 	$("#loadingwrapper").hide();
 	$("#singular").fadeIn(200);
 
-	$('#sngldescription ins').each(function() {
-		console.log("Ad push: ", $(this));
+	$('#singular ins').each(function() {
+		console.log("Push: ", $(this));
 		(adsbygoogle = window.adsbygoogle || []).push({});
 	});
 }
