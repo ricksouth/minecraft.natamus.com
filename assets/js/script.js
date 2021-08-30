@@ -667,12 +667,10 @@ function processSingularDescription(slug, data) {
 	$("#loadingwrapper").hide();
 	$("#singular").show();
 
-	window.adssingular = setTimeout(function(){ 
-		$('#singular ins').each(function() {
-			console.log("Push: ", $(this));
-			(adsbygoogle = window.adsbygoogle || []).push({});
-		});
-	}, 1000);
+	$('#singular ins').each(function() {
+		console.log("Push: ", $(this));
+		//(adsbygoogle = window.adsbygoogle || []).push({});
+	});
 }
 
 $(document).on('click', '#singular a, .dlcontent a', function(e) {
