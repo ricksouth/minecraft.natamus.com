@@ -979,7 +979,10 @@ function showDownloadScreen() {
 	var title = document.title;
 	changeUrl("download/?path=" + pathname, title);
 
-	(adsbygoogle = window.adsbygoogle || []).push({});
+	if (!$(".dlscreenwrapper #dlad").hasClass("processed")) {
+		$(".dlscreenwrapper #dlad").addClass("processed");
+		(adsbygoogle = window.adsbygoogle || []).push({});
+	}
 }
 function hideDownloadScreen() {
 	$("body").removeClass("faded");
