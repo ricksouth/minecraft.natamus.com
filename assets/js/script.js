@@ -20,11 +20,6 @@ $(document).ready(function(e) {
 
 	responsiveResize();
 	loadJsonData();
-
-	if (subpath.length > 3) {
-		$("#loadingwrapper").css({ "display": "none" }).hide();
-		$("#singular").show();
-	}
 });
 
 $(window).on('resize', function(e) {
@@ -171,7 +166,6 @@ function loadJsonData() {
 			}
 
 			updateCart(false);
-			loadContent();
 			loadDescriptionsFromJson();
 		},
 		error: function(data) { }
@@ -185,6 +179,8 @@ function loadDescriptionsFromJson() {
 		dataType: 'json',
 		success: function(data){
 			moddescriptions = data;
+
+			loadContent();
 		},
 		error: function(data) { }
 	});
@@ -663,7 +659,7 @@ function processSingularDescription(slug, data) {
 
 	var modpagead = '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7103228011189262" crossorigin="anonymous"></script><!-- Mc.Nata Mod Page --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7103228011189262" data-ad-slot="8392417459" data-ad-format="auto" data-full-width-responsive="true"></ins>';
 
-	$("#sngldescription").html('<p>' + modpagead + description);
+	$("#sngldescription").html('<p>' + modpagead + '<br><br>' + description);
 
 	$('ins').each(function() {
 		(adsbygoogle = window.adsbygoogle || []).push({});
