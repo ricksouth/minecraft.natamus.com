@@ -20,8 +20,6 @@ $(document).ready(function(e) {
 
 	responsiveResize();
 	loadJsonData();
-
-	(adsbygoogle = window.adsbygoogle || []).push({});
 });
 
 $(window).on('resize', function(e) {
@@ -108,6 +106,8 @@ function afterContent() {
 			$("#content").fadeIn(200);
 
 			changeUrl("", "Serilum's CurseForge Mods");
+
+			(adsbygoogle = window.adsbygoogle || []).push({});
 		}
 	});
 }
@@ -658,8 +658,8 @@ function processSingularDescription(slug, data) {
 		description = replaceAll(description, key, htmlelems[key]);
 	}
 
-	var modpageadtop = '<p><!-- MC Singular Top --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7103228011189262" data-ad-slot="8392417459" data-ad-format="auto" data-full-width-responsive="true"></ins></p><br><br>';
-	var modpageadbottom = '<br><br><p><!-- MC Singular Bottom --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7103228011189262" data-ad-slot="4020899935" data-ad-format="auto" data-full-width-responsive="true"></ins></p>'
+	var modpageadtop = '<p><!-- MC Singular Top --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7103228011189262" data-ad-slot="8392417459" data-ad-format="auto" data-full-width-responsive="true"></ins></p><br>';
+	var modpageadbottom = '<br><p><!-- MC Singular Bottom --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7103228011189262" data-ad-slot="4020899935" data-ad-format="auto" data-full-width-responsive="true"></ins></p>'
 
 	$("#sngldescription").html(modpageadtop + description + modpageadbottom);
 
