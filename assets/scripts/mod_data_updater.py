@@ -53,7 +53,7 @@ def main():
 		for mdecldesc in urllib.request.urlopen(descurl):
 			descdata += mdecldesc.decode('utf-8')
 
-		alldescriptions[slug] = descdata
+		alldescriptions[slug] = descdata.replace(">/div>", "></div>")
 		print("Processed " + modname + ".")
 		
 
@@ -83,11 +83,11 @@ def main():
 
 		with in_place.InPlace(topath_normal + "/index.html", encoding="utf-8") as fp:
 			for line in fp:
-				fp.write(line.replace(">Description<", ">" + alldescriptions[slug]) + "<")
+				fp.write(line.replace("_Description_", alldescriptions[slug]))
 
 		with in_place.InPlace(topath_changelog + "/index.html", encoding="utf-8") as fp:
 			for line in fp:
-				fp.write(line.replace(">Description<", ">" + alldescriptions[slug]) + "<")
+				fp.write(line.replace("_Description_", alldescriptions[slug]))
 
 	return
 
