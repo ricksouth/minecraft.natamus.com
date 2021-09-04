@@ -8,6 +8,7 @@ import json
 import shutil
 import demjson
 import io
+import in_place
 
 # Updates mod file information via the CurseForge API.
 # by Rick South.
@@ -72,10 +73,21 @@ def main():
 
 	print("\nCreating real html pages for scrapers.")
 	for slug in slugs:
-		os.makedirs("C:/The Forge/minecraft.natamus.com/" + slug, exist_ok=True)
-		os.makedirs("C:/The Forge/minecraft.natamus.com/" + slug + "/changelog", exist_ok=True)
-		shutil.copy("C:/The Forge/minecraft.natamus.com/index.html", "C:/The Forge/minecraft.natamus.com/" + slug + "/index.html")
-		shutil.copy("C:/The Forge/minecraft.natamus.com/index.html", "C:/The Forge/minecraft.natamus.com/" + slug + "/changelog/index.html")
+		topath_normal = "C:/The Forge/minecraft.natamus.com/" + slug
+		topath_changelog = "C:/The Forge/minecraft.natamus.com/" + slug + "/changelog"
+
+		os.makedirs(topath_normal, exist_ok=True)
+		os.makedirs(topath_changelog, exist_ok=True)
+		shutil.copy("C:/The Forge/minecraft.natamus.com/index.html", topath_normal + "/index.html")
+		shutil.copy("C:/The Forge/minecraft.natamus.com/index.html", topath_changelog + "/index.html")
+
+		with in_place.InPlace(topath_normal + "/index.html", encoding="utf-8") as fp:
+			for line in fp:
+				fp.write(line.replace(">Description<", ">" + alldescriptions[slug]) + "<")
+
+		with in_place.InPlace(topath_changelog + "/index.html", encoding="utf-8") as fp:
+			for line in fp:
+				fp.write(line.replace(">Description<", ">" + alldescriptions[slug]) + "<")
 
 	return
 
