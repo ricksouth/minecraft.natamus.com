@@ -127,6 +127,8 @@ function loadJsonData() {
 
 				dataline["name"] = dataline["name"].replace(/[\[\]]/g,'');
 				var slug = replaceAll(dataline["name"].toLowerCase(), " ", "-");
+				slug = slug.split("-(")[0]
+				
 				var downloads = dataline["downloadCount"];
 
 				moddls[slug] = downloads;
