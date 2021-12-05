@@ -229,7 +229,7 @@ function loadContent() {
 						continue;
 					}
 
-					var name = linespl[0].replace("[", "");
+					var name = linespl[0].replace("[", "").split("(")[0].trim();
 					var fullname = name;
 					if (name.includes("(")) {
 						name = name.replace(/ *\([^)]*\) */g, " ");
