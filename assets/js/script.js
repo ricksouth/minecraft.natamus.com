@@ -223,9 +223,15 @@ function loadContent() {
 			var dataspl = data.split("\n");
 			for (var i = 0; i < dataspl.length; i++) {
 				var line = dataspl[i];
-				if (line.includes("/mc-mods/") && line.includes("Forge")) {
+				if (line.includes("/mc-mods/")) {
 					var linespl = line.split("](");
 					if (linespl.length < 2) {
+						continue;
+					}
+
+					totalmods += 1;
+
+					if (!line.includes("Forge")) {
 						continue;
 					}
 
@@ -262,7 +268,6 @@ function loadContent() {
 					style += 'div#mod' + i + ':before { background: url("/assets/images/icons/' + slug + '.' + filetype + '"); background-position: center center; background-size: cover; } div#mod' + i + ':after { content: "' + dlcontent + formatTileNames(name, " ", " \\A ") + '"; }';
 					html += '<div class="col mod"' + value + ' name="' + fullname + '"><a href="/' + slug + '/" value="' + url + '"></a><a href="/' + slug + '/" value="' + url + '"></a><a href="/' + slug + '/" value="' + url + '"></a><a href="/' + slug + '/" value="' + url + '"></a><div id="mod' + i + '" class="box"></div><div class="addcart modcart hidden"><img class="modcart" src="/assets/images/add-to-cart-white.png"></div></div>';
 					
-					totalmods += 1;
 					activemods.push(slug);
 				}
 				else if (line.includes("Discontinued")) {
