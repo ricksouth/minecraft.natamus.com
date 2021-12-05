@@ -223,7 +223,7 @@ function loadContent() {
 			var dataspl = data.split("\n");
 			for (var i = 0; i < dataspl.length; i++) {
 				var line = dataspl[i];
-				if (line.includes("/mc-mods/")) {
+				if (line.includes("/mc-mods/") && line.includes("Forge")) {
 					var linespl = line.split("](");
 					if (linespl.length < 2) {
 						continue;
