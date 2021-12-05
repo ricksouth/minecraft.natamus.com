@@ -236,6 +236,9 @@ function loadContent() {
 					}
 					var url = linespl[1].split(")")[0];
 					var slug = url.split("/mc-mods/")[1];
+					if (slug.endsWith(",")) {
+						slug = slug.substring(0, slug.length - 1);
+					}
 
 					var filetype = "png";
 					if (gifs.includes(slug)) {
