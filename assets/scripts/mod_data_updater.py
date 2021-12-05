@@ -55,7 +55,6 @@ def main():
 
 		alldescriptions[slug] = descdata.replace(">/div>", "></div>")
 		print("Processed " + modname + ".")
-		
 
 	allglobaldata += "}"
 
