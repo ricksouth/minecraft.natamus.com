@@ -1,3 +1,3 @@
-This is a website using some experimental Github Pages approaches. Probably shouldn't use this for your own project, but let's see what the possibilities are.
+This website has been deprecated and currently functions as a redirect to the new website, to keep past url mentions alive.
 
-https://minecraft.natamus.com/
+Feel free to visit https://serilum.com/
