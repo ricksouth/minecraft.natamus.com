@@ -1,5 +1,5 @@
 // https://minecraft.natamus.com/anvil-restoration/changelog/
-$(document).ready(function(e) {
+document.onload = function() {
 	var url = document.URL;
 
 	if (url.includes("/changelog/")) {
@@ -10,4 +10,4 @@ $(document).ready(function(e) {
 	}
 
 	window.location.replace("https://serilum.com/");
-});
+}
